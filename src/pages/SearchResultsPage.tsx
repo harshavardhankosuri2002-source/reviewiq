@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Product } from '../types';
 import { Search, Star, Filter, ArrowLeft, Bookmark, GitCompare } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
+import { formatINR } from '../utils/currency';
 
 interface SearchResultsPageProps {
   products: Product[];
@@ -174,7 +175,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
           <div className="space-y-2 border-t border-[#E2E8F0] pt-4">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-[#182C45]">Max Budget</label>
-              <span className="text-xs font-mono text-[#0284C7] font-bold">${maxPrice}</span>
+              <span className="text-xs font-mono text-[#0284C7] font-bold">{formatINR(maxPrice)}</span>
             </div>
             <input
               type="range"
@@ -235,7 +236,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] font-bold text-[#0284C7] uppercase">{product.brand}</span>
-                          <span className="text-xs font-black text-[#182C45]">{product.priceMSRP}</span>
+                          <span className="text-xs font-black text-[#182C45]">{formatINR(product.priceMSRP)}</span>
                         </div>
                         <h3
                           onClick={() => onSelectProduct(product.id)}

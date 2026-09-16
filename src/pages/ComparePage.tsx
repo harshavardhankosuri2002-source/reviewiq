@@ -5,6 +5,7 @@ import {
   Plus, X, Search, ArrowRight 
 } from 'lucide-react';
 import { getProductSentimentStats, calculatePersonalizedMatch } from '../utils/analytics';
+import { formatINR } from '../utils/currency';
 
 interface ComparePageProps {
   products: Product[];
@@ -160,7 +161,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                         >
                           {product.name}
                         </h3>
-                        <span className="text-xs font-bold text-[#475569]">{product.priceMSRP}</span>
+                        <span className="text-xs font-bold text-[#475569]">{formatINR(product.priceMSRP)}</span>
                       </div>
                     </div>
 
@@ -358,7 +359,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] font-bold text-[#0284C7] uppercase">{p.brand}</span>
-                          <span className="text-[10px] text-[#64748B] font-mono">{p.priceMSRP}</span>
+                          <span className="text-[10px] text-[#64748B] font-mono">{formatINR(p.priceMSRP)}</span>
                         </div>
                         <h4 className="text-sm font-bold text-[#182C45]">{p.name}</h4>
                         <div className="flex items-center gap-1 text-[11px] text-amber-500">

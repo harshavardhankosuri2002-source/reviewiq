@@ -67,7 +67,7 @@ Accessible via *"How is this calculated?"* on the recommendation card:
 
 ### 3. Expanded 22-Smartphone Catalogue (`src/pages/DiscoverPage.tsx`)
 - 22 distinct smartphone models across 8 major manufacturers: **Apple, Samsung, Google Pixel, OnePlus, Xiaomi / Redmi, Nothing, Motorola, and Realme**.
-- 4 price segments: Budget (<$500), Mid-Range ($500–$800), Premium ($800–$1,100), and Ultra Flagship (>$1,100).
+- 4 price segments: Budget (<₹400), Midrange (₹400–₹700), Flagship (₹700–₹1,000), and Ultra-Premium (₹1,000+).
 - Live search by model/brand/specs, 9 brand filter pills, price tier tabs, sorting by rating/price/relevance/reviews, active counter, and empty states.
 
 ### 4. Product Intelligence & Personalized Decision Engine (`src/pages/ProductAnalysisPage.tsx`)

@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
 import { FloatingPhonesHero } from '../components/FloatingPhonesHero';
+import { formatINR, parsePriceNumber } from '../utils/currency';
 
 interface DiscoverPageProps {
   products: Product[];
@@ -28,6 +29,7 @@ interface DiscoverPageProps {
   savedIds: string[];
   onToggleSave: (id: string) => void;
   onCompare: (id: string) => void;
+  comparedIds?: string[];
   onNavigateHowItWorks: () => void;
 }
 
@@ -44,11 +46,11 @@ const BRAND_OPTIONS = [
 ];
 
 const PRICE_TIERS = [
-  { label: 'All Prices', min: 0, max: 9999 },
-  { label: 'Budget (<$400)', min: 0, max: 400 },
-  { label: 'Midrange ($400-$700)', min: 401, max: 700 },
-  { label: 'Flagship ($700-$1000)', min: 701, max: 1000 },
-  { label: 'Ultra-Premium ($1000+)', min: 1001, max: 9999 },
+  { label: 'All Prices', min: 0, max: 999999 },
+  { label: 'Budget (<₹400)', min: 0, max: 400 },
+  { label: 'Midrange (₹400–₹700)', min: 401, max: 700 },
+  { label: 'Flagship (₹700–₹1,000)', min: 701, max: 1000 },
+  { label: 'Ultra-Premium (₹1,000+)', min: 1001, max: 999999 },
 ];
 
 const POPULAR_SEARCHES = [
@@ -537,7 +539,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                         {product.brand}
                       </div>
                       <div className="absolute top-3 right-3 bg-[#182C45] text-white px-2.5 py-1 rounded-lg text-xs font-extrabold shadow-sm">
-                        {product.priceMSRP}
+                        {formatINR(product.priceMSRP)}
                       </div>
                     </div>
 

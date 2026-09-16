@@ -14,6 +14,7 @@ import {
   Camera,
 } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
+import { formatINR } from '../utils/currency';
 
 interface ProductOverviewProps {
   product: Product;
@@ -81,7 +82,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
           </span>
 
           <div className="px-3.5 py-1 rounded-xl bg-[#182C45] text-white font-black text-sm shadow-sm">
-            {product.priceMSRP} MSRP
+            {formatINR(product.priceMSRP)} MSRP
           </div>
         </div>
       </div>

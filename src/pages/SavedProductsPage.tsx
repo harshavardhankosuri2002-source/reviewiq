@@ -2,6 +2,7 @@ import React from 'react';
 import { Product } from '../types';
 import { Bookmark, Trash2, ArrowRight, GitCompare, Star } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
+import { formatINR } from '../utils/currency';
 
 interface SavedProductsPageProps {
   products: Product[];
@@ -100,7 +101,7 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
                       {product.brand}
                     </span>
                     <span className="absolute top-2 right-2 bg-[#182C45] text-white px-2.5 py-0.5 rounded text-[10px] font-black shadow-2xs">
-                      {product.priceMSRP}
+                      {formatINR(product.priceMSRP)}
                     </span>
                   </div>
 

@@ -47,10 +47,10 @@ const BRAND_OPTIONS = [
 
 const PRICE_TIERS = [
   { label: 'All Prices', min: 0, max: 999999 },
-  { label: 'Budget (<₹400)', min: 0, max: 400 },
-  { label: 'Midrange (₹400–₹700)', min: 401, max: 700 },
-  { label: 'Flagship (₹700–₹1,000)', min: 701, max: 1000 },
-  { label: 'Ultra-Premium (₹1,000+)', min: 1001, max: 999999 },
+  { label: 'Budget (<₹30,000)', min: 0, max: 30000 },
+  { label: 'Midrange (₹30,000–₹50,000)', min: 30001, max: 50000 },
+  { label: 'Flagship (₹50,000–₹1,00,000)', min: 50001, max: 100000 },
+  { label: 'Ultra-Premium (₹1,00,000+)', min: 100001, max: 999999 },
 ];
 
 const POPULAR_SEARCHES = [

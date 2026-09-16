@@ -438,7 +438,7 @@ export function getThemeBreakdown(productId: string): AttributeThemeInfo[] {
       } else if (key === 'performance') {
         posScore = product.specsSummary.chipset.includes('Snapdragon 8') || product.specsSummary.chipset.includes('A18') ? 94 : 82;
       } else if (key === 'value') {
-        posScore = parseInt(product.priceMSRP.replace(/[^0-9]/g, '')) < 600 ? 88 : 74;
+        posScore = parseInt(product.priceMSRP.replace(/[^0-9]/g, '')) < 50000 ? 88 : 74;
       } else {
         posScore = Math.round(product.sampleRating * 18);
       }

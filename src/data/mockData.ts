@@ -9,7 +9,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - Grade 5 Titanium', '512GB - Grade 5 Titanium', '1TB - Grade 5 Titanium'],
     defaultVariant: '256GB - Grade 5 Titanium',
-    priceMSRP: '₹1,199',
+    priceMSRP: '₹1,44,900',
     imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -41,7 +41,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
         points: [
           'Substantial 227g weight and sheer height make one-handed pocketability challenging.',
           'Charging speed peaks around 30W, lagging high-speed 80W+ Android flagships.',
-          'High starting price point of ₹1,199 before accessories.'
+          'High starting price point of ₹1,44,900 before accessories.'
         ],
         supportingReviewIds: ['rev-ip16pm-02', 'rev-ip16pm-04']
       },
@@ -81,7 +81,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - Aluminum', '256GB - Aluminum', '512GB - Aluminum'],
     defaultVariant: '128GB - Aluminum',
-    priceMSRP: '₹799',
+    priceMSRP: '₹79,900',
     imageUrl: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -153,7 +153,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2023,
     variants: ['128GB - Color-Infused Glass', '256GB - Color-Infused Glass', '512GB - Color-Infused Glass'],
     defaultVariant: '128GB - Color-Infused Glass',
-    priceMSRP: '₹699',
+    priceMSRP: '₹69,900',
     imageUrl: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -223,7 +223,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2022,
     variants: ['64GB - Classic', '128GB - Classic', '256GB - Classic'],
     defaultVariant: '64GB - Classic',
-    priceMSRP: '₹429',
+    priceMSRP: '₹47,900',
     imageUrl: 'https://images.unsplash.com/photo-1530319067432-f2a729c03db5?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -293,7 +293,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - Titanium Gray', '512GB - Titanium Black', '1TB - Titanium Violet'],
     defaultVariant: '256GB - Titanium Gray',
-    priceMSRP: '₹1,299',
+    priceMSRP: '₹1,29,999',
     imageUrl: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -325,7 +325,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
         points: [
           'Heavy 232g chassis with sharp boxy corners that can press into palms.',
           'Samsung image processing can over-sharpen fine foliage textures.',
-          'Expensive ₹1,299 price tag.'
+          'Expensive ₹1,29,999 price tag.'
         ],
         supportingReviewIds: ['rev-s24u-02', 'rev-s24u-04']
       },
@@ -363,7 +363,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 8GB RAM', '256GB - 8GB RAM'],
     defaultVariant: '256GB - 8GB RAM',
-    priceMSRP: '₹799',
+    priceMSRP: '₹79,999',
     imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -435,7 +435,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2023,
     variants: ['128GB - 8GB RAM', '256GB - 8GB RAM'],
     defaultVariant: '128GB - 8GB RAM',
-    priceMSRP: '₹599',
+    priceMSRP: '₹49,999',
     imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02560?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -451,12 +451,12 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2023-11-01',
       end: '2024-11-20',
     },
-    quickVerdict: 'Delivers flagship essentials including a 3x telephoto camera, wireless charging, and IP68 rating at ₹599, but uses older thermal-heavy processors and has noticeable display bezels.',
+    quickVerdict: 'Delivers flagship essentials including a 3x telephoto camera, wireless charging, and IP68 rating at ₹49,999, but uses older thermal-heavy processors and has noticeable display bezels.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
         points: [
-          'Dedicated 3x optical zoom lens rarely found under ₹600.',
+          'Dedicated 3x optical zoom lens rarely found under ₹50,000.',
           'Vibrant 120Hz AMOLED panel with full IP68 water resistance.',
           'Comprehensive software update track with 4 major OS updates.'
         ],
@@ -505,7 +505,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 8GB RAM', '256GB - 8GB RAM'],
     defaultVariant: '128GB - 8GB RAM',
-    priceMSRP: '₹399',
+    priceMSRP: '₹39,999',
     imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -575,7 +575,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 16GB RAM', '256GB - 16GB RAM', '512GB - 16GB RAM'],
     defaultVariant: '256GB - 16GB RAM',
-    priceMSRP: '₹1,099',
+    priceMSRP: '₹1,24,999',
     imageUrl: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -606,7 +606,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
         title: 'Common Complaints',
         points: [
           'Tensor G4 GPU frame rates in demanding 3D games remain below Snapdragon 8 Gen 3.',
-          'Base ₹1,099 model still comes with 128GB storage.',
+          'Base ₹1,24,999 model still comes with 128GB storage.',
           '221g weight is substantial for smaller hands.'
         ],
         supportingReviewIds: ['rev-px9pxl-02', 'rev-px9pxl-04']
@@ -645,7 +645,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 12GB RAM', '256GB - 12GB RAM'],
     defaultVariant: '128GB - 12GB RAM',
-    priceMSRP: '₹799',
+    priceMSRP: '₹79,999',
     imageUrl: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -717,7 +717,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 8GB RAM', '256GB - 8GB RAM'],
     defaultVariant: '128GB - 8GB RAM',
-    priceMSRP: '₹499',
+    priceMSRP: '₹52,999',
     imageUrl: 'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -733,13 +733,13 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-05-15',
       end: '2024-12-20',
     },
-    quickVerdict: 'The champion of midrange photography offering a 120Hz OLED screen, 7 full years of software support, and flagship AI photo tools at ₹499, constrained mainly by slow 18W charging and thicker display bezels.',
+    quickVerdict: 'The champion of midrange photography offering a 120Hz OLED screen, 7 full years of software support, and flagship AI photo tools at ₹52,999, constrained mainly by slow 18W charging and thicker display bezels.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
         points: [
           'Flagship-grade 64MP camera captures stunning low-light and portrait shots.',
-          'Unrivaled 7 years of full OS upgrades and monthly security patches at ₹499.',
+          'Unrivaled 7 years of full OS upgrades and monthly security patches at ₹52,999.',
           'Smooth 120Hz Actua display is twice as bright as the Pixel 7a.'
         ],
         supportingReviewIds: ['rev-px8a-01', 'rev-px8a-03']
@@ -763,7 +763,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       importantCaveats: {
         title: 'Important Caveats Before Buying',
         points: [
-          'Charging speed is among the slowest in the ₹500 category; no charger included in box.'
+          'Charging speed is among the slowest in the ₹50,000 category; no charger included in box.'
         ],
         supportingReviewIds: ['rev-px8a-02']
       }
@@ -787,7 +787,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - 12GB RAM', '512GB - 16GB RAM', '1TB - 16GB RAM'],
     defaultVariant: '256GB - 12GB RAM',
-    priceMSRP: '₹799',
+    priceMSRP: '₹64,999',
     imageUrl: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -803,7 +803,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-02-10',
       end: '2025-01-08',
     },
-    quickVerdict: 'A powerhouse flagship killer packing a massive 5,400 mAh battery, blistering 80W/100W charging (with charger included), a 64MP periscope telephoto, and a 4,500-nit display at ₹799.',
+    quickVerdict: 'A powerhouse flagship killer packing a massive 5,400 mAh battery, blistering 80W/100W charging (with charger included), a 64MP periscope telephoto, and a 4,500-nit display at ₹64,999.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
@@ -857,7 +857,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 8GB RAM', '256GB - 16GB RAM'],
     defaultVariant: '128GB - 8GB RAM',
-    priceMSRP: '₹499',
+    priceMSRP: '₹39,999',
     imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -873,7 +873,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-02-18',
       end: '2024-12-15',
     },
-    quickVerdict: 'Unbeatable battery life and gaming performance at ₹499 thanks to a huge 5,500 mAh cell, Snapdragon 8 Gen 2, and 80W charging, compromised only by a weak auxiliary 8MP ultra-wide and 2MP macro camera.',
+    quickVerdict: 'Unbeatable battery life and gaming performance at ₹39,999 thanks to a huge 5,500 mAh cell, Snapdragon 8 Gen 2, and 80W charging, compromised only by a weak auxiliary 8MP ultra-wide and 2MP macro camera.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
@@ -927,7 +927,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 8GB RAM', '256GB - 12GB RAM', '512GB - 16GB RAM'],
     defaultVariant: '256GB - 12GB RAM',
-    priceMSRP: '₹399',
+    priceMSRP: '₹29,999',
     imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02560?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -943,7 +943,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-07-20',
       end: '2024-12-30',
     },
-    quickVerdict: 'Unique all-metal unibody craftsmanship rarely seen in modern 5G phones, paired with 100W charging, 6 years of software support, and a huge 5,500 mAh battery at a modest ₹399.',
+    quickVerdict: 'Unique all-metal unibody craftsmanship rarely seen in modern 5G phones, paired with 100W charging, 6 years of software support, and a huge 5,500 mAh battery at a modest ₹29,999.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
@@ -997,7 +997,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['512GB - 16GB RAM - Vegan Leather', '1TB - 16GB RAM - Titanium Edition'],
     defaultVariant: '512GB - 16GB RAM - Vegan Leather',
-    priceMSRP: '₹1,299',
+    priceMSRP: '₹99,999',
     imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1029,7 +1029,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
         points: [
           'Enormous circular camera island creates severe top-heaviness in hand.',
           'HyperOS software still carries occasional bloatware in certain regions.',
-          'High ₹1,299 import and retail pricing.'
+          'High ₹99,999 import and retail pricing.'
         ],
         supportingReviewIds: ['rev-x14u-02', 'rev-x14u-04']
       },
@@ -1067,7 +1067,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - 12GB RAM', '512GB - 12GB RAM'],
     defaultVariant: '256GB - 12GB RAM',
-    priceMSRP: '₹899',
+    priceMSRP: '₹69,999',
     imageUrl: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1137,7 +1137,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - 8GB RAM', '512GB - 12GB RAM'],
     defaultVariant: '256GB - 8GB RAM',
-    priceMSRP: '₹389',
+    priceMSRP: '₹31,999',
     imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1153,14 +1153,14 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-01-20',
       end: '2024-11-25',
     },
-    quickVerdict: 'A spec monster in the budget segment boasting a 200MP main camera, IP68 water resistance, curved 1.5K AMOLED screen, and lightning-fast 120W charging for under ₹400.',
+    quickVerdict: 'A spec monster in the budget segment boasting a 200MP main camera, IP68 water resistance, curved 1.5K AMOLED screen, and lightning-fast 120W charging for under ₹35,000.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
         points: [
           'Incredible 120W HyperCharge fully charges the 5,000 mAh battery in under 20 minutes.',
           'Crisp 200MP main sensor delivers sharp 2x and 4x in-sensor lossless crops.',
-          'Flagship IP68 water and dust rating is unprecedented under ₹400.'
+          'Flagship IP68 water and dust rating is unprecedented under ₹35,000.'
         ],
         supportingReviewIds: ['rev-rn13p-01', 'rev-rn13p-03']
       },
@@ -1207,7 +1207,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2023,
     variants: ['128GB - 8GB RAM', '256GB - 12GB RAM', '512GB - 12GB RAM'],
     defaultVariant: '256GB - 12GB RAM',
-    priceMSRP: '₹599',
+    priceMSRP: '₹36,999',
     imageUrl: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1277,7 +1277,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['128GB - 8GB RAM', '256GB - 12GB RAM'],
     defaultVariant: '128GB - 8GB RAM',
-    priceMSRP: '₹349',
+    priceMSRP: '₹23,999',
     imageUrl: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1293,7 +1293,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-03-12',
       end: '2024-12-22',
     },
-    quickVerdict: 'A standout budget smartphone that merges iconic transparent design, a smooth 120Hz AMOLED panel with uniform bezels, two-day battery life, and clean Nothing OS software for only ₹349.',
+    quickVerdict: 'A standout budget smartphone that merges iconic transparent design, a smooth 120Hz AMOLED panel with uniform bezels, two-day battery life, and clean Nothing OS software for only ₹23,999.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
@@ -1333,7 +1333,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       duplicatePatternFlag: false,
       duplicatePatternNote: 'Broad positive consensus across global budget smartphone roundups.',
       variantCompletenessScore: 89,
-      variantNote: 'Reviewers actively discuss the ₹349 price-to-performance ratio.',
+      variantNote: 'Reviewers actively discuss the ₹23,999 price-to-performance ratio.',
       recencyConfidence: 'High',
       recencyNote: 'Strong continuous sales tracking.'
     }
@@ -1347,7 +1347,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - 8GB RAM', '256GB - 12GB RAM - Vegan Leather / Pearl Finish'],
     defaultVariant: '256GB - 12GB RAM - Vegan Leather / Pearl Finish',
-    priceMSRP: '₹549',
+    priceMSRP: '₹31,999',
     imageUrl: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1369,7 +1369,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
         title: 'Most Appreciated Features',
         points: [
           'Mind-blowing 125W TurboPower charges the phone from 0 to 100% in just 18 minutes.',
-          'Only mid-ranger under ₹600 with 50W wireless charging, IP68 rating, and a 3x optical telephoto.',
+          'Only mid-ranger under ₹35,000 with 50W wireless charging, IP68 rating, and a 3x optical telephoto.',
           'Pantone-validated 144Hz display and handcrafted vegan leather / pearl finish look and feel ultra-luxurious.'
         ],
         supportingReviewIds: ['rev-moto50p-01', 'rev-moto50p-03']
@@ -1417,7 +1417,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['512GB - 12GB RAM - Spring Green / Midnight Blue / Peach Fuzz'],
     defaultVariant: '512GB - 12GB RAM - Spring Green / Midnight Blue / Peach Fuzz',
-    priceMSRP: '₹999',
+    priceMSRP: '₹89,999',
     imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1487,7 +1487,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     releaseYear: 2024,
     variants: ['256GB - 8GB RAM', '256GB - 12GB RAM', '512GB - 16GB RAM'],
     defaultVariant: '256GB - 12GB RAM',
-    priceMSRP: '₹549',
+    priceMSRP: '₹40,999',
     imageUrl: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=80',
     category: 'Smartphones',
     specsSummary: {
@@ -1503,7 +1503,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       start: '2024-06-22',
       end: '2024-12-28',
     },
-    quickVerdict: 'A flagship killer engineered for power users featuring a record-breaking 6,000-nit display, a 50MP Sony LYT-808 camera, 120W charging, and Snapdragon 8s Gen 3 at ₹549.',
+    quickVerdict: 'A flagship killer engineered for power users featuring a record-breaking 6,000-nit display, a 50MP Sony LYT-808 camera, 120W charging, and Snapdragon 8s Gen 3 at ₹40,999.',
     aiSummary: {
       appreciatedFeatures: {
         title: 'Most Appreciated Features',
@@ -1610,8 +1610,8 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-11-02',
     sentiment: 'negative',
     attributes: ['value', 'performance'],
-    title: 'Incredible device but ₹1,200 is steep',
-    originalText: 'There is no questioning the speed or camera quality, but charging takes over 90 minutes with my standard brick, and ₹1,200 is a big investment for incremental upgrades over 15 Pro Max.',
+    title: 'Incredible device but ₹1,44,900 is steep',
+    originalText: 'There is no questioning the speed or camera quality, but charging takes over 90 minutes with my standard brick, and ₹1,44,900 is a big investment for incremental upgrades over 15 Pro Max.',
     helpfulCount: 52,
     verifiedPurchase: true,
     highlightedPhrase: 'charging takes over 90 minutes'
@@ -1644,11 +1644,11 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-10-04',
     sentiment: 'negative',
     attributes: ['value', 'performance'],
-    title: '60Hz in 2024 at ₹800 is unacceptable',
-    originalText: 'I cannot believe Apple is still shipping a 60Hz display on an ₹800 flagship. When scrolling alongside my partner’s standard Galaxy S24, the difference in motion fluidity is night and day. Terrible value in that department.',
+    title: '60Hz in 2024 at ₹79,900 is unacceptable',
+    originalText: 'I cannot believe Apple is still shipping a 60Hz display on an ₹79,900 flagship. When scrolling alongside my partner’s standard Galaxy S24, the difference in motion fluidity is night and day. Terrible value in that department.',
     helpfulCount: 89,
     verifiedPurchase: true,
-    highlightedPhrase: 'cannot believe Apple is still shipping a 60Hz display on an ₹800 flagship'
+    highlightedPhrase: 'cannot believe Apple is still shipping a 60Hz display on an ₹79,900 flagship'
   },
   {
     id: 'rev-ip16-03',
@@ -1849,7 +1849,7 @@ export const SAMPLE_REVIEWS: Review[] = [
     sentiment: 'negative',
     attributes: ['performance', 'value'],
     title: 'Tensor G4 still throttles in high FPS 3D gaming',
-    originalText: 'At ₹799, the GPU performance lags behind Snapdragon 8 Gen 3. In prolonged Genshin sessions, frame rates drop from 60 to 42 FPS after 20 minutes.',
+    originalText: 'At ₹79,999, the GPU performance lags behind Snapdragon 8 Gen 3. In prolonged Genshin sessions, frame rates drop from 60 to 42 FPS after 20 minutes.',
     helpfulCount: 47,
     verifiedPurchase: true,
     highlightedPhrase: 'frame rates drop from 60 to 42 FPS after 20 minutes'
@@ -1866,8 +1866,8 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-06-04',
     sentiment: 'positive',
     attributes: ['value', 'camera', 'software'],
-    title: '7 years of updates and flagship camera for ₹499',
-    originalText: 'There is no other phone under ₹500 that takes photos this good. 120Hz screen is bright in daylight, and getting 7 years of Android updates is unheard of at this price.',
+    title: '7 years of updates and flagship camera for ₹52,999',
+    originalText: 'There is no other phone under ₹55,000 that takes photos this good. 120Hz screen is bright in daylight, and getting 7 years of Android updates is unheard of at this price.',
     helpfulCount: 71,
     verifiedPurchase: true,
     highlightedPhrase: 'getting 7 years of Android updates is unheard of at this price'
@@ -1900,7 +1900,7 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-03-12',
     sentiment: 'mixed',
     attributes: ['reliability'],
-    title: 'IP65 instead of IP68 is a letdown at ₹800',
+    title: 'IP65 instead of IP68 is a letdown at ₹64,999',
     originalText: 'Great performance and battery, but curved screen creates occasional edge glare, and IP65 means no full water immersion protection.',
     helpfulCount: 36,
     verifiedPurchase: true,
@@ -1954,7 +1954,7 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-02-10',
     sentiment: 'positive',
     attributes: ['battery', 'value', 'camera'],
-    title: '120W charging and IP68 under ₹400 is unbelievable',
+    title: '120W charging and IP68 under ₹35,000 is unbelievable',
     originalText: 'Goes from 0 to 100% in 19 minutes flat. 200MP camera produces super crisp 4x digital zoom crops for travel photos.',
     helpfulCount: 58,
     verifiedPurchase: true,
@@ -1990,7 +1990,7 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-04-02',
     sentiment: 'positive',
     attributes: ['value', 'battery', 'software'],
-    title: 'The ₹350 sweet spot for clean Android software',
+    title: 'The ₹24,000 sweet spot for clean Android software',
     originalText: 'Unmatched 2-day battery life, symmetric display borders, and no garbage 2MP cameras. Nothing OS runs circles around budget competition.',
     helpfulCount: 66,
     verifiedPurchase: true,
@@ -2008,8 +2008,8 @@ export const SAMPLE_REVIEWS: Review[] = [
     date: '2024-05-18',
     sentiment: 'positive',
     attributes: ['battery', 'camera', 'reliability'],
-    title: '125W charging, Pantone display, and 3x zoom for ₹550',
-    originalText: 'Full charge in under 20 minutes with the charger in the box. The vegan leather back feels incredible, and having a dedicated 3x telephoto at ₹550 is rare.',
+    title: '125W charging, Pantone display, and 3x zoom for ₹31,999',
+    originalText: 'Full charge in under 20 minutes with the charger in the box. The vegan leather back feels incredible, and having a dedicated 3x telephoto at ₹31,999 is rare.',
     helpfulCount: 43,
     verifiedPurchase: true,
     highlightedPhrase: 'full charge in under 20 minutes with the charger in the box'
@@ -2100,7 +2100,7 @@ export const PREDEFINED_QA_ITEMS: QAItem[] = [
     id: 'qa-ip16pm-2',
     productId: 'iphone-16-pro-max',
     question: 'What are the main drawbacks to consider?',
-    answer: 'The primary drawbacks are: (1) Substantial 227g weight and 6.9-inch height making one-handed use difficult; (2) Charging speed peaks around 30W, slower than 80W+ Android rivals; and (3) ₹1,199 starting price.',
+    answer: 'The primary drawbacks are: (1) Substantial 227g weight and 6.9-inch height making one-handed use difficult; (2) Charging speed peaks around 30W, slower than 80W+ Android rivals; and (3) ₹1,44,900 starting price.',
     category: 'general',
     supportingReviewIds: ['rev-ip16pm-02', 'rev-ip16pm-04'],
     confidenceNote: 'Consistent ergonomic notes across community feedback.'
@@ -2120,7 +2120,7 @@ export const PREDEFINED_QA_ITEMS: QAItem[] = [
     id: 'qa-ip16-2',
     productId: 'iphone-16',
     question: 'What are the most common complaints for the iPhone 16?',
-    answer: 'The primary complaints are: (1) 60Hz display refresh rate at an ₹800 price point; (2) Base 128GB storage filling rapidly with 4K video; and (3) Mixed ergonomics on the Camera Control button.',
+    answer: 'The primary complaints are: (1) 60Hz display refresh rate at an ₹79,900 price point; (2) Base 128GB storage filling rapidly with 4K video; and (3) Mixed ergonomics on the Camera Control button.',
     category: 'general',
     supportingReviewIds: ['rev-ip16-02', 'rev-ip16-04'],
     confidenceNote: 'High frequency in sample data; 60Hz complaint appears frequently in community reviews.'
@@ -2174,11 +2174,12 @@ export const PREDEFINED_QA_ITEMS: QAItem[] = [
   {
     id: 'qa-np2a-1',
     productId: 'nothing-phone-2a',
-    question: 'Is the Nothing Phone (2a) good value at ₹349?',
-    answer: 'Yes, reviewers consistently rank it as the top sub-₹400 phone due to its 2-day battery life, zero bloatware software, symmetric display borders, and unique transparent aesthetic.',
+    question: 'Is the Nothing Phone (2a) good value at ₹23,999?',
+    answer: 'Yes, reviewers consistently rank it as the top sub-₹25,000 phone due to its 2-day battery life, zero bloatware software, symmetric display borders, and unique transparent aesthetic.',
     category: 'value',
     supportingReviewIds: ['rev-np2a-01'],
     confidenceNote: 'Strong positive consensus in budget roundups.'
   }
 ];
+
 

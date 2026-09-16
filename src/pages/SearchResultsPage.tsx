@@ -28,7 +28,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [minRating, setMinRating] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(1500);
+  const [maxPrice, setMaxPrice] = useState<number>(150000);
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'price-asc' | 'price-desc'>('rating');
 
   const filteredProducts = useMemo(() => {
@@ -179,9 +179,9 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
             </div>
             <input
               type="range"
-              min="300"
-              max="1500"
-              step="50"
+              min="20000"
+              max="150000"
+              step="5000"
               value={maxPrice}
               onChange={e => setMaxPrice(parseInt(e.target.value, 10))}
               className="w-full accent-[#0284C7] cursor-pointer"

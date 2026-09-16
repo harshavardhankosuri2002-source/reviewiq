@@ -4,7 +4,7 @@ import { ProductOverview } from '../components/ProductOverview';
 import { AISummaryCard } from '../components/AISummaryCard';
 import { ThemeBreakdown } from '../components/ThemeBreakdown';
 import { PersonalizedInsights } from '../components/PersonalizedInsights';
-import { AskReviewIQ } from '../components/AskReviewIQ';
+import { AskVox } from '../components/AskVox';
 import { TrustAndQualityCard } from '../components/TrustAndQualityCard';
 import { CrossSourceCard } from '../components/CrossSourceCard';
 import { ReviewTimelineCard } from '../components/ReviewTimelineCard';
@@ -94,7 +94,7 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
   };
 
   const scrollToQA = () => {
-    const el = document.getElementById('ask-reviewiq-section');
+    const el = document.getElementById('ask-vox-section') || document.getElementById('ask-reviewiq-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -175,8 +175,8 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
         onOpenAttributeEvidence={handleOpenAttributeEvidence}
       />
 
-      {/* 5. Natural Language Assistant (Ask ReviewIQ) */}
-      <AskReviewIQ
+      {/* 5. Natural Language Assistant (Ask VOX) */}
+      <AskVox
         product={product}
         onOpenEvidence={handleOpenEvidence}
       />

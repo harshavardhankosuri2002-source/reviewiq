@@ -38,7 +38,7 @@ export const App: React.FC = () => {
   // Saved Products State with LocalStorage Session Persistence
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('reviewiq_saved_products');
+      const saved = localStorage.getItem('vox_saved_products') || localStorage.getItem('reviewiq_saved_products');
       return saved ? JSON.parse(saved) : ['iphone-16'];
     } catch {
       return ['iphone-16'];
@@ -58,7 +58,7 @@ export const App: React.FC = () => {
   // Sync saved products to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem('reviewiq_saved_products', JSON.stringify(savedIds));
+      localStorage.setItem('vox_saved_products', JSON.stringify(savedIds));
     } catch (e) {
       console.warn('Could not save to localStorage', e);
     }

@@ -112,7 +112,7 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
             Academic Prototype Demonstration Rules
           </strong>
           <p className="text-[#475569] leading-relaxed">
-            ReviewIQ calculates scores directly from the simulated review sample. Consensus percentages use uniform denominators and sum to 100%. These thresholds are educational demonstration heuristics designed for transparent decision support rather than scientifically validated absolutes.
+            VOX calculates scores directly from the simulated review sample. Consensus percentages use uniform denominators and sum to 100%. These thresholds are educational demonstration heuristics designed for transparent decision support rather than scientifically validated absolutes.
           </p>
         </div>
       </div>
@@ -181,13 +181,13 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
         {/* Rationale Explanation Box */}
         <div className="p-4 rounded-2xl bg-[#F5F8FC] border border-[#D5E9FA] text-xs sm:text-sm text-[#475569] space-y-2 leading-relaxed">
           <strong className="text-[#182C45] font-semibold block">
-            Why ReviewIQ Prioritizes Attribute Isolation Over Overall Star Ratings:
+            Why VOX Prioritizes Attribute Isolation Over Overall Star Ratings:
           </strong>
           <p>
             Standard marketplace ratings (e.g. 4.3 out of 5 stars) average all customer opinions together. A buyer who loves camera quality may award 5 stars even if battery life is mediocre, which misleads a customer who needs two-day battery stamina.
           </p>
           <p className="text-[#64748B]">
-            ReviewIQ extracts only the customer reviews mentioning your specific purchasing criteria ({activeKeys.length > 0 ? activeKeys.map(k => ATTRIBUTE_CONFIG[k].label).join(', ') : 'all core criteria'}), providing an honest, targeted signal.
+            VOX extracts only the customer reviews mentioning your specific purchasing criteria ({activeKeys.length > 0 ? activeKeys.map(k => ATTRIBUTE_CONFIG[k].label).join(', ') : 'all core criteria'}), providing an honest, targeted signal.
           </p>
         </div>
       </div>
@@ -445,7 +445,7 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
                 <span>Conflicting Priority Trade-Off Detected:</span>
               </div>
               <p className="leading-relaxed">
-                {audit.conflicts[0].description} Rather than hiding this conflict behind a single averaged score, ReviewIQ highlights that you may need to choose between these two attributes.
+                {audit.conflicts[0].description} Rather than hiding this conflict behind a single averaged score, VOX highlights that you may need to choose between these two attributes.
               </p>
             </div>
           )}

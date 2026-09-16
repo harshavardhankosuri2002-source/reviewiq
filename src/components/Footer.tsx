@@ -1,5 +1,6 @@
 import React from 'react';
-import { Sparkles, Shield, Info } from 'lucide-react';
+import { Shield, Info } from 'lucide-react';
+import { VoxLogo } from './VoxLogo';
 
 interface FooterProps {
   onNavigate: (view: string) => void;
@@ -12,19 +13,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-[#0284C7] text-white flex items-center justify-center font-bold shadow-sm">
-                <Sparkles className="w-4 h-4 fill-current" />
-              </div>
-              <span className="text-xl font-bold tracking-tight text-[#182C45]">
-                Review<span className="text-[#0284C7]">IQ</span>
-              </span>
+            <div className="cursor-pointer" onClick={() => onNavigate('discover')}>
+              <VoxLogo size="md" showTagline={true} />
             </div>
             <p className="text-[#182C45] font-semibold text-sm">
-              "Understand the experience behind the rating."
+              "HEAR WHAT MATTERS — Understand the experience behind the rating."
             </p>
             <p className="text-xs text-[#64748B] leading-relaxed max-w-md">
-              ReviewIQ decodes fragmented customer feedback across marketplaces, retailers, and tech communities into evidence-backed, personalized purchasing insights.
+              VOX decodes fragmented customer feedback across marketplaces, retailers, and tech communities into evidence-backed, personalized purchasing insights.
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#EAF5FF] border border-[#D5E9FA] text-xs text-[#0284C7] font-medium">
               <Shield className="w-3.5 h-3.5 text-[#0284C7]" />
@@ -91,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         <div className="pt-8 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between text-xs text-[#94A3B8] gap-4">
-          <p>© {new Date().getFullYear()} ReviewIQ — Customer feedback, decoded. Academic Demonstration Prototype.</p>
+          <p>© {new Date().getFullYear()} VOX — HEAR WHAT MATTERS. Academic Demonstration Prototype.</p>
           <div className="flex items-center gap-4">
             <span
               className="hover:text-[#0284C7] cursor-pointer"

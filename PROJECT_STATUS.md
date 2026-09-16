@@ -1,19 +1,24 @@
-# ReviewIQ Project Status & Implementation Report
+# VOX Project Status & Implementation Report
 
+**Product**: VOX — AI Customer Review Intelligence  
+**Tagline**: HEAR WHAT MATTERS  
 **Status**: Active / Production-Ready Academic Prototype  
 **Date**: September 2026  
-**Version**: 2.5.0 (OHAMA Light Theme Edition)
+**Version**: 3.0.0 (VOX Brand Edition)
 
 ---
 
-## 1. Complete Light Theme Overhaul
+## 1. Brand Identity & Visual Design System
 
-The entire user interface has been transformed into a calm, minimalist, premium **OHAMA-inspired light design** with signature Iceberg Blue accents:
-- **Canvas / Background**: Soft Gray (`#F5F8FC`)
-- **Primary Surfaces**: Crisp White (`#FFFFFF`) with delicate sky-blue borders (`#D5E9FA`)
+The application is built around the **VOX** brand:
+- **Brand Name**: VOX
+- **Tagline**: HEAR WHAT MATTERS
+- **Logo Emblem**: Minimalist soundwave-inspired geometric "V" with deep navy foundation and clean blue frequency bars.
+- **Canvas / Background**: Soft Light Gray (`#F5F8FC`) and Crisp White (`#FFFFFF`)
+- **Primary Surfaces**: White (`#FFFFFF`) with delicate sky-blue borders (`#D5E9FA`)
 - **Headings & Primary Text**: Midnight Navy (`#182C45`)
 - **Body & Secondary Copy**: Slate Gray (`#475569`, `#64748B`)
-- **Brand Accents**: Iceberg Blue / Sky Blue (`#0284C7`, `#EAF5FF`)
+- **Brand Accents**: Sky Blue / Clean Blue (`#0284C7`, `#EAF5FF`)
 - **Sentiment Tones**: Soft Emerald (Positive), Soft Amber (Mixed), Soft Rose (Negative)
 
 ---
@@ -25,9 +30,9 @@ The entire user interface has been transformed into a calm, minimalist, premium 
 | **Supporting Reviews Screen** | `supporting-reviews` | Dedicated review exploration screen with back navigation, real-time 3-tier sentiment summary bar, multi-facet filtering (Sentiment, Attribute, Source, Sort, Search), evidence traceability tags (Supporting vs Conflicting), expandable cards, and helpful upvotes. |
 | **Transparent Calculation Screen** | `transparent-calculation` | Open mathematical audit screen featuring Section A (Interactive Priorities Selector), Section B (Attribute Formulas, Step-by-Step Arithmetic, Denominator Check), Section C (Recommendation Heuristic Rules & Conflict Analysis), and Section D (Limitations & Caveats). |
 | **Discover & Catalogue Explorer** | `discover` | 22-smartphone catalogue explorer with 3D titanium phone hero, live text search, 9 brand filter pills, 5 price segment tabs, 5 sorting options, active counter badge, and reset empty state. |
-| **Product Analysis & Intelligence** | `product` | Comprehensive report for each of the 22 smartphones with zero-truncation hardware specs, personalized decision engine, 4-quadrant AI summary, 6-attribute theme breakdown, natural language Q&A, and cross-source analysis. |
+| **Product Analysis & Intelligence** | `product` | Comprehensive report for each of the 22 smartphones with zero-truncation hardware specs, personalized decision engine, 4-quadrant AI summary, 6-attribute theme breakdown, natural language Q&A (Ask VOX), and cross-source analysis. |
 | **Multi-Product Comparison** | `compare` | Dynamic side-by-side comparison matrix of 2 to 4 smartphones chosen from all 22 models with priority weightings. |
-| **Persistent Shortlist** | `saved` | Saved devices manager with `localStorage` persistence and quick compare launch. |
+| **Persistent Shortlist** | `saved` | Saved devices manager with `localStorage` persistence (`vox_saved_products`) and quick compare launch. |
 | **Universal Search Results** | `search` | Multi-parameter search results with instant query updates and filter sidebar. |
 | **Methodology & Architecture** | `how-it-works` | 8-stage intelligence pipeline explanation and commercial architecture blueprint in clean light styling. |
 

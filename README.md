@@ -1,28 +1,26 @@
-# ReviewIQ: AI Customer Review Intelligence Platform
+# VOX: AI Customer Review Intelligence Platform
 
-> **"Customer feedback, decoded."**  
+> **HEAR WHAT MATTERS**  
 > *"Understand the experience behind the rating."*
 
-ReviewIQ is an AI-powered customer review intelligence web application prototype developed for an MBA academic demonstration. It decodes scattered customer feedback across online marketplaces, retailer websites, and consumer communities into calm, transparent, evidence-backed, and personalized purchasing insights.
+**VOX** is an AI-powered customer review intelligence web application prototype developed for an MBA academic demonstration. It decodes scattered customer feedback across online marketplaces, retailer websites, and consumer communities into calm, transparent, evidence-backed, and personalized purchasing insights.
 
-The interface combines **ReviewIQ’s signature Iceberg Blue identity** on midnight-navy surfaces with **OHAMA-inspired calm minimalism**, generous whitespace, clear typography, thin subtle borders, and full mathematical calculation transparency.
+The interface combines **VOX’s signature Clean Blue and Midnight Navy identity** on a clean, light background with **calm minimalism**, generous whitespace, clear typography, thin subtle borders, and full mathematical calculation transparency.
 
 ---
 
 ## 1. Brand Identity & Visual Design System
 
-### Color Palette Specification
-- **Iceberg Blue (`#EAF5FF` / `#38BDF8`)**: Primary brand accent, selected states, key highlights, active navigation, and primary actions.
-- **Sky Blue (`#D5E9FA` / `#0EA5E9`)**: Supporting accents, focus states, and highlight rings.
-- **Glacier Blue (`#8CBCE5` / `#7DD3FC`)**: Secondary accent and subtle borders.
-- **Midnight Navy (`#182C45` / `#0B0F17`)**: Deep surfaces, elevated cards, and container panels.
-- **Charcoal Canvas (`#070A0F`)**: Primary dark background.
-- **White (`#FFFFFF`)**: Primary headlines and metric numbers.
-- **Soft Gray (`#F5F8FC` / `#94A3B8`)**: Supporting secondary text and descriptive copy.
-- **Sentiment Spectrum**:
-  - **Positive**: Soft Emerald (`#10B981` / `bg-emerald-500/15 text-emerald-300`)
-  - **Mixed / Nuanced / Uncertainty**: Soft Amber (`#F59E0B` / `bg-amber-500/15 text-amber-300`)
-  - **Negative / Complaints**: Muted Rose (`#EF4444` / `bg-rose-500/15 text-rose-300`)
+- **Brand Name**: VOX
+- **Tagline**: HEAR WHAT MATTERS
+- **Emblem**: Minimalist soundwave-inspired geometric "V" with deep navy foundation and vibrant clean blue frequency bars.
+- **Palette**:
+  - **Deep Navy (`#182C45`)**: Structural elements, primary headings, dark buttons, high-contrast badges.
+  - **Clean Sky Blue (`#0284C7` / `#38BDF8`)**: Primary brand accent, active navigation, interactive elements, fit score highlights.
+  - **Iceberg Tint (`#EAF5FF`)**: Light surface badges, active state fills, soft containers.
+  - **Sky Tint (`#D5E9FA`)**: Crisp borders, dividers, subtle card outlines.
+  - **Glacier Accent (`#8CBCE5`)**: Hover rings, secondary indicators.
+  - **Canvas Background (`#F5F8FC` / `#FFFFFF`)**: Modern, spacious, light-themed consumer tech experience.
 
 ---
 
@@ -47,7 +45,7 @@ Accessible via *"View supporting reviews"* on any product recommendation card or
 Accessible via *"How is this calculated?"* on the recommendation card:
 - **Section A: Your Selected Priorities**:
   - Interactive priority toggles (Battery, Camera, Reliability, Performance, Value, Software) that recalculate attribute consensus and recommendations in real time.
-  - Plain-language explanation of why ReviewIQ isolates attribute-specific reviews rather than relying on misleading aggregate 5-star averages.
+  - Plain-language explanation of why VOX isolates attribute-specific reviews rather than relying on misleading aggregate 5-star averages.
 - **Section B: Attribute-Level Calculations & Arithmetic**:
   - For each selected priority: Total relevant reviews ($N$), positive ($P$), negative ($N_{neg}$), and mixed ($M$).
   - Exact formulas using a uniform denominator:
@@ -77,7 +75,7 @@ Accessible via *"How is this calculated?"* on the recommendation card:
 - **Personalized Decision Engine** (`src/components/PersonalizedInsights.tsx`): Circular SVG fit score gauge, priority selector, tailored advice narrative, and direct triggers to Supporting Reviews and Transparent Calculation.
 - **Evidence-Backed AI Summary** (`src/components/AISummaryCard.tsx`): 4 quadrants (Appreciated Features, Common Complaints, Mixed Opinions, Caveats).
 - **Theme Breakdown** (`src/components/ThemeBreakdown.tsx`): 6-attribute sentiment bars and buyer quotes.
-- **Natural Language Assistant** (`src/components/AskReviewIQ.tsx`): Grounded Q&A with evidence citations.
+- **Natural Language Assistant** (`src/components/AskVox.tsx`): Grounded Q&A with evidence citations.
 - **Cross-Source Intelligence** (`src/components/CrossSourceCard.tsx`): Multi-channel comparison.
 - **Trust & Quality Audit** (`src/components/TrustAndQualityCard.tsx`): Review authenticity and variant completeness scores.
 - **Review Recency Timeline** (`src/components/ReviewTimelineCard.tsx`): Longitudinal feedback stream.
@@ -104,7 +102,7 @@ Accessible via *"How is this calculated?"* on the recommendation card:
 
 - **Framework**: React 18 with TypeScript
 - **Build Tool**: Vite 5
-- **Styling**: Tailwind CSS with custom Iceberg Blue and Charcoal/Navy design tokens
+- **Styling**: Tailwind CSS with custom Clean Blue, Navy, and Soft Light design tokens
 - **Icons**: Lucide React
 - **Data & Analytics**: Local TypeScript dataset (`mockData.ts`) and analytics utilities (`analytics.ts`)
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Sparkles, Search, Bookmark, GitCompare, HelpCircle, Menu, X } from 'lucide-react';
+import { Search, Bookmark, GitCompare, HelpCircle, Menu, X } from 'lucide-react';
+import { VoxLogo } from './VoxLogo';
 
 interface NavbarProps {
   currentView: string;
@@ -39,32 +40,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               Simulated demonstration dataset. Ratings and AI summaries are simulated for academic illustration.
             </span>
           </div>
-          <span className="text-[11px] text-[#0284C7] hidden lg:inline font-mono font-medium">
-            Iceberg Blue • Transparent Decision Engine
+          <span className="text-[11px] text-[#0284C7] hidden lg:inline font-mono font-semibold">
+            VOX • HEAR WHAT MATTERS • Transparent Decision Engine
           </span>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo & Tagline */}
+          {/* VOX Logo & Tagline */}
           <div
-            className="flex items-center gap-3 cursor-pointer group select-none"
+            className="cursor-pointer group select-none"
             onClick={() => onNavigate('discover')}
           >
-            <div className="w-9 h-9 rounded-xl bg-[#0284C7] text-white flex items-center justify-center font-black shadow-sm group-hover:bg-[#0369A1] transition-colors">
-              <Sparkles className="w-5 h-5 fill-current" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1">
-                <span className="text-xl font-extrabold tracking-tight text-[#182C45]">
-                  Review<span className="text-[#0284C7]">IQ</span>
-                </span>
-              </div>
-              <p className="text-[10px] text-[#64748B] font-normal leading-none hidden sm:block">
-                Customer feedback, decoded.
-              </p>
-            </div>
+            <VoxLogo size="md" showTagline={true} />
           </div>
 
           {/* Center Search Bar */}

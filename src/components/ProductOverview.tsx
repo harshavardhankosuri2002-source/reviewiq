@@ -195,7 +195,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
                 className="flex-1 sm:flex-initial px-6 py-3 bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
               >
                 <MessageSquareCode className="w-4 h-4 text-white" />
-                <span>Ask ReviewIQ a Question</span>
+                <span>Ask VOX a Question</span>
               </button>
 
               <button

@@ -123,7 +123,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
             Is this product right for you?
           </h2>
           <p className="text-xs sm:text-sm text-[#64748B] mt-0.5">
-            ReviewIQ weighs customer satisfaction across your chosen priorities to assess genuine compatibility.
+            VOX weighs customer satisfaction across your chosen priorities to assess genuine compatibility.
           </p>
         </div>
 
@@ -268,7 +268,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2 text-[#0284C7] font-bold text-sm">
               <Info className="w-4 h-4" />
-              <span>How ReviewIQ Calculates Your Fit Score</span>
+              <span>How VOX Calculates Your Fit Score</span>
             </div>
             <button
               onClick={() => setShowCalculationModal(false)}
@@ -278,7 +278,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
             </button>
           </div>
           <p className="leading-relaxed text-[#334155]">
-            ReviewIQ parses customer reviews and maps sentences to core product attributes (Battery, Camera, Reliability, Performance, Value, Software). When you select priority tags, the algorithm extracts the net positive sentiment score specifically for those attributes and computes a uniform-denominator percentage.
+            VOX parses customer reviews and maps sentences to core product attributes (Battery, Camera, Reliability, Performance, Value, Software). When you select priority tags, the algorithm extracts the net positive sentiment score specifically for those attributes and computes a uniform-denominator percentage.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] pt-1 font-mono">
             <div className="p-2.5 rounded-lg bg-white border border-[#D5E9FA]">

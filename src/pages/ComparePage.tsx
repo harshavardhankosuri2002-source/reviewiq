@@ -52,7 +52,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
       return pA - pB;
     })[0];
 
-    return `Comparing ${activeProducts.length} devices (${names}): ${highestRated.name} leads in overall verified buyer satisfaction (${highestRated.sampleRating} ★ with ${highestRated.quickVerdict.slice(0, 100)}...). For budget-conscious value, ${lowestPrice.name} delivers strong essentials at ${lowestPrice.priceMSRP}. ReviewIQ's consensus analysis reveals that trade-offs primarily hinge on display refresh rates, optical zoom reach vs form-factor weight, and fast-charging capabilities.`;
+    return `Comparing ${activeProducts.length} devices (${names}): ${highestRated.name} leads in overall verified buyer satisfaction (${highestRated.sampleRating} ★ with ${highestRated.quickVerdict.slice(0, 100)}...). For budget-conscious value, ${lowestPrice.name} delivers strong essentials at ${lowestPrice.priceMSRP}. VOX's consensus analysis reveals that trade-offs primarily hinge on display refresh rates, optical zoom reach vs form-factor weight, and fast-charging capabilities.`;
   };
 
   return (

@@ -173,7 +173,7 @@ export const SupportingReviewsPage: React.FC<SupportingReviewsPageProps> = ({
                 Supporting Reviews
               </h1>
               <p className="text-sm sm:text-base text-[#475569] max-w-2xl font-normal leading-relaxed">
-                Explore the genuine customer experiences and evidence behind ReviewIQ’s personalized recommendation for the <strong className="text-[#182C45] font-semibold">{product.name}</strong>.
+                Explore the genuine customer experiences and evidence behind VOX’s personalized recommendation for the <strong className="text-[#182C45] font-semibold">{product.name}</strong>.
               </p>
             </div>
 
@@ -636,7 +636,7 @@ export const SupportingReviewsPage: React.FC<SupportingReviewsPageProps> = ({
             <span>Calculation Transparency</span>
           </div>
           <h3 className="text-lg font-bold text-[#182C45]">
-            Curious how ReviewIQ converts these reviews into percentages?
+            Curious how VOX converts these reviews into percentages?
           </h3>
           <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
             Inspect our open formula audit and prototype decision thresholds on the Transparent Calculation screen.

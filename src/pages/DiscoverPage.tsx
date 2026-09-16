@@ -166,7 +166,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
 
           {/* Supporting Copy */}
           <p className="text-sm sm:text-base text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            ReviewIQ synthesizes thousands of customer opinions across marketplaces, retail portals, and technical forums into evidence-backed, personalized decision intelligence.
+            VOX synthesizes thousands of customer opinions across marketplaces, retail portals, and technical forums into evidence-backed, personalized decision intelligence.
           </p>
 
           {/* Primary Action & Quick Search */}
@@ -226,7 +226,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
               Built for Confident Purchasing
             </h2>
             <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-xl">
-              How ReviewIQ transforms noisy, scattered customer feedback into objective buying confidence.
+              How VOX transforms noisy, scattered customer feedback into objective buying confidence.
             </p>
           </div>
 

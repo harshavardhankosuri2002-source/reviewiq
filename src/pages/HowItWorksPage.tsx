@@ -11,7 +11,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBackToDiscover
       step: '01',
       title: 'Target Entity Identification',
       icon: Database,
-      description: 'The consumer queries a product, service, or brand. ReviewIQ maps the query to verified product SKUs, hardware variants, and model revisions.',
+      description: 'The consumer queries a product, service, or brand. VOX maps the query to verified product SKUs, hardware variants, and model revisions.',
     },
     {
       step: '02',
@@ -23,7 +23,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBackToDiscover
       step: '03',
       title: 'Normalization & Deduplication',
       icon: Filter,
-      description: 'Raw feedback is standardized. ReviewIQ flags syndication duplicates, removes bot spam, and extracts verifiable metadata (variant, purchase verification, date).',
+      description: 'Raw feedback is standardized. VOX flags syndication duplicates, removes bot spam, and extracts verifiable metadata (variant, purchase verification, date).',
     },
     {
       step: '04',
@@ -41,7 +41,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBackToDiscover
       step: '06',
       title: 'Priority-Weighted Personalization',
       icon: Sliders,
-      description: 'Consumers configure their personal decision factors (e.g., Battery + Reliability). ReviewIQ re-ranks insights and surfaces recommendations tailored to their routine.',
+      description: 'Consumers configure their personal decision factors (e.g., Battery + Reliability). VOX re-ranks insights and surfaces recommendations tailored to their routine.',
     },
     {
       step: '07',
@@ -85,7 +85,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBackToDiscover
           <span>Architecture & Product Methodology</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#182C45] tracking-tight">
-          How ReviewIQ Decodes the Customer Experience
+          How VOX Decodes the Customer Experience
         </h1>
         <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
           Behind our minimal interface lies a rigorous multi-stage review intelligence architecture designed to turn scattered consumer feedback into transparent purchasing clarity.

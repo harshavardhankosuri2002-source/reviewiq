@@ -76,7 +76,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   const resetFilters = () => {
     setSelectedBrand('all');
     setMinRating(0);
-    setMaxPrice(1500);
+    setMaxPrice(150000);
     setSearchQuery('');
   };
 
@@ -123,7 +123,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
             <span className="text-xs font-bold uppercase tracking-wider text-[#182C45] flex items-center gap-1.5">
               <Filter className="w-3.5 h-3.5 text-[#0284C7]" /> Filters
             </span>
-            {(selectedBrand !== 'all' || minRating > 0 || maxPrice < 1500) && (
+            {(selectedBrand !== 'all' || minRating > 0 || maxPrice < 150000) && (
               <button
                 onClick={resetFilters}
                 className="text-[10px] text-[#0284C7] hover:underline font-semibold"
@@ -231,6 +231,9 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
                       <img
                         src={product.imageUrl}
                         alt={product.name}
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                        }}
                         className="w-20 h-20 object-cover rounded-xl border border-[#D5E9FA] shrink-0"
                       />
                       <div className="space-y-1">

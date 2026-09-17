@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Product, PrioritySelection, AttributeKey, ReviewSentiment } from './types';
+import { Product, PrioritySelection, AttributeKey, ReviewSentiment, UserProfile } from './types';
 import { SAMPLE_PRODUCTS } from './data/mockData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { AuthModal } from './components/AuthModal';
 import { DiscoverPage } from './pages/DiscoverPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
 import { ProductAnalysisPage } from './pages/ProductAnalysisPage';
@@ -11,8 +12,17 @@ import { SavedProductsPage } from './pages/SavedProductsPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { SupportingReviewsPage } from './pages/SupportingReviewsPage';
 import { TransparentCalculationPage } from './pages/TransparentCalculationPage';
+import {
+  getCurrentUser,
+  getSavedProductsStorageKey,
+  getComparisonStorageKey,
+} from './utils/auth';
 
 export const App: React.FC = () => {
+  // Active User Profile & Privacy State
+  const [currentUser, setCurrentUser] = useState<UserProfile>(() => getCurrentUser());
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+
   // Navigation View State
   const [currentView, setCurrentView] = useState<string>('discover');
   const [selectedProductId, setSelectedProductId] = useState<string>('iphone-16');
@@ -29,19 +39,25 @@ export const App: React.FC = () => {
     sentiment: 'all',
   });
 
-  // Comparison State (default compares iPhone 16 and Galaxy S24)
-  const [comparedProductIds, setComparedProductIds] = useState<string[]>([
-    'iphone-16',
-    'galaxy-s24',
-  ]);
+  // Isolated Comparison State per User
+  const [comparedProductIds, setComparedProductIds] = useState<string[]>(() => {
+    try {
+      const user = getCurrentUser();
+      const saved = localStorage.getItem(getComparisonStorageKey(user.id));
+      return saved ? JSON.parse(saved) : ['iphone-16', 'galaxy-s24'];
+    } catch {
+      return ['iphone-16', 'galaxy-s24'];
+    }
+  });
 
-  // Saved Products State with LocalStorage Session Persistence
+  // Isolated Saved Products State - Every new visitor or shared link starts with [] (EMPTY)
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('vox_saved_products') || localStorage.getItem('reviewiq_saved_products');
-      return saved ? JSON.parse(saved) : ['iphone-16'];
+      const user = getCurrentUser();
+      const saved = localStorage.getItem(getSavedProductsStorageKey(user.id));
+      return saved ? JSON.parse(saved) : [];
     } catch {
-      return ['iphone-16'];
+      return [];
     }
   });
 
@@ -55,14 +71,38 @@ export const App: React.FC = () => {
     software: false,
   });
 
-  // Sync saved products to localStorage
+  // Sync saved products to user-isolated localStorage key
   useEffect(() => {
     try {
-      localStorage.setItem('vox_saved_products', JSON.stringify(savedIds));
+      localStorage.setItem(getSavedProductsStorageKey(currentUser.id), JSON.stringify(savedIds));
     } catch (e) {
       console.warn('Could not save to localStorage', e);
     }
-  }, [savedIds]);
+  }, [savedIds, currentUser.id]);
+
+  // Sync comparison products to user-isolated localStorage key
+  useEffect(() => {
+    try {
+      localStorage.setItem(getComparisonStorageKey(currentUser.id), JSON.stringify(comparedProductIds));
+    } catch (e) {
+      console.warn('Could not save comparison to localStorage', e);
+    }
+  }, [comparedProductIds, currentUser.id]);
+
+  // Handle user login / switch / logout: reload that user's private data
+  const handleUserChanged = (newUser: UserProfile) => {
+    setCurrentUser(newUser);
+    try {
+      const userSaved = localStorage.getItem(getSavedProductsStorageKey(newUser.id));
+      setSavedIds(userSaved ? JSON.parse(userSaved) : []);
+
+      const userCompared = localStorage.getItem(getComparisonStorageKey(newUser.id));
+      setComparedProductIds(userCompared ? JSON.parse(userCompared) : ['iphone-16', 'galaxy-s24']);
+    } catch (e) {
+      console.warn('Could not switch user state', e);
+      setSavedIds([]);
+    }
+  };
 
   // Scroll to top on view changes
   useEffect(() => {
@@ -163,6 +203,8 @@ export const App: React.FC = () => {
         onNavigate={handleNavigate}
         savedCount={savedIds.length}
         onSearchSubmit={handleSearchSubmit}
+        currentUser={currentUser}
+        onOpenAuth={() => setIsAuthModalOpen(true)}
       />
 
       {/* Main Content View Switcher */}
@@ -261,6 +303,8 @@ export const App: React.FC = () => {
               setCurrentView('compare');
             }}
             onBackToDiscover={() => setCurrentView('discover')}
+            currentUser={currentUser}
+            onOpenAuth={() => setIsAuthModalOpen(true)}
           />
         )}
 
@@ -268,6 +312,14 @@ export const App: React.FC = () => {
           <HowItWorksPage onBackToDiscover={() => setCurrentView('discover')} />
         )}
       </main>
+
+      {/* Auth & Private Profile Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onUserChanged={handleUserChanged}
+        savedCount={savedIds.length}
+      />
 
       {/* Footer */}
       <Footer onNavigate={handleNavigate} />

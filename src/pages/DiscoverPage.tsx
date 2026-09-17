@@ -530,6 +530,9 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       <img
                         src={product.imageUrl}
                         alt={product.name}
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                        }}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
@@ -637,6 +640,24 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       <p className="text-xs text-[#475569] leading-relaxed line-clamp-2">
                         {product.quickVerdict}
                       </p>
+
+                      {/* Verified Retailer Link in Card */}
+                      <div className="pt-1 flex items-center justify-between text-xs border-t border-[#E2E8F0]/60">
+                        <span className="text-[11px] text-[#64748B] font-mono flex items-center gap-1 truncate">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                          <span className="truncate">{product.retailerName}</span>
+                        </span>
+                        <a
+                          href={product.officialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-[#0284C7] hover:underline shrink-0"
+                        >
+                          <span>Official Link</span>
+                          <ArrowRight className="w-3 h-3 text-[#0284C7]" />
+                        </a>
+                      </div>
                     </div>
                   </div>
 

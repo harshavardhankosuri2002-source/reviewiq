@@ -149,6 +149,9 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                       <img
                         src={product.imageUrl}
                         alt={product.name}
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                        }}
                         className="w-14 h-14 object-cover rounded-xl border border-[#D5E9FA]"
                       />
                       <div>

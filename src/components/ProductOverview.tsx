@@ -12,6 +12,10 @@ import {
   Eye,
   Weight,
   Camera,
+  ExternalLink,
+  ShieldCheck,
+  ShoppingBag,
+  Info,
 } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
 import { formatINR } from '../utils/currency';
@@ -32,7 +36,13 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
   onScrollToQA,
 }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.defaultVariant);
+  const [imgSrc, setImgSrc] = useState(product.imageUrl);
   const stats = getProductSentimentStats(product.id);
+
+  // Sync image source when product changes
+  React.useEffect(() => {
+    setImgSrc(product.imageUrl);
+  }, [product.imageUrl]);
 
   return (
     <div className="space-y-10 sm:space-y-14">
@@ -44,6 +54,11 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
           <span className="font-mono text-[#0284C7] bg-[#EAF5FF] px-3.5 py-1 rounded-full border border-[#B8DBF7] font-bold uppercase tracking-wider">
             {product.brand} • {product.category} • {product.releaseYear}
           </span>
+          {product.colorVariant && (
+            <span className="font-mono text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-semibold text-[11px]">
+              Verified Variant: {product.colorVariant}
+            </span>
+          )}
           <span className="text-[#94A3B8] font-mono hidden sm:inline">•</span>
           <div className="flex items-center gap-1.5 text-[#64748B] font-mono">
             <Calendar className="w-3.5 h-3.5 text-[#0284C7]" />
@@ -101,8 +116,12 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
               {/* Device Frame */}
               <div className="relative aspect-4/3 rounded-2xl overflow-hidden bg-[#F5F8FC] border border-[#D5E9FA] shadow-card">
                 <img
-                  src={product.imageUrl}
+                  src={imgSrc}
                   alt={product.name}
+                  onError={() => {
+                    // Fallback to high-res generic smartphone placeholder if external image is blocked
+                    setImgSrc('https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80');
+                  }}
                   className="w-full h-full object-cover rounded-2xl group-hover:scale-103 transition-transform duration-700"
                 />
               </div>
@@ -122,7 +141,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
           </div>
 
           {/* Consensus Overview & Action Controls */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-5">
             {/* Decoded Consensus Narrative */}
             <div className="space-y-2">
               <span className="text-xs font-bold text-[#0284C7] uppercase tracking-widest flex items-center gap-1.5">
@@ -189,11 +208,49 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
               </div>
             </div>
 
+            {/* Official Purchase Link Box */}
+            <div className="bg-[#EAF5FF] p-4 rounded-2xl border border-[#B8DBF7] space-y-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="p-1 rounded-md bg-white text-[#0284C7] border border-[#D5E9FA]">
+                    <ShoppingBag className="w-4 h-4 text-[#0284C7]" />
+                  </span>
+                  <div>
+                    <span className="text-xs font-extrabold text-[#182C45] block">
+                      Official Manufacturer Product Page
+                    </span>
+                    <span className="text-[11px] text-[#0284C7] font-semibold flex items-center gap-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      Verified Source: {product.retailerName || 'Official Manufacturer Store'}
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  href={product.officialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-black shadow-soft transition-all hover:scale-102"
+                >
+                  <span>Buy from Official Store</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-white" />
+                </a>
+              </div>
+
+              {/* Disclaimer */}
+              <div className="flex items-start gap-1.5 text-[10.5px] text-[#556B82] pt-1 border-t border-[#D5E9FA]/80">
+                <Info className="w-3.5 h-3.5 text-[#0284C7] shrink-0 mt-0.5" />
+                <span>
+                  VOX is an independent review analysis engine and does not sell products or process payments. Clicking will direct you safely to the manufacturer's verified official portal in a new tab.
+                </span>
+              </div>
+            </div>
+
             {/* Primary Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-1 flex flex-wrap items-center gap-3">
               <button
                 onClick={onScrollToQA}
-                className="flex-1 sm:flex-initial px-6 py-3 bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
+                className="flex-1 sm:flex-initial px-6 py-3 bg-[#182C45] hover:bg-[#0F1E31] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
               >
                 <MessageSquareCode className="w-4 h-4 text-white" />
                 <span>Ask VOX a Question</span>

@@ -95,6 +95,10 @@ export interface Product {
   defaultVariant: string;
   priceMSRP: string;
   imageUrl: string;
+  imageVerified?: boolean;
+  colorVariant?: string;
+  officialUrl: string;
+  retailerName: string;
   category: string;
   specsSummary: {
     display: string;
@@ -120,6 +124,15 @@ export interface Product {
     recencyConfidence: 'High' | 'Moderate' | 'Limited';
     recencyNote: string;
   };
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  avatarUrl?: string;
+  isGuest: boolean;
+  createdAt: string;
 }
 
 export type PrioritySelection = {

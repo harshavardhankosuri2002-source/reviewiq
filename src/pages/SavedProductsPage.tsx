@@ -1,6 +1,6 @@
 import React from 'react';
-import { Product } from '../types';
-import { Bookmark, Trash2, ArrowRight, GitCompare, Star } from 'lucide-react';
+import { Product, UserProfile } from '../types';
+import { Bookmark, Trash2, ArrowRight, GitCompare, Star, Lock, ExternalLink, ShieldCheck, ShoppingBag } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
 import { formatINR } from '../utils/currency';
 
@@ -11,6 +11,8 @@ interface SavedProductsPageProps {
   onSelectProduct: (id: string) => void;
   onCompareSaved: (ids: string[]) => void;
   onBackToDiscover: () => void;
+  currentUser?: UserProfile;
+  onOpenAuth?: () => void;
 }
 
 export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
@@ -20,6 +22,8 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
   onSelectProduct,
   onCompareSaved,
   onBackToDiscover,
+  currentUser,
+  onOpenAuth,
 }) => {
   const savedProducts = products.filter(p => savedIds.includes(p.id));
 
@@ -32,22 +36,33 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
             <span className="p-1 rounded-md bg-[#EAF5FF] text-[#0284C7] border border-[#D5E9FA]">
               <Bookmark className="w-4 h-4 fill-[#0284C7] text-[#0284C7]" />
             </span>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
-              Personal Shortlist
+            <span className="text-xs font-bold uppercase tracking-wider text-[#0284C7] flex items-center gap-1.5">
+              <Lock className="w-3 h-3 text-emerald-600" />
+              <span>Isolated Private Shortlist</span>
             </span>
           </div>
           <h1 className="text-2xl font-extrabold text-[#182C45] tracking-tight">
             Saved Products ({savedProducts.length})
           </h1>
-          <p className="text-xs text-[#64748B]">
-            Review and compare shortlisted smartphones across your browsing session.
+          <p className="text-xs text-[#64748B] flex items-center gap-1.5 mt-0.5">
+            <span>
+              Private list for <strong>{currentUser?.name || (currentUser?.isGuest ? 'Guest Session' : 'Active Profile')}</strong>.
+            </span>
+            {onOpenAuth && (
+              <button
+                onClick={onOpenAuth}
+                className="text-[#0284C7] hover:underline font-semibold ml-1"
+              >
+                Manage Profile &rarr;
+              </button>
+            )}
           </p>
         </div>
 
         {savedProducts.length >= 2 && (
           <button
             onClick={() => onCompareSaved(savedIds)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-extrabold shadow-2xs transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-extrabold shadow-soft transition-all"
           >
             <GitCompare className="w-4 h-4 text-white" />
             <span>Compare Shortlist ({savedProducts.length})</span>
@@ -57,22 +72,22 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
 
       {savedProducts.length === 0 ? (
         /* Empty State */
-        <div className="bg-white rounded-2xl border border-[#D5E9FA] p-12 text-center space-y-4 shadow-sm max-w-lg mx-auto">
+        <div className="bg-white rounded-2xl border border-[#D5E9FA] p-12 text-center space-y-4 shadow-card max-w-lg mx-auto">
           <div className="w-14 h-14 rounded-2xl bg-[#EAF5FF] text-[#0284C7] flex items-center justify-center mx-auto border border-[#D5E9FA]">
             <Bookmark className="w-7 h-7 text-[#0284C7]" />
           </div>
-          <div className="space-y-1">
-            <h3 className="text-lg font-bold text-[#182C45]">Your shortlist is empty</h3>
+          <div className="space-y-1.5">
+            <h3 className="text-lg font-bold text-[#182C45]">Your shortlist is currently empty</h3>
             <p className="text-xs text-[#64748B] leading-relaxed">
-              When exploring smartphones on the Discover page or Search results, save items to build your personal comparison matrix.
+              Every visitor starts with an empty, private shortlist. When exploring smartphones on VOX, click <strong>Save</strong> on any phone card to bookmark it to your personal device session.
             </p>
           </div>
           <div className="pt-2">
             <button
               onClick={onBackToDiscover}
-              className="px-5 py-2.5 bg-[#0284C7] hover:bg-[#0369A1] text-white rounded-xl text-xs font-extrabold transition-colors shadow-2xs"
+              className="px-5 py-2.5 bg-[#0284C7] hover:bg-[#0369A1] text-white rounded-xl text-xs font-extrabold transition-colors shadow-soft"
             >
-              Explore 22 Smartphones
+              Explore 22 Verified Smartphones
             </button>
           </div>
         </div>
@@ -85,7 +100,7 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
             return (
               <div
                 key={product.id}
-                className="bg-white rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] shadow-xs hover:shadow-md transition-all overflow-hidden flex flex-col justify-between group"
+                className="bg-white rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] shadow-card hover:shadow-card-hover transition-all overflow-hidden flex flex-col justify-between group"
               >
                 <div>
                   <div
@@ -95,6 +110,9 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
                     <img
                       src={product.imageUrl}
                       alt={product.name}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <span className="absolute top-2 left-2 bg-white/95 text-[#0284C7] px-2.5 py-0.5 rounded text-[10px] font-bold border border-[#D5E9FA] shadow-2xs">
@@ -146,6 +164,23 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
                     <p className="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
                       {product.quickVerdict}
                     </p>
+
+                    {/* Official Store Link in Card */}
+                    <div className="pt-1 flex items-center justify-between text-xs">
+                      <span className="text-[11px] text-[#64748B] font-mono flex items-center gap-1 truncate">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span className="truncate">{product.retailerName}</span>
+                      </span>
+                      <a
+                        href={product.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-[#0284C7] hover:underline"
+                      >
+                        <span>Official Store</span>
+                        <ExternalLink className="w-3 h-3 text-[#0284C7]" />
+                      </a>
+                    </div>
                   </div>
                 </div>
 

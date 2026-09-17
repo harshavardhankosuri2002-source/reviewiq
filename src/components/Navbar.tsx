@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Search, Bookmark, GitCompare, HelpCircle, Menu, X } from 'lucide-react';
+import { Search, Bookmark, GitCompare, HelpCircle, Menu, X, User, Lock } from 'lucide-react';
 import { VoxLogo } from './VoxLogo';
+import { UserProfile } from '../types';
 
 interface NavbarProps {
   currentView: string;
   onNavigate: (view: string, productId?: string) => void;
   savedCount: number;
   onSearchSubmit: (query: string) => void;
+  currentUser?: UserProfile;
+  onOpenAuth: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -14,6 +17,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   savedCount,
   onSearchSubmit,
+  currentUser,
+  onOpenAuth,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navSearch, setNavSearch] = useState('');
@@ -29,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-[#182C45] border-b border-[#D5E9FA] shadow-soft">
-      {/* Top Academic Banner */}
+      {/* Top Academic & Privacy Banner */}
       <div className="bg-[#EAF5FF] border-b border-[#D5E9FA] px-4 py-1.5 text-xs text-[#325682]">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -37,12 +42,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               MBA Prototype
             </span>
             <span className="text-[11px] text-[#325682] truncate">
-              Simulated demonstration dataset. Ratings and AI summaries are simulated for academic illustration.
+              Demonstration dataset. Ratings and AI summaries are simulated for academic illustration.
             </span>
           </div>
-          <span className="text-[11px] text-[#0284C7] hidden lg:inline font-mono font-semibold">
-            VOX • HEAR WHAT MATTERS • Transparent Decision Engine
-          </span>
+          <div className="flex items-center gap-2 hidden lg:flex">
+            <span className="text-[11px] text-[#0284C7] font-mono font-semibold flex items-center gap-1">
+              <Lock className="w-3 h-3 text-emerald-600" />
+              <span>Private User Isolation Active</span>
+            </span>
+            <span className="text-[#94A3B8]">•</span>
+            <span className="text-[11px] text-[#0284C7] font-mono font-semibold">
+              VOX • HEAR WHAT MATTERS
+            </span>
+          </div>
         </div>
       </div>
 
@@ -71,7 +83,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5">
+          <nav className="hidden md:flex items-center gap-2">
             <button
               onClick={() => onNavigate('discover')}
               className={`px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
@@ -123,10 +135,31 @@ export const Navbar: React.FC<NavbarProps> = ({
               <HelpCircle className="w-4 h-4 text-[#0284C7]" />
               <span>Methodology</span>
             </button>
+
+            {/* Profile / Privacy Modal Button */}
+            <button
+              onClick={onOpenAuth}
+              className="flex items-center gap-1.5 ml-1 px-3 py-1.5 rounded-xl bg-white border border-[#D5E9FA] hover:border-[#0284C7] text-xs font-bold text-[#182C45] transition-all shadow-2xs group"
+              title="Private User Profile & Data Isolation Settings"
+            >
+              <div className="w-5 h-5 rounded-lg bg-[#EAF5FF] group-hover:bg-[#0284C7] text-[#0284C7] group-hover:text-white flex items-center justify-center transition-colors">
+                <User className="w-3 h-3" />
+              </div>
+              <span className="max-w-[90px] truncate">
+                {currentUser?.isGuest ? 'Guest' : currentUser?.name?.split(' ')[0] || 'Profile'}
+              </span>
+            </button>
           </nav>
 
           {/* Mobile Menu Toggle Button */}
           <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={onOpenAuth}
+              className="p-2 text-[#475569] hover:text-[#182C45] relative rounded-lg bg-[#F5F8FC] border border-[#D5E9FA]"
+              aria-label="User Profile"
+            >
+              <User className="w-4 h-4 text-[#0284C7]" />
+            </button>
             <button
               onClick={() => onNavigate('saved')}
               className="p-2 text-[#475569] hover:text-[#182C45] relative"
@@ -214,6 +247,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <span>Methodology & Transparency</span>
               <HelpCircle className="w-4 h-4 text-[#0284C7]" />
+            </button>
+            <button
+              onClick={() => {
+                onOpenAuth();
+                setMobileMenuOpen(false);
+              }}
+              className="text-left px-3 py-2 rounded-xl text-sm font-semibold flex items-center justify-between bg-[#F5F8FC] border border-[#D5E9FA] text-[#182C45] mt-2"
+            >
+              <span>Account / Private Session</span>
+              <span className="text-xs font-bold text-[#0284C7]">
+                {currentUser?.isGuest ? 'Guest' : currentUser?.name}
+              </span>
             </button>
           </nav>
         </div>

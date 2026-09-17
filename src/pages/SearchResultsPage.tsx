@@ -232,9 +232,9 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
                         src={product.imageUrl}
                         alt={product.name}
                         onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                          (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
                         }}
-                        className="w-20 h-20 object-cover rounded-xl border border-[#D5E9FA] shrink-0"
+                        className="w-20 h-20 object-contain p-1.5 rounded-xl border border-[#D5E9FA] bg-[#F8FAFC] shrink-0"
                       />
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">

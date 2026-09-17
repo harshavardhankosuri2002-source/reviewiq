@@ -114,15 +114,15 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
           <div className="lg:col-span-6 flex items-center justify-center relative">
             <div className="relative group max-w-sm sm:max-w-md w-full">
               {/* Device Frame */}
-              <div className="relative aspect-4/3 rounded-2xl overflow-hidden bg-[#F5F8FC] border border-[#D5E9FA] shadow-card">
+              <div className="relative aspect-4/3 rounded-2xl overflow-hidden bg-[#F8FAFC] border border-[#D5E9FA] shadow-card flex items-center justify-center p-6">
                 <img
                   src={imgSrc}
                   alt={product.name}
                   onError={() => {
-                    // Fallback to high-res generic smartphone placeholder if external image is blocked
-                    setImgSrc('https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80');
+                    // Fallback to verified neutral SVG placeholder
+                    setImgSrc('/images/products/device-placeholder.svg');
                   }}
-                  className="w-full h-full object-cover rounded-2xl group-hover:scale-103 transition-transform duration-700"
+                  className="max-h-full max-w-full object-contain group-hover:scale-103 transition-transform duration-700"
                 />
               </div>
 

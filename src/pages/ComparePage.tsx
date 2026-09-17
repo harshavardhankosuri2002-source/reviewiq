@@ -150,9 +150,9 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                         src={product.imageUrl}
                         alt={product.name}
                         onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                          (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
                         }}
-                        className="w-14 h-14 object-cover rounded-xl border border-[#D5E9FA]"
+                        className="w-14 h-14 object-contain p-1 rounded-xl border border-[#D5E9FA] bg-[#F8FAFC]"
                       />
                       <div>
                         <span className="text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
@@ -357,7 +357,10 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                       <img
                         src={p.imageUrl}
                         alt={p.name}
-                        className="w-12 h-12 object-cover rounded-lg border border-[#D5E9FA]"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
+                        }}
+                        className="w-12 h-12 object-contain p-1 rounded-lg border border-[#D5E9FA] bg-[#F8FAFC]"
                       />
                       <div>
                         <div className="flex items-center gap-2">

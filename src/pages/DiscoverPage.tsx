@@ -524,16 +524,16 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   <div>
                     {/* Image Hero Container */}
                     <div
-                      className="relative aspect-16/10 bg-[#F5F8FC] overflow-hidden cursor-pointer"
+                      className="relative aspect-16/10 bg-[#F8FAFC] overflow-hidden cursor-pointer flex items-center justify-center p-3"
                       onClick={() => onSelectProduct(product.id)}
                     >
                       <img
                         src={product.imageUrl}
                         alt={product.name}
                         onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                          (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
                         }}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
 

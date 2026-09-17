@@ -104,16 +104,16 @@ export const SavedProductsPage: React.FC<SavedProductsPageProps> = ({
               >
                 <div>
                   <div
-                    className="relative aspect-16/10 bg-[#F5F8FC] overflow-hidden cursor-pointer"
+                    className="relative aspect-16/10 bg-[#F8FAFC] overflow-hidden cursor-pointer flex items-center justify-center p-3"
                     onClick={() => onSelectProduct(product.id)}
                   >
                     <img
                       src={product.imageUrl}
                       alt={product.name}
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&auto=format&fit=crop&q=80';
+                        (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
                       }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                     <span className="absolute top-2 left-2 bg-white/95 text-[#0284C7] px-2.5 py-0.5 rounded text-[10px] font-bold border border-[#D5E9FA] shadow-2xs">
                       {product.brand}

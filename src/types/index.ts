@@ -173,3 +173,48 @@ export interface PersonalizedRecommendationAudit {
   isSampleAdequate: boolean;
 }
 
+export type ContextualActionType =
+  | 'summarize_reviews'
+  | 'check_priorities'
+  | 'pros_and_cons'
+  | 'compare_devices'
+  | 'custom_query';
+
+export interface VoxAiCitation {
+  reviewId: string;
+  author: string;
+  sentiment: ReviewSentiment;
+  headline: string;
+  quoteSnippet: string;
+  source: string;
+  attributeKey?: AttributeKey;
+}
+
+export interface VoxAiMessage {
+  id: string;
+  sender: 'user' | 'vox';
+  text: string;
+  timestamp: string;
+  actionType?: ContextualActionType;
+  contextSummary?: string;
+  activePrioritiesUsed?: AttributeKey[];
+  verifiedSpecs?: { label: string; value: string }[];
+  reviewEvidence?: {
+    themeName: string;
+    consensusPct: number;
+    sampleCount: number;
+    citations: VoxAiCitation[];
+    supportingReviewIds: string[];
+  }[];
+  isInsufficientEvidence?: boolean;
+  insufficientEvidenceReason?: string;
+}
+
+export interface VoxAiContext {
+  type: 'general' | 'product' | 'compare';
+  productId?: string;
+  compareProductIds?: string[];
+  initialAction?: ContextualActionType;
+  initialPrompt?: string;
+}
+

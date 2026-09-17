@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Product } from '../types';
+import { Product, ContextualActionType } from '../types';
 import {
   Star,
   Calendar,
@@ -26,6 +26,7 @@ interface ProductOverviewProps {
   onToggleSave: (id: string) => void;
   onCompare: (id: string) => void;
   onScrollToQA: () => void;
+  onOpenAskVoxWithAction?: (action: ContextualActionType) => void;
 }
 
 export const ProductOverview: React.FC<ProductOverviewProps> = ({
@@ -34,6 +35,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
   onToggleSave,
   onCompare,
   onScrollToQA,
+  onOpenAskVoxWithAction,
 }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.defaultVariant);
   const [imgSrc, setImgSrc] = useState(product.imageUrl);
@@ -243,6 +245,34 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
                 <span>
                   VOX is an independent review analysis engine and does not sell products or process payments. Clicking will direct you safely to the manufacturer's verified official portal in a new tab.
                 </span>
+              </div>
+            </div>
+
+            {/* Contextual VOX AI Quick-Action Buttons */}
+            <div className="pt-2 space-y-1.5">
+              <span className="text-[11px] font-extrabold text-[#0284C7] uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
+                <span>Contextual AI Actions:</span>
+              </span>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => onOpenAskVoxWithAction ? onOpenAskVoxWithAction('summarize_reviews') : onScrollToQA()}
+                  className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#EAF5FF] text-[#182C45] hover:text-[#0284C7] font-bold text-xs border border-[#D5E9FA] hover:border-[#8CBCE5] shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>📝 Summarize reviews</span>
+                </button>
+                <button
+                  onClick={() => onOpenAskVoxWithAction ? onOpenAskVoxWithAction('check_priorities') : onScrollToQA()}
+                  className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#EAF5FF] text-[#182C45] hover:text-[#0284C7] font-bold text-xs border border-[#D5E9FA] hover:border-[#8CBCE5] shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>🎯 Is this right for my priorities?</span>
+                </button>
+                <button
+                  onClick={() => onOpenAskVoxWithAction ? onOpenAskVoxWithAction('pros_and_cons') : onScrollToQA()}
+                  className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#EAF5FF] text-[#182C45] hover:text-[#0284C7] font-bold text-xs border border-[#D5E9FA] hover:border-[#8CBCE5] shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>⚖️ Show pros and cons</span>
+                </button>
               </div>
             </div>
 

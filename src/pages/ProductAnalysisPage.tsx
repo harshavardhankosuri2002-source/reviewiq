@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Product, PrioritySelection, AttributeKey, ReviewSentiment, ReviewSource } from '../types';
+import { Product, PrioritySelection, AttributeKey, ReviewSentiment, ReviewSource, ContextualActionType } from '../types';
 import { ProductOverview } from '../components/ProductOverview';
 import { AISummaryCard } from '../components/AISummaryCard';
 import { ThemeBreakdown } from '../components/ThemeBreakdown';
@@ -22,6 +22,7 @@ interface ProductAnalysisPageProps {
   onTogglePriority: (key: AttributeKey) => void;
   onNavigateSupportingReviews?: (attribute?: AttributeKey, sentiment?: ReviewSentiment, focusTitle?: string) => void;
   onNavigateCalculation?: () => void;
+  onOpenAskVoxWithAction?: (action: ContextualActionType) => void;
 }
 
 export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
@@ -34,6 +35,7 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
   onTogglePriority,
   onNavigateSupportingReviews,
   onNavigateCalculation,
+  onOpenAskVoxWithAction,
 }) => {
   const [evidenceModalState, setEvidenceModalState] = useState<{
     isOpen: boolean;
@@ -149,6 +151,7 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
         onToggleSave={onToggleSave}
         onCompare={onCompare}
         onScrollToQA={scrollToQA}
+        onOpenAskVoxWithAction={onOpenAskVoxWithAction}
       />
 
       {/* 2. Personalized Decision Engine */}

@@ -17,6 +17,7 @@ interface ComparePageProps {
   onBackToDiscover: () => void;
   savedIds: string[];
   onToggleSave: (id: string) => void;
+  onOpenAskVoxCompare?: (productIds: string[]) => void;
 }
 
 export const ComparePage: React.FC<ComparePageProps> = ({
@@ -28,6 +29,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   onBackToDiscover,
   savedIds,
   onToggleSave,
+  onOpenAskVoxCompare,
 }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [modalSearch, setModalSearch] = useState('');
@@ -94,12 +96,23 @@ export const ComparePage: React.FC<ComparePageProps> = ({
       </div>
 
       {/* Dynamic AI Executive Consensus Delta */}
-      <div className="bg-[#EAF5FF] p-6 rounded-2xl border border-[#8CBCE5] space-y-3 shadow-2xs">
-        <div className="flex items-center gap-2 text-[#0284C7]">
-          <Sparkles className="w-5 h-5 fill-current" />
-          <h2 className="text-sm font-bold uppercase tracking-wider">
-            Automated Multi-Device Comparison Verdict
-          </h2>
+      <div className="bg-[#EAF5FF] p-6 rounded-2xl border border-[#8CBCE5] space-y-4 shadow-2xs">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center gap-2 text-[#0284C7]">
+            <Sparkles className="w-5 h-5 fill-current" />
+            <h2 className="text-sm font-bold uppercase tracking-wider">
+              Automated Multi-Device Comparison Verdict
+            </h2>
+          </div>
+          {activeProducts.length >= 2 && onOpenAskVoxCompare && (
+            <button
+              onClick={() => onOpenAskVoxCompare(selectedProductIds)}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#182C45] hover:bg-[#0F1E31] text-white font-bold text-xs shadow-soft transition-all cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" />
+              <span>Ask VOX to compare these products</span>
+            </button>
+          )}
         </div>
         <p className="text-xs sm:text-sm text-[#334155] leading-relaxed font-medium">
           {renderComparisonSummary()}

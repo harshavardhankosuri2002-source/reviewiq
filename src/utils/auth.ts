@@ -113,3 +113,11 @@ export function getSavedProductsStorageKey(userId: string): string {
 export function getComparisonStorageKey(userId: string): string {
   return `vox_compared_items_${userId}`;
 }
+
+export function getAiHistoryStorageKey(userId: string): string {
+  return `vox_ai_history_${userId}`;
+}
+
+export function getPrioritiesStorageKey(userId: string): string {
+  return `vox_user_priorities_${userId}`;
+}

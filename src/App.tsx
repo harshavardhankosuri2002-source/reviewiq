@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Product, PrioritySelection, AttributeKey, ReviewSentiment, UserProfile } from './types';
+import {
+  Product,
+  PrioritySelection,
+  AttributeKey,
+  ReviewSentiment,
+  UserProfile,
+  VoxAiContext,
+  ContextualActionType,
+} from './types';
 import { SAMPLE_PRODUCTS } from './data/mockData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { AuthModal } from './components/AuthModal';
+import { AskVoxFloatingButton } from './components/AskVoxFloatingButton';
+import { AskVoxDrawer } from './components/AskVoxDrawer';
 import { DiscoverPage } from './pages/DiscoverPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
 import { ProductAnalysisPage } from './pages/ProductAnalysisPage';
@@ -16,12 +26,17 @@ import {
   getCurrentUser,
   getSavedProductsStorageKey,
   getComparisonStorageKey,
+  getPrioritiesStorageKey,
 } from './utils/auth';
 
 export const App: React.FC = () => {
   // Active User Profile & Privacy State
   const [currentUser, setCurrentUser] = useState<UserProfile>(() => getCurrentUser());
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+
+  // Global Personal VOX AI State
+  const [isAskVoxOpen, setIsAskVoxOpen] = useState<boolean>(false);
+  const [askVoxContext, setAskVoxContext] = useState<VoxAiContext>({ type: 'general' });
 
   // Navigation View State
   const [currentView, setCurrentView] = useState<string>('discover');
@@ -61,14 +76,15 @@ export const App: React.FC = () => {
     }
   });
 
-  // User Priorities State
-  const [priorities, setPriorities] = useState<PrioritySelection>({
-    battery: true,
-    camera: false,
-    reliability: false,
-    performance: false,
-    value: false,
-    software: false,
+  // User Review Priorities State - Isolated per profile / session
+  const [priorities, setPriorities] = useState<PrioritySelection>(() => {
+    try {
+      const user = getCurrentUser();
+      const saved = localStorage.getItem(getPrioritiesStorageKey(user.id));
+      return saved ? JSON.parse(saved) : { battery: true, camera: false, reliability: false, performance: false, value: false, software: false };
+    } catch {
+      return { battery: true };
+    }
   });
 
   // Sync saved products to user-isolated localStorage key
@@ -89,6 +105,15 @@ export const App: React.FC = () => {
     }
   }, [comparedProductIds, currentUser.id]);
 
+  // Sync user review priorities to user-isolated localStorage key
+  useEffect(() => {
+    try {
+      localStorage.setItem(getPrioritiesStorageKey(currentUser.id), JSON.stringify(priorities));
+    } catch (e) {
+      console.warn('Could not save priorities to localStorage', e);
+    }
+  }, [priorities, currentUser.id]);
+
   // Handle user login / switch / logout: reload that user's private data
   const handleUserChanged = (newUser: UserProfile) => {
     setCurrentUser(newUser);
@@ -98,10 +123,45 @@ export const App: React.FC = () => {
 
       const userCompared = localStorage.getItem(getComparisonStorageKey(newUser.id));
       setComparedProductIds(userCompared ? JSON.parse(userCompared) : ['iphone-16', 'galaxy-s24']);
+
+      const userPriorities = localStorage.getItem(getPrioritiesStorageKey(newUser.id));
+      setPriorities(userPriorities ? JSON.parse(userPriorities) : { battery: true });
     } catch (e) {
       console.warn('Could not switch user state', e);
       setSavedIds([]);
     }
+  };
+
+  // VOX AI Contextual Openers
+  const handleOpenAskVox = (overrideContext?: Partial<VoxAiContext>) => {
+    let baseContext: VoxAiContext = { type: 'general' };
+    if (currentView === 'product') {
+      baseContext = { type: 'product', productId: selectedProductId };
+    } else if (currentView === 'compare') {
+      baseContext = { type: 'compare', compareProductIds: comparedProductIds };
+    }
+    setAskVoxContext({ ...baseContext, ...overrideContext });
+    setIsAskVoxOpen(true);
+  };
+
+  const handleOpenAskVoxWithAction = (action: ContextualActionType) => {
+    handleOpenAskVox({
+      type: 'product',
+      productId: selectedProductId,
+      initialAction: action,
+    });
+  };
+
+  const handleOpenAskVoxCompare = (productIds: string[]) => {
+    handleOpenAskVox({
+      type: 'compare',
+      compareProductIds: productIds,
+      initialAction: 'compare_devices',
+    });
+  };
+
+  const handleClearPriorities = () => {
+    setPriorities({});
   };
 
   // Scroll to top on view changes
@@ -244,6 +304,7 @@ export const App: React.FC = () => {
             onTogglePriority={handleTogglePriority}
             onNavigateSupportingReviews={handleNavigateSupportingReviews}
             onNavigateCalculation={handleNavigateCalculation}
+            onOpenAskVoxWithAction={handleOpenAskVoxWithAction}
           />
         )}
 
@@ -289,6 +350,7 @@ export const App: React.FC = () => {
             onBackToDiscover={() => setCurrentView('discover')}
             savedIds={savedIds}
             onToggleSave={handleToggleSave}
+            onOpenAskVoxCompare={handleOpenAskVoxCompare}
           />
         )}
 
@@ -312,6 +374,31 @@ export const App: React.FC = () => {
           <HowItWorksPage onBackToDiscover={() => setCurrentView('discover')} />
         )}
       </main>
+
+      {/* Persistent Floating Ask VOX Trigger */}
+      <AskVoxFloatingButton
+        onClick={() => handleOpenAskVox()}
+        isOpen={isAskVoxOpen}
+      />
+
+      {/* Slide-over Personal VOX AI Assistant Drawer */}
+      <AskVoxDrawer
+        isOpen={isAskVoxOpen}
+        onClose={() => setIsAskVoxOpen(false)}
+        context={askVoxContext}
+        priorities={priorities}
+        onTogglePriority={handleTogglePriority}
+        onClearPriorities={handleClearPriorities}
+        currentUser={currentUser}
+        onOpenEvidence={(title, subtitle, reviewIds) => {
+          setIsAskVoxOpen(false);
+          handleNavigateSupportingReviews(undefined, undefined, title);
+        }}
+        onNavigateToProduct={productId => {
+          setIsAskVoxOpen(false);
+          handleSelectProduct(productId);
+        }}
+      />
 
       {/* Auth & Private Profile Modal */}
       <AuthModal

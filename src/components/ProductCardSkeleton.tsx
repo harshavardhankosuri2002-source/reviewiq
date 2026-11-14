@@ -10,75 +10,59 @@ export const ProductCardSkeleton: React.FC<ProductCardSkeletonProps> = ({ count 
       {[...Array(count)].map((_, idx) => (
         <div
           key={idx}
-          className="bg-white rounded-2xl border border-[#D5E9FA] shadow-card overflow-hidden flex flex-col justify-between"
+          className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col justify-between"
         >
           <div>
             {/* Image Placeholder */}
-            <div className="relative aspect-16/10 bg-[#F5F8FC] border-b border-[#EAF5FF] p-4 flex items-center justify-center overflow-hidden">
-              <div className="w-24 h-32 rounded-lg skeleton-shimmer border border-[#D5E9FA]/60" />
+            <div className="relative aspect-16/10 bg-slate-50/70 border-b border-slate-100 p-6 flex items-center justify-center overflow-hidden">
+              <div className="w-28 h-36 rounded-xl skeleton-shimmer" />
               
-              {/* Top Floating Badge Skeletons */}
-              <div className="absolute top-3 left-3 w-16 h-6 rounded-md skeleton-shimmer border border-[#D5E9FA]/60" />
-              <div className="absolute top-3 right-3 w-20 h-6 rounded-md skeleton-shimmer border border-[#D5E9FA]/60" />
+              {/* Badges */}
+              <div className="absolute top-4 left-4 w-16 h-5 rounded-md skeleton-shimmer" />
+              <div className="absolute top-4 right-4 w-20 h-5 rounded-md skeleton-shimmer" />
             </div>
 
             {/* Card Body */}
             <div className="p-6 space-y-4">
-              {/* Title & Rating */}
+              {/* Title & Star Rating */}
               <div className="space-y-2">
                 <div className="h-5 w-4/5 rounded skeleton-shimmer" />
                 <div className="flex items-center gap-2">
                   <div className="h-3.5 w-24 rounded skeleton-shimmer" />
-                  <div className="h-3.5 w-16 rounded skeleton-shimmer" />
+                  <div className="h-3.5 w-20 rounded skeleton-shimmer" />
                 </div>
               </div>
 
-              {/* Specs Summary Pill Grid */}
-              <div className="grid grid-cols-2 gap-2 p-3 rounded-xl border border-[#D5E9FA] bg-[#F5F8FC]">
-                <div className="space-y-1.5">
-                  <div className="h-2 w-12 rounded skeleton-shimmer" />
-                  <div className="h-3.5 w-24 rounded skeleton-shimmer" />
-                </div>
-                <div className="space-y-1.5">
-                  <div className="h-2 w-12 rounded skeleton-shimmer" />
-                  <div className="h-3.5 w-24 rounded skeleton-shimmer" />
-                </div>
+              {/* Specs Strip */}
+              <div className="flex items-center gap-2 py-1">
+                <div className="h-3 w-28 rounded skeleton-shimmer" />
+                <span className="text-slate-300">•</span>
+                <div className="h-3 w-28 rounded skeleton-shimmer" />
               </div>
 
               {/* Customer Sentiment Bar */}
-              <div className="p-3.5 rounded-xl border border-[#D5E9FA] bg-[#F5F8FC] space-y-2.5">
+              <div className="space-y-2 pt-1">
                 <div className="flex justify-between items-center">
                   <div className="h-3 w-28 rounded skeleton-shimmer" />
                   <div className="h-3 w-16 rounded skeleton-shimmer" />
                 </div>
-                <div className="h-2 w-full rounded-full skeleton-shimmer" />
-                <div className="flex justify-between">
-                  <div className="h-2 w-14 rounded skeleton-shimmer" />
-                  <div className="h-2 w-14 rounded skeleton-shimmer" />
-                  <div className="h-2 w-14 rounded skeleton-shimmer" />
-                </div>
+                <div className="h-1.5 w-full rounded-full skeleton-shimmer" />
               </div>
 
               {/* Decoded Verdict Lines */}
-              <div className="space-y-1.5 pt-1">
+              <div className="space-y-2 pt-2 border-l-2 border-slate-200 pl-3">
                 <div className="h-3 w-full rounded skeleton-shimmer" />
                 <div className="h-3 w-5/6 rounded skeleton-shimmer" />
-              </div>
-
-              {/* Retailer Footer */}
-              <div className="pt-2 flex items-center justify-between border-t border-[#E2E8F0]/60">
-                <div className="h-3 w-24 rounded skeleton-shimmer" />
-                <div className="h-3 w-16 rounded skeleton-shimmer" />
               </div>
             </div>
           </div>
 
           {/* Card Actions Footer */}
-          <div className="p-6 pt-0 border-t border-[#E2E8F0] mt-2 space-y-2">
-            <div className="w-full h-10 rounded-md skeleton-shimmer mt-4" />
+          <div className="p-6 pt-0 space-y-2.5">
+            <div className="w-full h-10 rounded-lg skeleton-shimmer mt-2" />
             <div className="grid grid-cols-2 gap-2">
-              <div className="h-9 rounded-md skeleton-shimmer" />
-              <div className="h-9 rounded-md skeleton-shimmer" />
+              <div className="h-9 rounded-lg skeleton-shimmer" />
+              <div className="h-9 rounded-lg skeleton-shimmer" />
             </div>
           </div>
         </div>

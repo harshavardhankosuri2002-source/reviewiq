@@ -35,36 +35,32 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-[#182C45] border-b border-[#D5E9FA] shadow-soft">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-slate-900 border-b border-slate-200/80 shadow-xs">
       {/* Top Academic & Privacy Banner */}
-      <div className="bg-[#EAF5FF] border-b border-[#D5E9FA] px-4 py-1.5 text-xs text-[#325682]">
+      <div className="bg-slate-50 border-b border-slate-200/60 px-4 py-1 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#0284C7] text-white uppercase tracking-wider">
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-white uppercase tracking-wider">
               MBA Prototype
             </span>
-            <span className="text-[11px] text-[#325682] truncate">
-              ReviewIQ Intelligence • 23 Multi-Category Verified Records (Smartphones & Flagship ANC Headphones)
+            <span className="text-[11px] text-slate-600 truncate">
+              ReviewIQ 2.0 • 23 Multi-Category Verified Records
             </span>
           </div>
-          <div className="flex items-center gap-3 hidden lg:flex">
+          <div className="flex items-center gap-3 hidden sm:flex">
             {onOpenCommercialization && (
               <button
                 onClick={onOpenCommercialization}
-                className="text-[11px] text-amber-700 hover:text-amber-900 font-semibold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 transition-colors cursor-pointer"
+                className="text-[11px] text-amber-800 hover:text-amber-900 font-semibold flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 transition-colors cursor-pointer"
               >
                 <TrendingUp className="w-3 h-3 text-amber-600" />
-                <span>MBA Business Model & Unit Economics</span>
+                <span>MBA Business Deck</span>
               </button>
             )}
-            <span className="text-[#94A3B8]">•</span>
-            <span className="text-[11px] text-[#0284C7] font-mono font-semibold flex items-center gap-1">
+            <span className="text-slate-300">•</span>
+            <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
               <Lock className="w-3 h-3 text-emerald-600" />
-              <span>Private User Isolation Active</span>
-            </span>
-            <span className="text-[#94A3B8]">•</span>
-            <span className="text-[11px] text-[#0284C7] font-mono font-semibold">
-              REVIEW<span className="text-[#182C45]">IQ</span> • CUSTOMER FEEDBACK, DECODED
+              <span>Private Session Active</span>
             </span>
           </div>
         </div>

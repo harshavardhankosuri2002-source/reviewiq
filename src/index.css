@@ -35,7 +35,7 @@
 }
 
 /* ============================================================ */
-/* REVIEW IQ: DESIGN SYSTEM (OPTIVO CLEAN + NORDIC SHARP)      */
+/* REVIEW IQ: ELEVATED DESIGN SYSTEM (LINEAR & OPTIVO CLEAN)    */
 /* ============================================================ */
 
 /* 60 FPS Iceberg Shimmer Skeleton Animation */
@@ -49,94 +49,105 @@
 }
 
 .skeleton-shimmer {
+  background: linear-gradient(90deg, #F1F5F9 25%, #FFFFFF 50%, #F1F5F9 75%);
+  background-size: 200% 100%;
+  animation: icebergShimmer 1.6s infinite linear;
+}
+
+.skeleton-iceberg-shimmer {
   background: linear-gradient(90deg, #EAF5FF 25%, #FFFFFF 50%, #EAF5FF 75%);
   background-size: 200% 100%;
-  animation: icebergShimmer 1.8s infinite linear;
+  animation: icebergShimmer 1.6s infinite linear;
 }
 
-.skeleton-dark-shimmer {
-  background: linear-gradient(90deg, #182C45 25%, #233F63 50%, #182C45 75%);
-  background-size: 200% 100%;
-  animation: icebergShimmer 1.8s infinite linear;
-}
-
-/* Nordic Sharp Button & Component Architecture */
+/* Elevated Button Architecture (Clean Precision) */
 .btn-nordic-primary {
-  background-color: #182C45;
+  background-color: #0F172A;
   color: #FFFFFF;
-  font-weight: 800;
-  font-size: 0.75rem;
-  padding: 0.625rem 1rem;
-  border-radius: 0.375rem; /* 6px crisp Nordic radius */
-  border: 1px solid #182C45;
-  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.5rem; /* 8px modern radius */
+  border: 1px solid #0F172A;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(15, 29, 48, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 .btn-nordic-primary:hover {
-  background-color: #0F1D30;
-  border-color: #0F1D30;
+  background-color: #1E293B;
+  border-color: #1E293B;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.16);
+  transform: translateY(-1px);
 }
 .btn-nordic-primary:active {
-  transform: translateY(1px);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.08);
 }
 
 .btn-nordic-secondary {
   background-color: #FFFFFF;
-  color: #182C45;
-  font-weight: 700;
-  font-size: 0.75rem;
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
   padding: 0.625rem 1rem;
-  border-radius: 0.375rem; /* 6px crisp Nordic radius */
-  border: 1px solid #DCE6F0;
-  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 0.5rem;
+  border: 1px solid #E2E8F0;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 .btn-nordic-secondary:hover {
-  background-color: #F5F8FC;
-  border-color: #182C45;
-  color: #0F1D30;
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+  color: #0F172A;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
 }
 .btn-nordic-secondary:active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 .btn-nordic-accent {
   background-color: #0284C7;
   color: #FFFFFF;
-  font-weight: 800;
-  font-size: 0.75rem;
-  padding: 0.625rem 1rem;
-  border-radius: 0.375rem;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.5rem;
   border: 1px solid #0284C7;
-  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(2, 132, 199, 0.15);
+  box-shadow: 0 1px 3px 0 rgba(2, 132, 199, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
 }
 .btn-nordic-accent:hover {
   background-color: #0369A1;
   border-color: #0369A1;
+  box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35);
+  transform: translateY(-1px);
 }
 .btn-nordic-accent:active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 .btn-nordic-ghost {
   background-color: transparent;
-  color: #182C45;
-  font-weight: 700;
-  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.8125rem;
   padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
   border: 1px solid transparent;
   transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
@@ -145,12 +156,8 @@
   gap: 0.375rem;
 }
 .btn-nordic-ghost:hover {
-  background-color: #EAF5FF;
-  border-color: #D5E9FA;
-  color: #0284C7;
-}
-.btn-nordic-ghost:active {
-  transform: translateY(1px);
+  background-color: #F1F5F9;
+  color: #0F172A;
 }
 
 .badge-nordic {
@@ -160,8 +167,21 @@
   padding: 0.2rem 0.5rem;
   font-size: 0.6875rem;
   font-weight: 700;
-  border-radius: 0.25rem; /* 4px crisp radius */
+  border-radius: 0.375rem;
   border: 1px solid transparent;
+}
+
+/* Elevated Card Shadow */
+.card-elevated {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 4px 16px -2px rgba(15, 23, 42, 0.03);
+  transition: all 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-elevated:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+  transform: translateY(-2px);
 }
 
 /* 3D Perspective & Floating Utilities */

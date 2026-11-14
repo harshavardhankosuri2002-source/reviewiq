@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, MessageSquare } from 'lucide-react';
+import { InteractiveVoxAvatar } from './InteractiveVoxAvatar';
 
 interface AskVoxFloatingButtonProps {
   onClick: () => void;
@@ -10,28 +10,28 @@ export const AskVoxFloatingButton: React.FC<AskVoxFloatingButtonProps> = ({ onCl
   if (isOpen) return null;
 
   return (
-    <aside aria-label="Personal VOX AI Assistant Trigger" className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40">
-      <button
-        onClick={onClick}
+    <aside
+      aria-label="Personal ReviewIQ VOX AI Assistant Trigger"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40"
+    >
+      <div
         id="ask-vox-global-trigger"
-        aria-label="Open Ask VOX AI Assistant"
-        aria-haspopup="dialog"
-        className="group flex items-center gap-2.5 px-4 py-3 sm:px-5 sm:py-3.5 bg-[#182C45] hover:bg-[#0F1E31] text-white rounded-full shadow-lg hover:shadow-xl border border-[#3B82F6]/30 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-hidden focus:ring-2 focus:ring-[#0284C7] focus:ring-offset-2 cursor-pointer"
+        onClick={onClick}
+        role="button"
+        tabIndex={0}
+        aria-label="Open ReviewIQ VOX AI Assistant"
+        className="group relative flex flex-col items-center p-2 rounded-2xl frosted-glass-card shadow-2xl hover:shadow-sky-400/20 border border-white/90 hover:border-sky-300 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
       >
-        <span className="relative flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38BDF8] opacity-75" />
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-[#0284C7]" />
-        </span>
+        {/* Interactive Character Avatar with Laptop */}
+        <InteractiveVoxAvatar size="md" showBubble={true} />
 
-        <div className="flex items-center gap-1.5">
-          <Sparkles className="w-4 h-4 text-[#38BDF8] group-hover:rotate-12 transition-transform duration-300" />
-          <span className="font-extrabold text-xs sm:text-sm tracking-wide">Ask VOX</span>
+        {/* Small Bottom Status Label */}
+        <div className="mt-1 flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-white border border-white/20 shadow-xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+          <span className="text-[10px] font-bold tracking-wide">Ask VOX</span>
+          <span className="text-[8px] font-extrabold uppercase bg-sky-500/30 text-sky-200 px-1 rounded">AI</span>
         </div>
-
-        <span className="hidden md:inline-block text-[10px] font-semibold uppercase tracking-wider bg-[#0284C7]/30 text-[#E0F2FE] px-2 py-0.5 rounded-full">
-          AI
-        </span>
-      </button>
+      </div>
     </aside>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Product, QAItem } from '../types';
 import { MessageSquare, Send, Sparkles, FileText, Info } from 'lucide-react';
 import { PREDEFINED_QA_ITEMS } from '../data/mockData';
+import { InteractiveVoxAvatar } from './InteractiveVoxAvatar';
 
 interface AskVoxProps {
   product: Product;
@@ -112,28 +113,31 @@ export const AskVox: React.FC<AskVoxProps> = ({ product, onOpenEvidence }) => {
   };
 
   return (
-    <div id="ask-vox-section" className="bg-white rounded-3xl border border-[#D5E9FA] shadow-sm p-6 sm:p-10 space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D5E9FA] pb-5">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="p-1 rounded-md bg-[#EAF5FF] text-[#0284C7] border border-[#D5E9FA]">
-              <MessageSquare className="w-4 h-4" />
-            </span>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
-              Natural Language Assistant
-            </span>
+    <div id="ask-vox-section" className="frosted-modal rounded-3xl border border-white/80 shadow-md p-5 sm:p-7 space-y-5">
+      {/* Header with Interactive Character on Laptop */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-4">
+        <div className="flex items-center gap-3.5">
+          <InteractiveVoxAvatar size="md" isTyping={isSynthesizing} showBubble={true} />
+          <div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="p-1 rounded-md bg-sky-50 text-sky-700 border border-sky-200">
+                <MessageSquare className="w-3.5 h-3.5" />
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-sky-700">
+                ReviewIQ Interactive Assistant
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+              Ask VOX About This Product
+            </h2>
+            <p className="text-xs text-slate-500">
+              Direct answers on real-world battery, display, camera quirks, and common complaints.
+            </p>
           </div>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-[#182C45] tracking-tight">
-            Ask VOX About This Phone
-          </h2>
-          <p className="text-xs text-[#64748B]">
-            Ask questions about real-world battery endurance, common complaints, or camera behavior.
-          </p>
         </div>
 
-        <div className="flex items-center gap-1.5 text-[11px] text-[#0284C7] bg-[#EAF5FF] border border-[#D5E9FA] px-3.5 py-1.5 rounded-xl font-mono font-semibold">
-          <Info className="w-3.5 h-3.5 text-[#0284C7]" />
+        <div className="flex items-center gap-1.5 text-[11px] text-sky-800 bg-sky-50/80 border border-sky-200 px-3 py-1.5 rounded-xl font-mono font-semibold self-start sm:self-auto">
+          <Info className="w-3.5 h-3.5 text-sky-600" />
           <span>Grounded in {product.sampleReviewCount} reviews</span>
         </div>
       </div>

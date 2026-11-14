@@ -25,6 +25,7 @@ import {
 import { ATTRIBUTE_CONFIG, SAMPLE_PRODUCTS } from '../data/mockData';
 import { generateVoxAiResponse } from '../utils/voxAiEngine';
 import { getAiHistoryStorageKey } from '../utils/auth';
+import { InteractiveVoxAvatar } from './InteractiveVoxAvatar';
 
 interface AskVoxDrawerProps {
   isOpen: boolean;
@@ -231,21 +232,20 @@ export const AskVoxDrawer: React.FC<AskVoxDrawerProps> = ({
       {/* Main Drawer Container */}
       <div className="relative w-full max-w-lg bg-white h-full shadow-2xl flex flex-col z-10 border-l border-[#D5E9FA] animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
-        <header className="p-4 sm:p-5 border-b border-[#D5E9FA] bg-[#F8FAFC] flex items-center justify-between gap-3 shrink-0">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#182C45] text-white flex items-center justify-center shadow-xs">
-              <Sparkles className="w-4 h-4 text-[#38BDF8]" />
-            </div>
+        <header className="p-3.5 sm:p-4 border-b border-[#D5E9FA] bg-[#F8FAFC] flex items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center gap-3">
+            <InteractiveVoxAvatar size="sm" isTyping={isTyping} forceOpen={true} showBubble={false} />
             <div>
               <div className="flex items-center gap-2">
                 <h2 id="vox-ai-drawer-title" className="text-sm sm:text-base font-black text-[#182C45]">
                   Personal VOX AI
                 </h2>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider bg-[#EAF5FF] text-[#0284C7] px-2 py-0.5 rounded-md border border-[#D5E9FA]">
-                  Evidence Grounded
+                <span className="text-[9px] font-extrabold uppercase tracking-wider bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md border border-emerald-200 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Online</span>
                 </span>
               </div>
-              <p className="text-[11px] text-[#64748B]">HEAR WHAT MATTERS — Real customer insights</p>
+              <p className="text-[11px] text-[#64748B]">ReviewIQ Lead Analyst — Evidence Grounded</p>
             </div>
           </div>
 
@@ -376,6 +376,19 @@ export const AskVoxDrawer: React.FC<AskVoxDrawerProps> = ({
                     : 'bg-[#F8FAFC] text-[#1E293B] border border-[#D5E9FA] rounded-tl-xs shadow-xs space-y-3'
                 }`}
               >
+                {msg.sender === 'vox' && (
+                  <div className="flex items-center gap-2 pb-1.5 border-b border-slate-200/60 mb-1">
+                    <img
+                      src="/images/vox-avatar.jpg"
+                      alt="VOX AI"
+                      className="w-5 h-5 rounded-full object-cover object-top border border-sky-300 shadow-2xs"
+                    />
+                    <span className="text-[11px] font-bold text-slate-800">VOX Analyst</span>
+                    <span className="text-[9px] font-mono text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-bold">
+                      AI
+                    </span>
+                  </div>
+                )}
                 {/* Formatted Markdown Content */}
                 <div className="whitespace-pre-wrap font-sans space-y-2">
                   {msg.text.split('\n\n').map((paragraph, idx) => (
@@ -464,11 +477,17 @@ export const AskVoxDrawer: React.FC<AskVoxDrawerProps> = ({
             </div>
           ))}
 
-          {/* Typing Animation */}
+          {/* Typing Animation with Character on Laptop */}
           {isTyping && (
-            <div className="flex items-center gap-2 text-xs text-[#64748B] bg-[#F8FAFC] border border-[#D5E9FA] px-3.5 py-2.5 rounded-2xl w-fit">
-              <Sparkles className="w-3.5 h-3.5 text-[#0284C7] animate-spin" />
-              <span>VOX AI is synthesizing verified reviews...</span>
+            <div className="flex items-center gap-3 text-xs text-slate-700 bg-sky-50/80 border border-sky-200/90 p-3 rounded-2xl w-fit animate-fadeIn shadow-xs">
+              <InteractiveVoxAvatar size="sm" isTyping={true} forceOpen={true} showBubble={false} />
+              <div className="space-y-0.5">
+                <span className="font-bold text-slate-900 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-ping" />
+                  <span>VOX AI is typing a response...</span>
+                </span>
+                <span className="text-[10px] text-slate-500 block">Synthesizing customer reviews on laptop</span>
+              </div>
             </div>
           )}
 

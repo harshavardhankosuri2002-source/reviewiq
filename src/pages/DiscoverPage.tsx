@@ -31,6 +31,7 @@ import { getProductSentimentStats, calculatePersonalizedMatch } from '../utils/a
 import { SHOPPER_PERSONAS, ATTRIBUTE_CONFIG } from '../data/mockData';
 import { ProductCardSkeleton } from '../components/ProductCardSkeleton';
 import { ProductQuickPreviewModal } from '../components/ProductQuickPreviewModal';
+import { ParallaxDeviceStage } from '../components/ParallaxDeviceStage';
 import { formatINR } from '../utils/currency';
 
 interface DiscoverPageProps {
@@ -617,25 +618,44 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                         </span>
                       </div>
 
-                      {/* Balanced Center Image */}
+                      {/* Balanced Center Image with Principle 11: 3D Parallax Tilt */}
                       <div className="my-auto flex items-center justify-center w-full h-36">
-                        <img
-                          src={product.imageUrl}
-                          alt={product.name}
-                          onError={e => {
-                            (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
-                          }}
-                          className="max-h-32 sm:max-h-36 max-w-full object-contain mx-auto drop-shadow-xs group-hover:scale-105 transition-transform duration-300 select-none"
-                          loading="lazy"
-                        />
+                        <ParallaxDeviceStage maxTilt={8} showGlare={true} className="w-full h-full">
+                          <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            onError={e => {
+                              (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
+                            }}
+                            className="max-h-32 sm:max-h-36 max-w-full object-contain mx-auto drop-shadow-md select-none pointer-events-none"
+                            loading="lazy"
+                          />
+                        </ParallaxDeviceStage>
                       </div>
 
-                      {/* Color Swatch Dots (Image 4 Reference) */}
-                      <div className="flex items-center gap-1.5 frosted-pill px-2 py-0.5 rounded-full shadow-2xs z-10">
-                        <span className="w-2 h-2 rounded-full bg-slate-900 border border-white/60" />
-                        <span className="w-2 h-2 rounded-full bg-slate-300 border border-white/60" />
-                        <span className="w-2 h-2 rounded-full bg-emerald-700 border border-white/60" />
-                        <span className="w-2 h-2 rounded-full bg-sky-600 border border-white/60" />
+                      {/* Color Swatch Dots with Principle 13 & 14: Fitts's Law Generous Hit Areas */}
+                      <div
+                        className="flex items-center gap-0.5 frosted-pill px-1.5 py-0.5 rounded-full shadow-2xs z-10"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        {[
+                          { bg: 'bg-slate-900', label: 'Obsidian / Midnight' },
+                          { bg: 'bg-slate-300', label: 'Silver / White' },
+                          { bg: 'bg-emerald-700', label: 'Emerald / Titanium Green' },
+                          { bg: 'bg-sky-600', label: 'Blue / Desert' },
+                        ].map((swatch, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            title={swatch.label}
+                            aria-label={`Color option: ${swatch.label}`}
+                            className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/80 active:scale-90 transition-all cursor-pointer group/swatch"
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${swatch.bg} border border-white/80 group-hover/swatch:scale-125 transition-transform`}
+                            />
+                          </button>
+                        ))}
                       </div>
                     </div>
 
@@ -647,7 +667,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                           {product.category === 'Headphones' ? 'Premium Audio' : 'Verified Flagship'}
                         </span>
                         {personaMatch && (
-                          <span className="font-mono text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                          <span className="font-mono text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 doherty-fast-transition animate-in fade-in zoom-in-95 duration-150">
                             {personaMatch.score}% Match
                           </span>
                         )}
@@ -739,8 +759,9 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                             (Incl. of all taxes)
                           </span>
                         </div>
-                        <div className="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-slate-900 group-hover:text-white flex items-center justify-center text-slate-600 transition-all shadow-2xs">
-                          <ArrowRight className="w-3 h-3" />
+                        {/* Principle 8: Secondary Action - Animated Action Arrow Button */}
+                        <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-slate-900 group-hover:text-white group-hover:translate-x-1 group-hover:scale-105 flex items-center justify-center text-slate-600 transition-all duration-300 shadow-2xs">
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                         </div>
                       </div>
                     </div>

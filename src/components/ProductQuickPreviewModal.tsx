@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { getProductSentimentStats, calculatePersonalizedMatch } from '../utils/analytics';
 import { formatINR } from '../utils/currency';
+import { ParallaxDeviceStage } from './ParallaxDeviceStage';
 
 interface ProductQuickPreviewModalProps {
   product: Product | null;
@@ -73,10 +74,11 @@ export const ProductQuickPreviewModal: React.FC<ProductQuickPreviewModalProps> =
             </span>
           </div>
 
+          {/* Principle 13 & 14: Fitts's Law Generous Close Hit Area */}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-slate-200/50 text-slate-400 hover:text-slate-900 transition-colors cursor-pointer"
-            aria-label="Close Preview"
+            className="w-9 h-9 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full hover:bg-slate-200/60 text-slate-500 hover:text-slate-900 active:scale-90 transition-all cursor-pointer"
+            aria-label="Close Preview (Esc)"
           >
             <X className="w-5 h-5" />
           </button>
@@ -88,26 +90,28 @@ export const ProductQuickPreviewModal: React.FC<ProductQuickPreviewModalProps> =
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           {/* Left Column: Device Hero & Actions (5 cols) */}
           <div className="md:col-span-5 space-y-4">
-            {/* Floating Device Showcase */}
+            {/* Floating Device Showcase with Principle 11: 3D Parallax Tilt */}
             <div className="relative h-48 w-full frosted-panel rounded-2xl p-4 flex items-center justify-center overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-tr from-sky-400/20 via-indigo-300/15 to-transparent rounded-full blur-xl group-hover:scale-110 transition-transform duration-500 pointer-events-none" />
 
-              <img
-                src={product.imageUrl}
-                alt={product.name}
-                onError={e => {
-                  (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
-                }}
-                className="max-h-36 max-w-full object-contain relative z-10 drop-shadow-lg group-hover:scale-105 transition-transform duration-300 select-none"
-              />
+              <ParallaxDeviceStage maxTilt={10} showGlare={true} className="w-full h-full">
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  onError={e => {
+                    (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
+                  }}
+                  className="max-h-36 max-w-full object-contain relative z-10 drop-shadow-lg select-none pointer-events-none"
+                />
+              </ParallaxDeviceStage>
 
               {/* Price Pill */}
-              <div className="absolute top-2.5 right-2.5 bg-slate-900/85 backdrop-blur-md text-white px-2.5 py-0.5 rounded text-xs font-bold border border-white/20 shadow-xs">
+              <div className="absolute top-2.5 right-2.5 bg-slate-900/85 backdrop-blur-md text-white px-2.5 py-0.5 rounded text-xs font-bold border border-white/20 shadow-xs z-30">
                 {formatINR(product.priceMSRP)}
               </div>
 
               {/* Brand Pill */}
-              <div className="absolute top-2.5 left-2.5 frosted-pill text-slate-800 px-2 py-0.5 rounded text-[10px] font-bold shadow-2xs">
+              <div className="absolute top-2.5 left-2.5 frosted-pill text-slate-800 px-2 py-0.5 rounded text-[10px] font-bold shadow-2xs z-30">
                 {product.brand}
               </div>
             </div>

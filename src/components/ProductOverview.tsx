@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
 import { formatINR } from '../utils/currency';
+import { ParallaxDeviceStage } from './ParallaxDeviceStage';
 
 interface ProductOverviewProps {
   product: Product;
@@ -124,22 +125,36 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
                 </span>
               </div>
 
-              {/* Centered Device Image */}
-              <img
-                src={imgSrc}
-                alt={product.name}
-                onError={() => {
-                  setImgSrc('/images/products/device-placeholder.svg');
-                }}
-                className="max-h-52 sm:max-h-56 max-w-full object-contain my-auto drop-shadow-md group-hover:scale-105 transition-transform duration-300 select-none"
-              />
+              {/* Centered Device Image with Principle 11: 3D Parallax Tilt */}
+              <ParallaxDeviceStage maxTilt={8} showGlare={true} className="w-full flex items-center justify-center my-auto">
+                <img
+                  src={imgSrc}
+                  alt={product.name}
+                  onError={() => {
+                    setImgSrc('/images/products/device-placeholder.svg');
+                  }}
+                  className="max-h-52 sm:max-h-56 max-w-full object-contain my-auto drop-shadow-md select-none pointer-events-none"
+                />
+              </ParallaxDeviceStage>
 
-              {/* Color Swatch Dots (Apple Store Inspiration from Image 4) */}
-              <div className="flex items-center gap-1.5 pt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-white/80 shadow-2xs" title="Dark Titanium / Black" />
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-300 border border-white/80 shadow-2xs" title="Silver / White" />
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-700 border border-white/80 shadow-2xs" title="Emerald / Green" />
-                <span className="w-2.5 h-2.5 rounded-full bg-sky-600 border border-white/80 shadow-2xs" title="Blue / Violet" />
+              {/* Color Swatch Dots with Principle 13 & 14: Fitts's Law Generous Hit Area */}
+              <div className="flex items-center gap-1 pt-1">
+                {[
+                  { bg: 'bg-slate-900', label: 'Dark Titanium / Black' },
+                  { bg: 'bg-slate-300', label: 'Silver / White' },
+                  { bg: 'bg-emerald-700', label: 'Emerald / Green' },
+                  { bg: 'bg-sky-600', label: 'Blue / Violet' },
+                ].map((swatch, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    title={swatch.label}
+                    aria-label={`Color option: ${swatch.label}`}
+                    className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/80 active:scale-90 transition-all cursor-pointer group/swatch"
+                  >
+                    <span className={`w-2.5 h-2.5 rounded-full ${swatch.bg} border border-white/80 shadow-2xs group-hover/swatch:scale-125 transition-transform`} />
+                  </button>
+                ))}
               </div>
             </div>
           </div>

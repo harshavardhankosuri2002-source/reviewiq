@@ -379,12 +379,12 @@ export const AskVoxDrawer: React.FC<AskVoxDrawerProps> = ({
                 {msg.sender === 'vox' && (
                   <div className="flex items-center gap-2 pb-1.5 border-b border-slate-200/60 mb-1">
                     <img
-                      src="/images/vox-avatar.jpg"
-                      alt="VOX AI"
-                      className="w-5 h-5 rounded-full object-cover object-top border border-sky-300 shadow-2xs"
+                      src="/images/vox-robot.jpg"
+                      alt="VOX Robot AI"
+                      className="w-5 h-5 rounded-full object-cover object-[32%_15%] border border-cyan-400 shadow-2xs"
                     />
-                    <span className="text-[11px] font-bold text-slate-800">VOX Analyst</span>
-                    <span className="text-[9px] font-mono text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-bold">
+                    <span className="text-[11px] font-bold text-slate-800">VOX Bot</span>
+                    <span className="text-[9px] font-mono text-cyan-700 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-200 font-bold">
                       AI
                     </span>
                   </div>

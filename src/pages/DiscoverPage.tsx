@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { Product, ShopperPersona } from '../types';
+import { Product, ShopperPersona, PrioritySelection } from '../types';
 import {
   Search,
   Star,
@@ -20,11 +20,12 @@ import {
   Sparkles,
   Headphones as HeadphonesIcon,
   Smartphone as SmartphoneIcon,
+  RotateCcw,
 } from 'lucide-react';
-import { getProductSentimentStats } from '../utils/analytics';
-import { FloatingPhonesHero } from '../components/FloatingPhonesHero';
-import { PersonaPresets } from '../components/PersonaPresets';
-import { formatINR, parsePriceNumber } from '../utils/currency';
+import { getProductSentimentStats, calculatePersonalizedMatch } from '../utils/analytics';
+import { SHOPPER_PERSONAS, ATTRIBUTE_CONFIG } from '../data/mockData';
+import { ProductCardSkeleton } from '../components/ProductCardSkeleton';
+import { formatINR } from '../utils/currency';
 
 interface DiscoverPageProps {
   products: Product[];
@@ -63,12 +64,12 @@ const PRICE_TIERS = [
 
 const POPULAR_SEARCHES = [
   'iPhone 16 Pro Max',
+  'Sony WH-1000XM5',
   'Galaxy S24 Ultra',
-  'Pixel 9',
+  'Bose QC Ultra',
+  'Pixel 9 Pro',
   'OnePlus 12',
-  'Nothing Phone',
-  '120Hz LTPO',
-  '200MP Camera',
+  'Nothing Phone (2)',
 ];
 
 export const DiscoverPage: React.FC<DiscoverPageProps> = ({
@@ -83,11 +84,13 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
   onSelectPersonaPreset,
 }) => {
   const [heroSearch, setHeroSearch] = useState('');
+  const [activePersona, setActivePersona] = useState<ShopperPersona | null>(null);
+  const [isLoadingSkeletons, setIsLoadingSkeletons] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
   const [activeBrand, setActiveBrand] = useState<string>('all');
   const [activePriceTierIndex, setActivePriceTierIndex] = useState<number>(0);
   const [catalogueSearch, setCatalogueSearch] = useState<string>('');
-  const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'price-asc' | 'price-desc' | 'newest'>('rating');
+  const [sortBy, setSortBy] = useState<'rating' | 'fit' | 'reviews' | 'price-asc' | 'price-desc' | 'newest'>('rating');
 
   const catalogueRef = useRef<HTMLDivElement>(null);
 
@@ -101,6 +104,50 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
   const scrollToCatalogue = () => {
     catalogueRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Select Persona from Hero C with tactile Iceberg Shimmer transition
+  const handleSelectPersona = (persona: ShopperPersona | null) => {
+    setIsLoadingSkeletons(true);
+    setActivePersona(persona);
+
+    if (persona && onSelectPersonaPreset) {
+      onSelectPersonaPreset(persona);
+      setSortBy('fit');
+    } else {
+      setSortBy('rating');
+    }
+
+    setTimeout(() => {
+      setIsLoadingSkeletons(false);
+    }, 380);
+  };
+
+  // Category switch with Iceberg Shimmer transition
+  const handleCategorySwitch = (cat: 'all' | 'Smartphones' | 'Headphones') => {
+    setIsLoadingSkeletons(true);
+    setActiveCategory(cat);
+    setTimeout(() => {
+      setIsLoadingSkeletons(false);
+    }, 300);
+  };
+
+  // Simulated AI Refresh
+  const triggerSimulatedRefresh = () => {
+    setIsLoadingSkeletons(true);
+    setTimeout(() => {
+      setIsLoadingSkeletons(false);
+    }, 450);
+  };
+
+  // Calculate persona priority object
+  const activePriorities = useMemo<PrioritySelection>(() => {
+    if (!activePersona) return {};
+    const p: PrioritySelection = {};
+    activePersona.priorities.forEach(key => {
+      p[key] = true;
+    });
+    return p;
+  }, [activePersona]);
 
   // Filter & Sort Logic across all 23 products
   const filteredProducts = useMemo(() => {
@@ -143,6 +190,12 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
         return matchesQuery && matchesBrand && matchesPrice;
       })
       .sort((a, b) => {
+        if (sortBy === 'fit' && activePersona) {
+          const matchA = calculatePersonalizedMatch(a.id, activePriorities).score;
+          const matchB = calculatePersonalizedMatch(b.id, activePriorities).score;
+          if (matchB !== matchA) return matchB - matchA;
+        }
+
         const priceA = parseInt(a.priceMSRP.replace(/[^0-9]/g, ''), 10) || 0;
         const priceB = parseInt(b.priceMSRP.replace(/[^0-9]/g, ''), 10) || 0;
 
@@ -152,33 +205,33 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
         if (sortBy === 'price-desc') return priceB - priceA;
         return b.releaseYear - a.releaseYear;
       });
-  }, [products, catalogueSearch, activeCategory, activeBrand, activePriceTierIndex, sortBy]);
+  }, [products, catalogueSearch, activeCategory, activeBrand, activePriceTierIndex, sortBy, activePersona, activePriorities]);
 
   const resetFilters = () => {
     setActiveCategory('all');
     setActiveBrand('all');
     setActivePriceTierIndex(0);
     setCatalogueSearch('');
-    setSortBy('rating');
+    setSortBy(activePersona ? 'fit' : 'rating');
   };
 
   return (
     <div className="space-y-16 sm:space-y-20 pb-20">
       {/* ============================================================ */}
-      {/* 1. HERO SECTION (Minimal Light, Floating Phones Visual)      */}
+      {/* 1. HERO C: PERSONA ARCHETYPES FIRST (Optivo Clean Tech)      */}
       {/* ============================================================ */}
-      <section className="relative pt-10 sm:pt-16 pb-6 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-8 sm:pt-14 pb-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#EAF5FF]/80 via-[#F5F8FC] to-[#F5F8FC] border-b border-[#D5E9FA]">
         {/* Ambient Glow */}
-        <div className="ambient-glow-iceberg w-[600px] h-[320px] top-0 left-1/2 -translate-x-1/2 opacity-70" />
+        <div className="ambient-glow-iceberg w-[700px] h-[350px] top-0 left-1/2 -translate-x-1/2 opacity-60" />
 
-        <div className="max-w-4xl mx-auto text-center space-y-5 relative z-10">
-          {/* Subtle Tagline Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF5FF] border border-[#B8DBF7] text-xs font-bold text-[#0284C7] shadow-soft">
-            <span className="w-2 h-2 rounded-full bg-[#0284C7] animate-pulse"></span>
-            <span>Customer feedback, decoded across 22 smartphone models.</span>
+        <div className="max-w-5xl mx-auto space-y-6 relative z-10 text-center">
+          {/* Tagline Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white border border-[#D5E9FA] text-xs font-bold text-[#182C45] shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-[#0284C7] animate-ping"></span>
+            <span>Persona-First Review Intelligence • 23 Multi-Category Devices</span>
           </div>
 
-          {/* Headline */}
+          {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#182C45] leading-tight">
             Understand the experience <br className="hidden sm:block" />
             <span className="text-[#0284C7]">behind the rating.</span>
@@ -186,55 +239,160 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
 
           {/* Supporting Copy */}
           <p className="text-sm sm:text-base text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            VOX synthesizes thousands of customer opinions across marketplaces, retail portals, and technical forums into evidence-backed, personalized decision intelligence.
+            Every buyer values different things. Select your purchasing archetype below to instantly re-rank all 23 flagship smartphones and headphones by what verified customers say about battery stamina, camera fidelity, ANC isolation, or durability.
           </p>
 
-          {/* Primary Action & Quick Search */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-xl mx-auto">
-            <button
-              onClick={scrollToCatalogue}
-              className="w-full sm:w-auto px-8 py-3.5 bg-[#0284C7] hover:bg-[#0369A1] text-white text-sm font-extrabold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 group"
-            >
-              <span>Explore Catalogue ({products.length} Phones)</span>
-              <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
-            </button>
+          {/* ========================================================== */}
+          {/* HERO C: LIVE PERSONA ARCHETYPES GRID                       */}
+          {/* ========================================================== */}
+          <div className="pt-2">
+            <div className="flex items-center justify-between mb-3 max-w-4xl mx-auto px-1">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-[#182C45] flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
+                <span>Step 1: Choose Your Buyer Archetype</span>
+              </span>
+              {activePersona && (
+                <button
+                  onClick={() => handleSelectPersona(null)}
+                  className="text-xs font-bold text-[#64748B] hover:text-[#182C45] flex items-center gap-1 transition-colors"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Reset to Organic Market Rating</span>
+                </button>
+              )}
+            </div>
 
-            <form onSubmit={handleHeroSearchSubmit} className="relative w-full sm:w-80">
-              <input
-                type="text"
-                value={heroSearch}
-                onChange={e => setHeroSearch(e.target.value)}
-                placeholder="Search phone (e.g. Pixel 9, OnePlus 12)..."
-                className="w-full bg-white text-[#182C45] placeholder-[#94A3B8] text-xs sm:text-sm pl-10 pr-4 py-3.5 rounded-xl border border-[#D5E9FA] focus:outline-none focus:border-[#0284C7] focus:ring-1 focus:ring-[#0284C7] transition-all shadow-soft"
-              />
-              <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-4" />
-            </form>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-4xl mx-auto text-left">
+              {/* Archetype 1: Business Traveler */}
+              {SHOPPER_PERSONAS.map(persona => {
+                const isSelected = activePersona?.id === persona.id;
+                return (
+                  <button
+                    key={persona.id}
+                    onClick={() => handleSelectPersona(persona)}
+                    className={`p-3.5 rounded-md border text-left transition-all duration-150 flex flex-col justify-between ${
+                      isSelected
+                        ? 'bg-[#182C45] text-white border-[#182C45] shadow-md scale-[1.02]'
+                        : 'bg-white text-[#182C45] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F8FAFC]'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-2xl">{persona.emoji}</span>
+                        {isSelected ? (
+                          <span className="w-4 h-4 rounded bg-[#0284C7] text-white flex items-center justify-center text-[10px] font-bold">
+                            <Check className="w-3 h-3 stroke-[3]" />
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-[#64748B] font-mono">
+                            {persona.priorities.length} specs
+                          </span>
+                        )}
+                      </div>
+                      <h4 className={`text-xs font-black leading-tight ${isSelected ? 'text-white' : 'text-[#182C45]'}`}>
+                        {persona.name}
+                      </h4>
+                      <p className={`text-[10px] mt-1 line-clamp-2 leading-tight ${isSelected ? 'text-sky-200' : 'text-[#64748B]'}`}>
+                        {persona.tagline}
+                      </p>
+                    </div>
+
+                    <div className="mt-3 pt-2 border-t border-[#DCE6F0]/50 flex flex-wrap gap-1">
+                      {persona.priorities.slice(0, 2).map(pKey => (
+                        <span
+                          key={pKey}
+                          className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${
+                            isSelected ? 'bg-white/20 text-white' : 'bg-[#EAF5FF] text-[#0284C7]'
+                          }`}
+                        >
+                          {ATTRIBUTE_CONFIG[pKey]?.label || pKey}
+                        </span>
+                      ))}
+                    </div>
+                  </button>
+                );
+              })}
+
+              {/* Archetype 5: All Shoppers / Neutral */}
+              <button
+                onClick={() => handleSelectPersona(null)}
+                className={`p-3.5 rounded-md border text-left transition-all duration-150 flex flex-col justify-between ${
+                  activePersona === null
+                    ? 'bg-[#182C45] text-white border-[#182C45] shadow-md scale-[1.02]'
+                    : 'bg-white text-[#182C45] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F8FAFC]'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-2xl">🌐</span>
+                    {activePersona === null ? (
+                      <span className="w-4 h-4 rounded bg-[#0284C7] text-white flex items-center justify-center text-[10px] font-bold">
+                        <Check className="w-3 h-3 stroke-[3]" />
+                      </span>
+                    ) : (
+                      <span className="text-[10px] text-[#64748B] font-mono">All Specs</span>
+                    )}
+                  </div>
+                  <h4 className={`text-xs font-black leading-tight ${activePersona === null ? 'text-white' : 'text-[#182C45]'}`}>
+                    Organic Consensus
+                  </h4>
+                  <p className={`text-[10px] mt-1 line-clamp-2 leading-tight ${activePersona === null ? 'text-sky-200' : 'text-[#64748B]'}`}>
+                    Standard unweighted customer score across all 540 verified reviews.
+                  </p>
+                </div>
+
+                <div className="mt-3 pt-2 border-t border-[#DCE6F0]/50">
+                  <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold block text-center ${
+                    activePersona === null ? 'bg-white/20 text-white' : 'bg-[#EAF5FF] text-[#0284C7]'
+                  }`}>
+                    Unweighted Rating
+                  </span>
+                </div>
+              </button>
+            </div>
           </div>
 
-          {/* Trending Searches */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
-            <span className="text-[#64748B] font-medium">Trending:</span>
-            {POPULAR_SEARCHES.map(tag => (
+          {/* Quick Search & Explore Row with Nordic Sharp Action */}
+          <div className="pt-2 max-w-2xl mx-auto space-y-3">
+            <form onSubmit={handleHeroSearchSubmit} className="flex flex-col sm:flex-row gap-2">
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  value={heroSearch}
+                  onChange={e => setHeroSearch(e.target.value)}
+                  placeholder="Search 23 products (e.g. iPhone 16 Pro, Sony XM5, Bose Ultra, S24 Ultra)..."
+                  className="w-full bg-white text-[#182C45] placeholder-[#94A3B8] text-xs sm:text-sm pl-10 pr-4 py-3 rounded-md border border-[#DCE6F0] focus:outline-none focus:border-[#182C45] focus:ring-1 focus:ring-[#182C45] transition-all shadow-2xs"
+                />
+                <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3.5" />
+              </div>
               <button
-                key={tag}
-                onClick={() => onSearchSubmit(tag)}
-                className="px-3 py-1 rounded-lg bg-white hover:bg-[#EAF5FF] border border-[#D5E9FA] hover:border-[#8CBCE5] text-[#475569] hover:text-[#0284C7] font-semibold transition-all text-[11px] shadow-soft"
+                type="submit"
+                className="btn-nordic-primary shrink-0 py-3 px-6 cursor-pointer"
               >
-                {tag}
+                <span>Search Decoded Reviews</span>
+                <span className="text-slate-400 font-mono text-[10px]">[Enter]</span>
               </button>
-            ))}
+            </form>
+
+            {/* Trending Searches with Nordic Sharp Tags */}
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
+              <span className="text-[#64748B] font-bold text-[11px]">Trending:</span>
+              {POPULAR_SEARCHES.map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => onSearchSubmit(tag)}
+                  className="px-2.5 py-1 rounded-md bg-white hover:bg-[#F5F8FC] border border-[#DCE6F0] hover:border-[#182C45] text-[#182C45] font-semibold transition-all text-[11px] active:translate-y-0.5"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* 3D Floating Smartphone Hero Stage */}
-        <FloatingPhonesHero
-          onExploreClick={scrollToCatalogue}
-          onSelectProduct={onSelectProduct}
-        />
       </section>
 
       {/* ============================================================ */}
-      {/* 2. CORE CAPABILITIES (Minimalist OHAMA Light Cards)          */}
+      {/* 2. CORE CAPABILITIES (Trust, Multi-Source & Intelligence)     */}
       {/* ============================================================ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#D5E9FA] pb-4">
@@ -246,15 +404,15 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
               Built for Confident Purchasing
             </h2>
             <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-xl">
-              How VOX transforms noisy, scattered customer feedback into objective buying confidence.
+              How ReviewIQ transforms noisy, scattered customer feedback into objective buying confidence.
             </p>
           </div>
 
           <button
             onClick={onNavigateHowItWorks}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284C7] hover:text-[#0369A1] transition-colors self-start sm:self-auto"
+            className="btn-nordic-secondary self-start sm:self-auto"
           >
-            <span>Full methodology</span>
+            <span>Full Methodology</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
@@ -262,21 +420,21 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
         {/* 5 Core Feature Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Feature 1 */}
-          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-all flex flex-col justify-between space-y-5 shadow-card group">
+          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#182C45] transition-all flex flex-col justify-between space-y-5 shadow-card group">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#EAF5FF] border border-[#B8DBF7] flex items-center justify-center text-[#0284C7] group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-md bg-[#EAF5FF] border border-[#B8DBF7] flex items-center justify-center text-[#0284C7] group-hover:scale-105 transition-transform">
                 <Database className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-[#182C45]">Multi-Source Ingestion</h3>
               <p className="text-xs text-[#475569] leading-relaxed">
-                Aggregates customer feedback across marketplaces, retail portals, and technical enthusiast forums into a single feed.
+                Aggregates customer feedback across marketplaces, retail portals, and technical enthusiast forums into a single normalized intelligence stream.
               </p>
             </div>
 
-            <div className="bg-[#F5F8FC] p-3 rounded-xl border border-[#D5E9FA] space-y-2">
+            <div className="bg-[#F5F8FC] p-3 rounded-md border border-[#D5E9FA] space-y-2">
               <div className="flex items-center justify-between text-[11px] text-[#64748B]">
                 <span>Catalogue Coverage</span>
-                <span className="text-[#0284C7] font-mono font-bold">22 Models Active</span>
+                <span className="text-[#0284C7] font-mono font-bold">23 Models Active</span>
               </div>
               <div className="grid grid-cols-3 gap-1.5 text-[10px] text-center font-medium">
                 <div className="bg-white py-1.5 rounded text-[#334155] border border-[#E2E8F0]">Amazon / BestBuy</div>
@@ -287,96 +445,94 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           </div>
 
           {/* Feature 2 */}
-          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-all flex flex-col justify-between space-y-5 shadow-card group">
+          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#182C45] transition-all flex flex-col justify-between space-y-5 shadow-card group">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-md bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 group-hover:scale-105 transition-transform">
                 <UserCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-[#182C45]">Personalized Insights</h3>
+              <h3 className="text-base font-bold text-[#182C45]">Personalized Decision Engine</h3>
               <p className="text-xs text-[#475569] leading-relaxed">
-                Dynamically scores phones based on your priorities—whether battery endurance, zoom photography, or longevity.
+                Dynamically weights products based on your priorities—whether battery stamina, zoom photography, ANC isolation, or build longevity.
               </p>
             </div>
 
-            <div className="bg-[#F5F8FC] p-3 rounded-xl border border-[#D5E9FA] flex items-center justify-between">
+            <div className="bg-[#F5F8FC] p-3 rounded-md border border-[#D5E9FA] flex items-center justify-between">
               <div className="space-y-0.5">
                 <span className="text-[10px] text-[#64748B] uppercase font-semibold">Dynamic Decision Score</span>
                 <p className="text-xs font-bold text-[#182C45]">Tailored to User Priorities</p>
               </div>
-              <div className="px-2.5 py-1 rounded-lg bg-[#EAF5FF] border border-[#B8DBF7] text-[#0284C7] text-xs font-extrabold font-mono">
+              <div className="px-2.5 py-1 rounded bg-[#182C45] text-white text-xs font-extrabold font-mono">
                 94% FIT
               </div>
             </div>
           </div>
 
           {/* Feature 3 */}
-          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-all flex flex-col justify-between space-y-5 shadow-card group">
+          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#182C45] transition-all flex flex-col justify-between space-y-5 shadow-card group">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-md bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 group-hover:scale-105 transition-transform">
                 <FileText className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-[#182C45]">4-Quadrant AI Summaries</h3>
+              <h3 className="text-base font-bold text-[#182C45]">Evidence-Backed Summaries</h3>
               <p className="text-xs text-[#475569] leading-relaxed">
-                Distills positives, complaints, conflicting opinions, and critical caveats with direct evidence links to original reviews.
+                Distills positive consensus, recurring complaints, conflicting opinions, and critical trade-offs with verifiable citation IDs back to raw reviews.
               </p>
             </div>
 
-            <div className="bg-[#F5F8FC] p-3 rounded-xl border border-[#D5E9FA] space-y-1.5">
+            <div className="bg-[#F5F8FC] p-3 rounded-md border border-[#D5E9FA] space-y-1.5">
               <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 font-bold">
                 <Check className="w-3 h-3 text-emerald-600" />
                 <span>Consensus Strengths & Standouts</span>
               </div>
               <div className="flex items-center gap-1.5 text-[10px] text-rose-800 font-bold">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-200 text-rose-800 flex items-center justify-center text-[8px] font-bold">!</span>
+                <span className="w-2.5 h-2.5 rounded bg-rose-200 text-rose-800 flex items-center justify-center text-[8px] font-bold">!</span>
                 <span>Unvarnished Drawbacks & Caveats</span>
               </div>
             </div>
           </div>
 
           {/* Feature 4 */}
-          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-all flex flex-col justify-between space-y-5 shadow-card group">
+          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#182C45] transition-all flex flex-col justify-between space-y-5 shadow-card group">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-md bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 group-hover:scale-105 transition-transform">
                 <Scale className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-[#182C45]">Multi-Device Comparison</h3>
               <p className="text-xs text-[#475569] leading-relaxed">
-                Compare any 2 to 4 smartphones across the 22-device catalogue side-by-side on specs, verified sentiment, and pros/cons.
+                Compare any 2 to 4 devices across our 23-product matrix side-by-side on verified hardware specs, customer sentiment, and user-priority fit scores.
               </p>
             </div>
 
-            <div className="bg-[#F5F8FC] p-3 rounded-xl border border-[#D5E9FA] flex items-center justify-between text-xs font-semibold">
-              <div className="flex items-center gap-2">
-                <span className="text-[#182C45]">Compare Any 22 Models</span>
-              </div>
+            <div className="bg-[#F5F8FC] p-3 rounded-md border border-[#D5E9FA] flex items-center justify-between text-xs font-semibold">
+              <span className="text-[#182C45]">Compare Any 23 Models</span>
               <span className="text-[#0284C7] text-[11px] font-bold">Side-by-Side &rarr;</span>
             </div>
           </div>
 
           {/* Feature 5 */}
-          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-all flex flex-col justify-between space-y-5 shadow-card group md:col-span-2 lg:col-span-2">
+          <div className="bg-white p-6 rounded-2xl border border-[#D5E9FA] hover:border-[#182C45] transition-all flex flex-col justify-between space-y-5 shadow-card group md:col-span-2 lg:col-span-2">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#EAF5FF] border border-[#B8DBF7] flex items-center justify-center text-[#0284C7] group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-md bg-[#EAF5FF] border border-[#B8DBF7] flex items-center justify-center text-[#0284C7] group-hover:scale-105 transition-transform">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-[#182C45]">Trust, Transparency & Bot Screening</h3>
+              <h3 className="text-base font-bold text-[#182C45]">Trust, Bot Purging & Review Stress-Testing</h3>
               <p className="text-xs text-[#475569] leading-relaxed max-w-xl">
-                Distinguishes verified customer quotes from AI interpretation, audits duplicate text bot clusters, and provides verifiable citation IDs for every claim.
+                Audits duplicate text bot campaigns, penalizes sudden review bursts, and maintains an interactive stress-test tool to inspect how ReviewIQ resists coordinated manipulation.
               </p>
             </div>
 
-            <div className="bg-[#F5F8FC] p-3.5 rounded-xl border border-[#D5E9FA] grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-[#F5F8FC] p-3.5 rounded-md border border-[#D5E9FA] grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="flex items-center gap-2 text-xs">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span className="text-[#334155] text-[11px] font-medium">Evidence-Linked IDs</span>
               </div>
               <div className="flex items-center gap-2 text-xs">
                 <ShieldAlert className="w-4 h-4 text-[#0284C7] shrink-0" />
-                <span className="text-[#334155] text-[11px] font-medium">Bot Cluster Audits</span>
+                <span className="text-[#334155] text-[11px] font-medium">Bot Cluster Screening</span>
               </div>
               <div className="flex items-center gap-2 text-xs">
                 <Layers className="w-4 h-4 text-purple-600 shrink-0" />
-                <span className="text-[#334155] text-[11px] font-medium">Source Diversity</span>
+                <span className="text-[#334155] text-[11px] font-medium">Source Diversity Index</span>
               </div>
             </div>
           </div>
@@ -387,9 +543,9 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
       {/* 2.5 LIVE PRODUCT LINK INGESTION SCANNER BANNER               */}
       {/* ============================================================ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-[#182C45] via-[#1E3A5F] to-[#0F1D30] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-card border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="bg-gradient-to-r from-[#182C45] via-[#1E3A5F] to-[#0F1D30] rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-card border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
               <span>Live Ingestion Pipeline Simulator</span>
             </div>
@@ -403,42 +559,12 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           {onOpenLinkIngestion && (
             <button
               onClick={onOpenLinkIngestion}
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-400 to-cyan-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg hover:shadow-cyan-500/30 hover:scale-[1.02] transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+              className="btn-nordic-accent py-3.5 px-6 text-sm shrink-0 cursor-pointer shadow-lg"
             >
-              <Sparkles className="w-4 h-4 text-slate-950 fill-current" />
+              <Sparkles className="w-4 h-4" />
               <span>Launch Ingestion Simulator</span>
             </button>
           )}
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* 2.7 SHOPPER PERSONA PRESETS ("Quick Profile Match")          */}
-      {/* ============================================================ */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E9FA] shadow-soft space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D5E9FA] pb-3">
-            <div>
-              <span className="text-[11px] font-bold text-[#0284C7] uppercase tracking-wider">
-                Target Shopper Archetypes
-              </span>
-              <h3 className="text-lg sm:text-xl font-black text-[#182C45] tracking-tight">
-                Shopper Persona Presets — Quick Profile Match
-              </h3>
-            </div>
-            <p className="text-xs text-[#64748B] max-w-md">
-              Select a persona to test how ReviewIQ's recommendation algorithm automatically weights priorities for specific buyer archetypes.
-            </p>
-          </div>
-          <PersonaPresets
-            onSelectPersona={persona => {
-              if (onSelectPersonaPreset) {
-                onSelectPersonaPreset(persona);
-              }
-              scrollToCatalogue();
-            }}
-            variant="full"
-          />
         </div>
       </section>
 
@@ -457,19 +583,29 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                 Explore Decoded Reviews ({products.length} Products)
               </h2>
               <p className="text-xs sm:text-sm text-[#475569] mt-1">
-                Search, filter by category, brand, or price, and inspect evidence-backed summaries across smartphones and flagship ANC headphones.
+                Inspect evidence-backed summaries across 20 smartphones and 3 flagship ANC headphones with active persona matching.
               </p>
             </div>
 
-            {/* Results Counter & Reset */}
-            <div className="flex items-center gap-3 self-start lg:self-auto">
-              <div className="text-xs font-mono bg-[#EAF5FF] text-[#0284C7] font-bold px-3.5 py-1.5 rounded-xl border border-[#B8DBF7]">
-                Showing <strong className="text-[#182C45]">{filteredProducts.length}</strong> of {products.length} Items
+            {/* Results Counter, Persona Indicator & Refresh */}
+            <div className="flex flex-wrap items-center gap-2 self-start lg:self-auto">
+              <button
+                onClick={triggerSimulatedRefresh}
+                className="btn-nordic-secondary text-xs"
+                title="Trigger simulated AI loading shimmer"
+              >
+                <RotateCcw className="w-3.5 h-3.5 text-[#0284C7]" />
+                <span>Simulate Refresh</span>
+              </button>
+
+              <div className="text-xs font-mono bg-[#EAF5FF] text-[#0284C7] font-bold px-3 py-1.5 rounded-md border border-[#B8DBF7]">
+                Showing <strong className="text-[#182C45]">{filteredProducts.length}</strong> of {products.length}
               </div>
+
               {(activeCategory !== 'all' || activeBrand !== 'all' || activePriceTierIndex !== 0 || catalogueSearch.trim()) && (
                 <button
                   onClick={resetFilters}
-                  className="flex items-center gap-1 text-xs text-[#64748B] hover:text-[#182C45] bg-white px-3 py-1.5 rounded-xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-colors"
+                  className="btn-nordic-secondary text-xs"
                 >
                   <X className="w-3.5 h-3.5" />
                   <span>Reset Filters</span>
@@ -478,18 +614,42 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
             </div>
           </div>
 
-          {/* Multi-Category Selector Tabs */}
+          {/* Active Persona Banner if selected */}
+          {activePersona && (
+            <div className="bg-[#EAF5FF] border border-[#B8DBF7] rounded-md p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2.5">
+                <span className="text-xl">{activePersona.emoji}</span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-[#182C45]">Active Persona Match:</span>
+                    <span className="font-bold text-[#0284C7]">{activePersona.name}</span>
+                  </div>
+                  <span className="text-[#64748B] text-[11px]">
+                    Products ranked by fit for: {activePersona.priorities.map(k => ATTRIBUTE_CONFIG[k]?.label || k).join(', ')}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => handleSelectPersona(null)}
+                className="btn-nordic-secondary text-xs py-1.5 px-3 self-start sm:self-auto shrink-0"
+              >
+                <span>Clear Persona</span>
+              </button>
+            </div>
+          )}
+
+          {/* Multi-Category Selector Tabs (Nordic Sharp) */}
           <div className="space-y-2">
             <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider block">
               Filter by Category:
             </span>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => setActiveCategory('all')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                onClick={() => handleCategorySwitch('all')}
+                className={`px-3.5 py-2 rounded-md text-xs font-bold transition-all flex items-center gap-2 border ${
                   activeCategory === 'all'
-                    ? 'bg-[#182C45] text-white shadow-sm'
-                    : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF]'
+                    ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                    : 'bg-white text-[#475569] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F5F8FC]'
                 }`}
               >
                 <span>All Categories</span>
@@ -497,12 +657,13 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   {products.length}
                 </span>
               </button>
+
               <button
-                onClick={() => setActiveCategory('Smartphones')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                onClick={() => handleCategorySwitch('Smartphones')}
+                className={`px-3.5 py-2 rounded-md text-xs font-bold transition-all flex items-center gap-2 border ${
                   activeCategory === 'Smartphones'
-                    ? 'bg-[#0284C7] text-white shadow-sm'
-                    : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF]'
+                    ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                    : 'bg-white text-[#475569] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F5F8FC]'
                 }`}
               >
                 <SmartphoneIcon className="w-3.5 h-3.5" />
@@ -511,18 +672,19 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   20
                 </span>
               </button>
+
               <button
-                onClick={() => setActiveCategory('Headphones')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                onClick={() => handleCategorySwitch('Headphones')}
+                className={`px-3.5 py-2 rounded-md text-xs font-bold transition-all flex items-center gap-2 border ${
                   activeCategory === 'Headphones'
-                    ? 'bg-[#0284C7] text-white shadow-sm'
-                    : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF]'
+                    ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                    : 'bg-white text-[#475569] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F5F8FC]'
                 }`}
               >
                 <HeadphonesIcon className="w-3.5 h-3.5" />
                 <span>Flagship Wireless ANC Headphones</span>
                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-extrabold">
-                  3 New
+                  3 Flagships
                 </span>
               </button>
             </div>
@@ -536,14 +698,14 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                 type="text"
                 value={catalogueSearch}
                 onChange={e => setCatalogueSearch(e.target.value)}
-                placeholder="Filter by name, chipset, or specs (e.g., iPhone 16 Pro, Snapdragon 8 Gen 3, Leica)..."
-                className="w-full bg-white text-[#182C45] placeholder-[#94A3B8] text-xs sm:text-sm pl-10 pr-4 py-3 rounded-xl border border-[#D5E9FA] focus:outline-none focus:border-[#0284C7] focus:ring-1 focus:ring-[#0284C7] transition-all shadow-soft"
+                placeholder="Filter by name, chipset, or specs (e.g., iPhone 16 Pro, Snapdragon 8 Gen 3, Sony XM5)..."
+                className="w-full bg-white text-[#182C45] placeholder-[#94A3B8] text-xs sm:text-sm pl-10 pr-4 py-2.5 rounded-md border border-[#DCE6F0] focus:outline-none focus:border-[#182C45] focus:ring-1 focus:ring-[#182C45] transition-all shadow-2xs"
               />
-              <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3.5" />
+              <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3" />
               {catalogueSearch && (
                 <button
                   onClick={() => setCatalogueSearch('')}
-                  className="absolute right-3.5 top-3.5 text-[#94A3B8] hover:text-[#182C45]"
+                  className="absolute right-3.5 top-3 text-[#94A3B8] hover:text-[#182C45]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -555,19 +717,20 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as any)}
-                className="w-full bg-white text-[#182C45] text-xs sm:text-sm px-4 py-3 rounded-xl border border-[#D5E9FA] focus:outline-none focus:border-[#0284C7] appearance-none cursor-pointer shadow-soft font-medium"
+                className="w-full bg-white text-[#182C45] text-xs sm:text-sm px-4 py-2.5 rounded-md border border-[#DCE6F0] focus:outline-none focus:border-[#182C45] appearance-none cursor-pointer shadow-2xs font-semibold"
               >
+                {activePersona && <option value="fit">Sort by: Persona Fit Score (Highest First)</option>}
                 <option value="rating">Sort by: Highest Customer Rating</option>
                 <option value="reviews">Sort by: Most Reviews & Mentions</option>
                 <option value="price-asc">Sort by: Price: Low to High</option>
                 <option value="price-desc">Sort by: Price: High to Low</option>
                 <option value="newest">Sort by: Newest Release Generation</option>
               </select>
-              <SlidersHorizontal className="w-4 h-4 text-[#94A3B8] absolute right-3.5 top-3.5 pointer-events-none" />
+              <SlidersHorizontal className="w-4 h-4 text-[#94A3B8] absolute right-3.5 top-3 pointer-events-none" />
             </div>
           </div>
 
-          {/* Brand Filter Pill Tabs */}
+          {/* Brand Filter Tabs (Nordic Sharp) */}
           <div className="space-y-2">
             <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider block">
               Filter by Brand:
@@ -579,10 +742,10 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   <button
                     key={b.value}
                     onClick={() => setActiveBrand(b.value)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    className={`px-3 py-1 rounded-md text-xs font-bold transition-all border ${
                       isActive
-                        ? 'bg-[#0284C7] text-white shadow-sm'
-                        : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF] hover:text-[#0284C7]'
+                        ? 'bg-[#182C45] text-white border-[#182C45]'
+                        : 'bg-white text-[#475569] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F5F8FC]'
                     }`}
                   >
                     {b.label}
@@ -592,7 +755,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
             </div>
           </div>
 
-          {/* Price Range Filter Tabs */}
+          {/* Price Range Filter Tabs (Nordic Sharp) */}
           <div className="space-y-2">
             <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider block">
               Filter by Price Segment:
@@ -604,10 +767,10 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   <button
                     key={tier.label}
                     onClick={() => setActivePriceTierIndex(idx)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    className={`px-3 py-1 rounded-md text-xs font-bold transition-all border ${
                       isActive
-                        ? 'bg-[#EAF5FF] text-[#0284C7] border border-[#B8DBF7]'
-                        : 'bg-white text-[#64748B] border border-[#D5E9FA] hover:text-[#182C45] hover:bg-[#F5F8FC]'
+                        ? 'bg-[#0284C7] text-white border-[#0284C7]'
+                        : 'bg-white text-[#475569] border-[#DCE6F0] hover:border-[#182C45] hover:bg-[#F5F8FC]'
                     }`}
                   >
                     {tier.label}
@@ -619,34 +782,37 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
         </div>
 
         {/* ============================================================ */}
-        {/* PRODUCT GRID (22 Models in Clean OHAMA White Cards)         */}
+        {/* SKELETON SHIMMER / PRODUCT GRID DISPLAY                      */}
         {/* ============================================================ */}
-        {filteredProducts.length === 0 ? (
-          <div className="bg-white p-12 rounded-3xl border border-[#D5E9FA] text-center space-y-4 max-w-lg mx-auto shadow-card">
-            <div className="w-12 h-12 rounded-2xl bg-[#EAF5FF] border border-[#B8DBF7] text-[#0284C7] flex items-center justify-center mx-auto">
-              <Search className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-[#182C45]">No matching smartphones found</h3>
-            <p className="text-xs text-[#64748B] leading-relaxed">
-              No smartphones match your current filters. Try changing your search query or reset the brand and price filters.
+        {isLoadingSkeletons ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ProductCardSkeleton count={6} />
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#D5E9FA] space-y-4">
+            <p className="text-sm font-semibold text-[#182C45]">
+              No products found matching your current filters.
             </p>
             <button
               onClick={resetFilters}
-              className="px-6 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-bold transition-all shadow-sm"
+              className="btn-nordic-primary text-xs"
             >
-              Reset All Filters
+              <span>Reset All Filters</span>
             </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map(product => {
-              const isSaved = savedIds.includes(product.id);
               const stats = getProductSentimentStats(product.id);
+              const isSaved = savedIds.includes(product.id);
+              const personaMatch = activePersona
+                ? calculatePersonalizedMatch(product.id, activePriorities)
+                : null;
 
               return (
                 <div
                   key={product.id}
-                  className="bg-white rounded-2xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-all flex flex-col justify-between overflow-hidden group shadow-card hover:shadow-card-hover"
+                  className="bg-white rounded-2xl border border-[#D5E9FA] hover:border-[#182C45] transition-all duration-200 shadow-card hover:shadow-lg flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
                     {/* Image Hero Container */}
@@ -665,12 +831,20 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
 
                       {/* Floating Brand & Price Badges */}
-                      <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-[#0284C7] px-2.5 py-1 rounded-lg text-xs font-bold border border-[#D5E9FA] shadow-sm">
+                      <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-[#0284C7] px-2.5 py-1 rounded-md text-xs font-bold border border-[#DCE6F0] shadow-sm">
                         {product.brand}
                       </div>
-                      <div className="absolute top-3 right-3 bg-[#182C45] text-white px-2.5 py-1 rounded-lg text-xs font-extrabold shadow-sm">
+                      <div className="absolute top-3 right-3 bg-[#182C45] text-white px-2.5 py-1 rounded-md text-xs font-extrabold shadow-sm">
                         {formatINR(product.priceMSRP)}
                       </div>
+
+                      {/* Persona Fit Score Overlay Badge if active */}
+                      {personaMatch && (
+                        <div className="absolute bottom-3 left-3 bg-[#182C45]/90 backdrop-blur-md text-white px-2.5 py-1 rounded-md text-xs font-mono font-bold flex items-center gap-1.5 border border-white/20 shadow-sm">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                          <span>{personaMatch.score}% Fit Match</span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Card Body */}
@@ -705,7 +879,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       </div>
 
                       {/* Specs Summary Pill Grid */}
-                      <div className="grid grid-cols-2 gap-2 text-[11px] text-[#334155] bg-[#F5F8FC] p-3 rounded-xl border border-[#D5E9FA]">
+                      <div className="grid grid-cols-2 gap-2 text-[11px] text-[#334155] bg-[#F5F8FC] p-3 rounded-md border border-[#DCE6F0]">
                         <div>
                           <span className="text-[9px] text-[#64748B] uppercase font-bold block">
                             {product.category === 'Headphones' ? 'Engine' : 'Chipset'}
@@ -725,7 +899,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       </div>
 
                       {/* Customer Sentiment Distribution */}
-                      <div className="space-y-2 bg-[#F5F8FC] p-3.5 rounded-xl border border-[#D5E9FA] text-xs">
+                      <div className="space-y-2 bg-[#F5F8FC] p-3.5 rounded-md border border-[#DCE6F0] text-xs">
                         <div className="flex justify-between items-center text-xs font-semibold">
                           <span className="text-[#475569]">Customer Sentiment</span>
                           <span className="text-emerald-700 font-mono font-bold">
@@ -792,11 +966,11 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                     </div>
                   </div>
 
-                  {/* Card Actions Footer */}
+                  {/* Card Actions Footer with Nordic Sharp Buttons */}
                   <div className="p-6 pt-0 border-t border-[#E2E8F0] mt-2 space-y-2.5">
                     <button
                       onClick={() => onSelectProduct(product.id)}
-                      className="w-full mt-4 py-2.5 px-4 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm"
+                      className="btn-nordic-primary w-full mt-4"
                     >
                       <span>Inspect Decoded Intelligence</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -805,10 +979,8 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         onClick={() => onToggleSave(product.id)}
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-colors ${
-                          isSaved
-                            ? 'bg-[#EAF5FF] text-[#0284C7] border-[#B8DBF7]'
-                            : 'bg-white text-[#475569] border-[#D5E9FA] hover:bg-[#F5F8FC] hover:text-[#182C45]'
+                        className={`btn-nordic-secondary w-full ${
+                          isSaved ? 'bg-[#EAF5FF] text-[#0284C7] border-[#B8DBF7]' : ''
                         }`}
                       >
                         <Bookmark
@@ -816,12 +988,12 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                             isSaved ? 'fill-[#0284C7] text-[#0284C7]' : 'text-[#94A3B8]'
                           }`}
                         />
-                        <span>{isSaved ? 'Shortlisted' : 'Shortlist'}</span>
+                        <span>{isSaved ? 'Saved' : 'Shortlist'}</span>
                       </button>
 
                       <button
                         onClick={() => onCompare(product.id)}
-                        className="py-2 px-3 rounded-xl text-xs font-bold bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#F5F8FC] hover:text-[#182C45] flex items-center justify-center gap-1.5 transition-colors"
+                        className="btn-nordic-secondary w-full"
                       >
                         <GitCompare className="w-3.5 h-3.5 text-[#0284C7]" />
                         <span>Compare</span>

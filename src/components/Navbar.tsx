@@ -88,20 +88,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 value={navSearch}
                 onChange={e => setNavSearch(e.target.value)}
                 placeholder="Search 23 products (e.g. iPhone 16 Pro, Sony XM5, Bose Ultra)..."
-                className="w-full bg-[#F5F8FC] text-sm text-[#182C45] placeholder-[#94A3B8] pl-10 pr-4 py-2 rounded-xl border border-[#D5E9FA] focus:outline-none focus:border-[#0284C7] focus:bg-white focus:ring-1 focus:ring-[#0284C7] transition-all"
+                className="w-full bg-[#F5F8FC] text-sm text-[#182C45] placeholder-[#94A3B8] pl-10 pr-4 py-2 rounded-md border border-[#D5E9FA] focus:outline-none focus:border-[#182C45] focus:bg-white focus:ring-1 focus:ring-[#182C45] transition-all"
               />
               <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3" />
             </form>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-2">
+          {/* Desktop Navigation Links (Nordic Sharp) */}
+          <nav className="hidden md:flex items-center gap-1.5">
             <button
               onClick={() => onNavigate('discover')}
-              className={`px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all border ${
                 currentView === 'discover'
-                  ? 'bg-[#EAF5FF] text-[#0284C7] border border-[#B8DBF7] font-bold'
-                  : 'text-[#475569] hover:text-[#182C45] hover:bg-[#F5F8FC]'
+                  ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                  : 'text-[#475569] border-transparent hover:text-[#182C45] hover:bg-[#F5F8FC] hover:border-[#DCE6F0]'
               }`}
             >
               Discover
@@ -109,28 +109,28 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => onNavigate('compare')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all border ${
                 currentView === 'compare'
-                  ? 'bg-[#EAF5FF] text-[#0284C7] border border-[#B8DBF7] font-bold'
-                  : 'text-[#475569] hover:text-[#182C45] hover:bg-[#F5F8FC]'
+                  ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                  : 'text-[#475569] border-transparent hover:text-[#182C45] hover:bg-[#F5F8FC] hover:border-[#DCE6F0]'
               }`}
             >
-              <GitCompare className="w-4 h-4 text-[#0284C7]" />
+              <GitCompare className="w-3.5 h-3.5 text-[#0284C7]" />
               <span>Compare</span>
             </button>
 
             <button
               onClick={() => onNavigate('saved')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all border ${
                 currentView === 'saved'
-                  ? 'bg-[#EAF5FF] text-[#0284C7] border border-[#B8DBF7] font-bold'
-                  : 'text-[#475569] hover:text-[#182C45] hover:bg-[#F5F8FC]'
+                  ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                  : 'text-[#475569] border-transparent hover:text-[#182C45] hover:bg-[#F5F8FC] hover:border-[#DCE6F0]'
               }`}
             >
-              <Bookmark className="w-4 h-4 text-[#0284C7]" />
+              <Bookmark className="w-3.5 h-3.5 text-[#0284C7]" />
               <span>Saved</span>
               {savedCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-[#0284C7] text-white font-bold text-[10px] flex items-center justify-center ml-0.5">
+                <span className="w-4 h-4 rounded bg-[#0284C7] text-white font-bold text-[10px] flex items-center justify-center ml-0.5">
                   {savedCount}
                 </span>
               )}
@@ -138,20 +138,20 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => onNavigate('how-it-works')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all border ${
                 currentView === 'how-it-works'
-                  ? 'bg-[#EAF5FF] text-[#0284C7] border border-[#B8DBF7] font-bold'
-                  : 'text-[#475569] hover:text-[#182C45] hover:bg-[#F5F8FC]'
+                  ? 'bg-[#182C45] text-white border-[#182C45] shadow-xs'
+                  : 'text-[#475569] border-transparent hover:text-[#182C45] hover:bg-[#F5F8FC] hover:border-[#DCE6F0]'
               }`}
             >
-              <HelpCircle className="w-4 h-4 text-[#0284C7]" />
+              <HelpCircle className="w-3.5 h-3.5 text-[#0284C7]" />
               <span>How It Works</span>
             </button>
 
             {onOpenCommercialization && (
               <button
                 onClick={onOpenCommercialization}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 transition-all shadow-2xs ml-1"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 transition-all shadow-2xs ml-1"
                 title="ReviewIQ MBA Commercialization & Unit Economics Deck"
               >
                 <TrendingUp className="w-3.5 h-3.5 text-amber-600" />
@@ -162,9 +162,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* User Session Profile Pill */}
             <button
               onClick={onOpenAuth}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F5F8FC] hover:bg-[#EAF5FF] border border-[#D5E9FA] text-xs text-[#182C45] transition-all font-medium ml-2"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#F5F8FC] hover:bg-[#EAF5FF] border border-[#D5E9FA] text-xs text-[#182C45] transition-all font-bold ml-1 active:translate-y-0.5"
             >
-              <div className="w-5 h-5 rounded-full bg-[#EAF5FF] text-[#0284C7] flex items-center justify-center text-[10px] font-bold border border-[#B8DBF7]">
+              <div className="w-5 h-5 rounded bg-[#EAF5FF] text-[#0284C7] flex items-center justify-center text-[10px] font-bold border border-[#B8DBF7]">
                 {currentUser?.name?.charAt(0).toUpperCase() || 'G'}
               </div>
               <span className="max-w-[100px] truncate">{currentUser?.name || 'Guest'}</span>

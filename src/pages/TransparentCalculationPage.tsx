@@ -71,8 +71,8 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
     activeKeys.length > 0
       ? audit.attributeCalculations
       : defaultKeys.map(key =>
-          calculateAttributeConsensus(product.id, key)
-        );
+        calculateAttributeConsensus(product.id, key)
+      );
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 animate-fadeIn">
@@ -167,22 +167,20 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
                 <button
                   key={p.key}
                   onClick={() => onTogglePriority(p.key)}
-                  className={`p-3.5 rounded-2xl text-left transition-all border flex items-start justify-between gap-2 ${
-                    isSelected
+                  className={`p-3.5 rounded-2xl text-left transition-all border flex items-start justify-between gap-2 ${isSelected
                       ? 'bg-[#EAF5FF] border-[#0284C7] text-[#182C45] shadow-2xs'
                       : 'bg-[#F5F8FC] border-[#D5E9FA] text-[#475569] hover:bg-[#EAF5FF]'
-                  }`}
+                    }`}
                 >
                   <div className="space-y-0.5">
                     <span className="text-xs font-bold block">{p.label}</span>
                     <span className="text-[11px] text-[#64748B] line-clamp-1">{p.description}</span>
                   </div>
                   <div
-                    className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border ${
-                      isSelected
+                    className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border ${isSelected
                         ? 'bg-[#0284C7] text-white border-[#0284C7]'
                         : 'border-[#D5E9FA] bg-white text-transparent'
-                    }`}
+                      }`}
                   >
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
@@ -283,15 +281,14 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
                         {calc.label}
                       </span>
                       <span
-                        className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                          calc.verdict === 'Good fit'
+                        className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${calc.verdict === 'Good fit'
                             ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
                             : calc.verdict === 'Mixed fit'
-                            ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                            : calc.verdict === 'Potential mismatch'
-                            ? 'bg-rose-100 text-rose-800 border border-rose-200'
-                            : 'bg-gray-100 text-gray-700 border border-gray-200'
-                        }`}
+                              ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                              : calc.verdict === 'Potential mismatch'
+                                ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                                : 'bg-gray-100 text-gray-700 border border-gray-200'
+                          }`}
                       >
                         {calc.verdict}
                       </span>

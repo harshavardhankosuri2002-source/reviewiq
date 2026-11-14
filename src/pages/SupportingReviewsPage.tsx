@@ -359,6 +359,7 @@ export const SupportingReviewsPage: React.FC<SupportingReviewsPageProps> = ({
             </button>
             {(Object.keys(ATTRIBUTE_CONFIG) as AttributeKey[]).map(key => {
               const count = allProductReviews.filter(r => r.attributes.includes(key)).length;
+              if (count === 0) return null;
               const isSelected = selectedAttribute === key;
               return (
                 <button

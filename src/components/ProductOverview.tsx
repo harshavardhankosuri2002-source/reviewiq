@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   ShoppingBag,
   Info,
+  Headphones,
 } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
 import { formatINR } from '../utils/currency';
@@ -327,36 +328,36 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
 
         {/* Clean, Full-Width Feature Cards with full text wrapping */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {/* Display Spec Card */}
+          {/* Display / Driver Spec Card */}
           <div className="bg-white p-5 rounded-2xl border border-[#D5E9FA] space-y-2 hover:border-[#8CBCE5] transition-all shadow-card">
             <div className="flex items-center gap-2 text-[#0284C7] text-xs font-bold uppercase tracking-wider">
-              <Eye className="w-4 h-4" />
-              <span>Display & Refresh</span>
+              {product.category === 'Headphones' ? <Headphones className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              <span>{product.category === 'Headphones' ? 'Acoustic Driver' : 'Display & Refresh'}</span>
             </div>
             <p className="text-sm font-semibold text-[#182C45] leading-relaxed whitespace-normal break-words">
-              {product.specsSummary.display}
+              {product.specsSummary.display || 'Precision Driver Engine'}
             </p>
           </div>
 
-          {/* Chipset Spec Card */}
+          {/* Chipset / Audio Engine Spec Card */}
           <div className="bg-white p-5 rounded-2xl border border-[#D5E9FA] space-y-2 hover:border-[#8CBCE5] transition-all shadow-card">
             <div className="flex items-center gap-2 text-purple-700 text-xs font-bold uppercase tracking-wider">
               <Cpu className="w-4 h-4" />
-              <span>Processor & Architecture</span>
+              <span>{product.category === 'Headphones' ? 'Audio Processor' : 'Processor & Architecture'}</span>
             </div>
             <p className="text-sm font-semibold text-[#182C45] leading-relaxed whitespace-normal break-words">
-              {product.specsSummary.chipset}
+              {product.specsSummary.chipset || 'Integrated Processor'}
             </p>
           </div>
 
-          {/* Camera Spec Card */}
+          {/* Camera / Wireless Spec Card */}
           <div className="bg-white p-5 rounded-2xl border border-[#D5E9FA] space-y-2 hover:border-[#8CBCE5] transition-all shadow-card">
             <div className="flex items-center gap-2 text-[#0284C7] text-xs font-bold uppercase tracking-wider">
-              <Camera className="w-4 h-4" />
-              <span>Optics & Sensors</span>
+              {product.category === 'Headphones' ? <Sparkles className="w-4 h-4" /> : <Camera className="w-4 h-4" />}
+              <span>{product.category === 'Headphones' ? 'Wireless & ANC' : 'Optics & Sensors'}</span>
             </div>
             <p className="text-sm font-semibold text-[#182C45] leading-relaxed whitespace-normal break-words">
-              {product.specsSummary.camera}
+              {product.specsSummary.camera || product.specsSummary.connectivity || 'Multipoint Bluetooth 5.3 • Active Noise Cancellation'}
             </p>
           </div>
 

@@ -33,13 +33,22 @@ interface TransparentCalculationPageProps {
   onNavigateSupportingReviews: (attribute?: AttributeKey) => void;
 }
 
-const ALL_PRIORITIES: { key: AttributeKey; label: string; description: string }[] = [
+const SMARTPHONE_PRIORITIES: { key: AttributeKey; label: string; description: string }[] = [
   { key: 'battery', label: 'Battery life', description: 'Endurance, charging speed, and thermal drain' },
   { key: 'camera', label: 'Camera quality', description: 'Photo clarity, low-light fidelity, and video capture' },
   { key: 'reliability', label: 'Reliability', description: 'Build durability, drop resistance, and hardware lifespan' },
   { key: 'performance', label: 'Performance', description: 'Processor velocity, multitasking, and thermal stability' },
   { key: 'value', label: 'Value for money', description: 'Price-to-feature balance and longevity' },
   { key: 'software', label: 'Software experience', description: 'OS fluidity, update track record, and AI utilities' },
+];
+
+const HEADPHONE_PRIORITIES: { key: AttributeKey; label: string; description: string }[] = [
+  { key: 'sound', label: 'Acoustic Clarity & Bass', description: 'Audio fidelity, frequency separation, and soundstage' },
+  { key: 'anc', label: 'Active Noise Cancellation', description: 'Low-frequency drone suppression and transparency' },
+  { key: 'comfort', label: 'Wearing Comfort & Fit', description: 'Headband clamping force, ear-cup breathability, and weight' },
+  { key: 'battery', label: 'Battery Endurance', description: 'Continuous playback with ANC active and fast-charge velocity' },
+  { key: 'callquality', label: 'Microphone & Call Clarity', description: 'Voice isolation in windy and noisy transit environments' },
+  { key: 'value', label: 'Value for Money', description: 'Acoustic performance relative to flagship segment MSRP' },
 ];
 
 export const TransparentCalculationPage: React.FC<TransparentCalculationPageProps> = ({
@@ -51,12 +60,17 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
 }) => {
   const audit = calculatePersonalizedRecommendationAudit(product.id, priorities);
   const activeKeys = (Object.keys(priorities) as AttributeKey[]).filter(k => priorities[k]);
+  const relevantPriorities = product.category === 'Headphones' ? HEADPHONE_PRIORITIES : SMARTPHONE_PRIORITIES;
 
-  // If no priorities are selected, show calculations for all attributes to provide full transparency
+  const defaultKeys: AttributeKey[] = product.category === 'Headphones'
+    ? ['sound', 'anc', 'comfort', 'battery', 'callquality', 'value']
+    : ['battery', 'camera', 'reliability', 'performance', 'value', 'software'];
+
+  // If no priorities are selected, show calculations for relevant category attributes to provide full transparency
   const displayCalculations: AttributeCalculation[] =
     activeKeys.length > 0
       ? audit.attributeCalculations
-      : (Object.keys(ATTRIBUTE_CONFIG) as AttributeKey[]).map(key =>
+      : defaultKeys.map(key =>
           calculateAttributeConsensus(product.id, key)
         );
 
@@ -142,12 +156,12 @@ export const TransparentCalculationPage: React.FC<TransparentCalculationPageProp
               Toggle Priorities to Update Calculations in Real-Time:
             </span>
             <span className="text-xs text-[#0284C7] font-semibold">
-              {activeKeys.length} of {ALL_PRIORITIES.length} selected
+              {activeKeys.length} of {relevantPriorities.length} selected
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-            {ALL_PRIORITIES.map(p => {
+            {relevantPriorities.map(p => {
               const isSelected = !!priorities[p.key];
               return (
                 <button

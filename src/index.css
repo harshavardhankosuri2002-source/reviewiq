@@ -13,15 +13,16 @@
       radial-gradient(at 12% 85%, rgba(191, 219, 254, 0.45) 0px, transparent 45%);
     background-attachment: fixed;
     color: #0F172A;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Inter", system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "kern" 1;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     color: #0F172A;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.028em;
   }
 }
 

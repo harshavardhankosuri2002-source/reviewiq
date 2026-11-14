@@ -105,24 +105,24 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-6 sm:space-y-7 animate-fadeIn">
       {/* Top breadcrumb & quick navigation */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-center justify-between flex-wrap gap-2.5">
         <button
           onClick={onBackToDiscover}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#182C45] hover:text-[#0284C7] bg-white px-3.5 py-2 rounded-xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-colors shadow-soft"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 hover:text-sky-600 frosted-panel px-3 py-1.5 rounded-xl transition-colors shadow-2xs cursor-pointer"
         >
-          <ArrowLeft className="w-3.5 h-3.5 text-[#0284C7]" />
+          <ArrowLeft className="w-3.5 h-3.5 text-sky-600" />
           <span>Back to Discover</span>
         </button>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {onNavigateSupportingReviews && (
             <button
               onClick={() => onNavigateSupportingReviews()}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#182C45] hover:text-[#0284C7] bg-white px-3.5 py-2 rounded-xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-colors shadow-soft"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 hover:text-sky-600 frosted-panel px-3 py-1.5 rounded-xl transition-colors shadow-2xs cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-[#0284C7]" />
+              <FileText className="w-3.5 h-3.5 text-sky-600" />
               <span>Supporting Reviews</span>
             </button>
           )}
@@ -130,16 +130,16 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
           {onNavigateCalculation && (
             <button
               onClick={onNavigateCalculation}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284C7] hover:text-[#0369A1] bg-[#EAF5FF] px-3.5 py-2 rounded-xl border border-[#B8DBF7] transition-colors shadow-soft"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-200 transition-colors shadow-2xs cursor-pointer"
             >
-              <HelpCircle className="w-3.5 h-3.5 text-[#0284C7]" />
+              <HelpCircle className="w-3.5 h-3.5 text-sky-600" />
               <span>How It's Calculated</span>
             </button>
           )}
 
-          <div className="hidden sm:flex items-center gap-2 text-xs text-[#64748B] font-mono">
+          <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 font-mono">
             <span>ID:</span>
-            <span className="bg-[#EAF5FF] text-[#0284C7] font-bold px-2.5 py-0.5 rounded-lg border border-[#D5E9FA]">
+            <span className="frosted-pill text-sky-700 font-bold px-2 py-0.5 rounded text-[11px]">
               {product.id}
             </span>
           </div>

@@ -605,49 +605,61 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   onClick={() => setPreviewProduct(product)}
                 >
                   <div>
-                    {/* Pure Translucent Frosted Product Stage */}
-                    <div className="relative h-32 w-full bg-white/40 backdrop-blur-sm p-3 flex items-center justify-center border-b border-white/60 overflow-hidden">
-                      {/* Standardized 88px x 88px Bounding Box for ALL 23 products */}
-                      <div className="w-24 h-24 flex items-center justify-center shrink-0">
+                    {/* Apple Store-Inspired Product Stage (Image 4 Inspiration) */}
+                    <div className="relative h-48 sm:h-52 w-full bg-white/40 backdrop-blur-sm p-4 flex flex-col items-center justify-between border-b border-white/60 overflow-hidden">
+                      {/* Top Badges */}
+                      <div className="w-full flex items-center justify-between z-10">
+                        <span className="frosted-pill text-slate-800 px-2 py-0.5 rounded text-[10px] font-bold shadow-2xs">
+                          {product.brand}
+                        </span>
+                        <span className="bg-slate-900/85 backdrop-blur-md text-white px-2 py-0.5 rounded text-xs font-bold border border-white/20 shadow-xs">
+                          {formatINR(product.priceMSRP)}
+                        </span>
+                      </div>
+
+                      {/* Balanced Center Image */}
+                      <div className="my-auto flex items-center justify-center w-full h-36">
                         <img
                           src={product.imageUrl}
                           alt={product.name}
                           onError={e => {
                             (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
                           }}
-                          className="max-h-24 max-w-24 w-auto h-auto object-contain mx-auto drop-shadow-xs group-hover:scale-105 transition-transform duration-300 select-none"
+                          className="max-h-32 sm:max-h-36 max-w-full object-contain mx-auto drop-shadow-xs group-hover:scale-105 transition-transform duration-300 select-none"
                           loading="lazy"
                         />
                       </div>
 
-                      {/* Brand Badge */}
-                      <div className="absolute top-2.5 left-2.5 frosted-pill text-slate-800 px-2 py-0.5 rounded text-[10px] font-bold shadow-2xs">
-                        {product.brand}
+                      {/* Color Swatch Dots (Image 4 Reference) */}
+                      <div className="flex items-center gap-1.5 frosted-pill px-2 py-0.5 rounded-full shadow-2xs z-10">
+                        <span className="w-2 h-2 rounded-full bg-slate-900 border border-white/60" />
+                        <span className="w-2 h-2 rounded-full bg-slate-300 border border-white/60" />
+                        <span className="w-2 h-2 rounded-full bg-emerald-700 border border-white/60" />
+                        <span className="w-2 h-2 rounded-full bg-sky-600 border border-white/60" />
                       </div>
-
-                      {/* Price Badge */}
-                      <div className="absolute top-2.5 right-2.5 bg-slate-900/85 backdrop-blur-md text-white px-2 py-0.5 rounded text-xs font-bold border border-white/20 shadow-xs">
-                        {formatINR(product.priceMSRP)}
-                      </div>
-
-                      {/* Persona Fit Score Overlay Badge if active */}
-                      {personaMatch && (
-                        <div className="absolute bottom-2 left-2 bg-slate-900/85 backdrop-blur-md text-white px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 border border-white/20 shadow-xs">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                          <span>{personaMatch.score}% Match</span>
-                        </div>
-                      )}
                     </div>
 
-                    {/* Card Content */}
-                    <div className="p-5 space-y-3">
+                    {/* Card Content - Clean Apple Typography */}
+                    <div className="p-4 sm:p-5 space-y-2.5">
+                      {/* Category Label & Fit Match */}
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="font-bold text-amber-600 tracking-wider uppercase text-[10px]">
+                          {product.category === 'Headphones' ? 'Premium Audio' : 'Verified Flagship'}
+                        </span>
+                        {personaMatch && (
+                          <span className="font-mono text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                            {personaMatch.score}% Match
+                          </span>
+                        )}
+                      </div>
+
                       <div>
-                        <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug">
+                        <h3 className="text-base font-semibold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug">
                           {product.name}
                         </h3>
 
                         {/* Star Rating & Review Count */}
-                        <div className="flex items-center gap-2 mt-1">
+                        <div className="flex items-center gap-1.5 mt-1">
                           <div className="flex items-center text-amber-400">
                             {[...Array(5)].map((_, i) => (
                               <Star
@@ -662,12 +674,12 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                           </div>
                           <span className="text-xs font-bold text-slate-800">{product.sampleRating}</span>
                           <span className="text-xs text-slate-400">
-                            • {product.sampleReviewCount} verified reviews
+                            • {product.sampleReviewCount} reviews
                           </span>
                         </div>
                       </div>
 
-                      {/* Sleek Specs Strip */}
+                      {/* Specs Line */}
                       <div className="text-[11px] text-slate-500 font-medium truncate flex items-center gap-1.5">
                         <span className="font-semibold text-slate-700">
                           {product.category === 'Headphones' ? 'Engine:' : 'Chipset:'}
@@ -681,16 +693,15 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                         </span>
                       </div>
 
-                      {/* Slim Minimalist Sentiment Meter */}
-                      <div className="space-y-1.5 pt-1">
-                        <div className="flex justify-between items-center text-[11px]">
-                          <span className="text-slate-400 font-medium">Customer Consensus</span>
+                      {/* Slim Sentiment Meter */}
+                      <div className="space-y-1 pt-0.5">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-medium">Consensus Sentiment</span>
                           <span className="text-emerald-700 font-bold font-mono">
                             {stats.positivePct}% Positive
                           </span>
                         </div>
 
-                        {/* 4px Slim Segmented Bar */}
                         <div className="h-1.5 w-full rounded-full bg-slate-100 flex overflow-hidden">
                           <div
                             style={{ width: `${stats.positivePct}%` }}
@@ -710,33 +721,39 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                         </div>
                       </div>
 
-                      {/* Decoded Verdict (Quote Style) */}
-                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 border-l-2 border-sky-400/40 pl-3">
+                      {/* Decoded Verdict */}
+                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 border-l-2 border-sky-400/40 pl-2.5">
                         {product.quickVerdict}
                       </p>
 
-                      {/* Source & Verified Indicator */}
-                      <div className="pt-2 flex items-center justify-between text-xs border-t border-slate-100 text-slate-400">
-                        <span className="text-[11px] font-mono flex items-center gap-1 truncate">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span className="truncate">{product.retailerName}</span>
-                        </span>
-                        <span className="text-[11px] font-semibold text-sky-600 group-hover:underline flex items-center gap-1">
-                          <span>Quick Preview</span>
-                          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                        </span>
+                      {/* Price Row with Circular Action Arrow (Image 4 Inspiration) */}
+                      <div className="pt-2 flex items-center justify-between border-t border-slate-100 text-xs">
+                        <div>
+                          <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider block">
+                            MSRP
+                          </span>
+                          <span className="text-xs font-bold text-slate-900">
+                            {formatINR(product.priceMSRP)}
+                          </span>
+                          <span className="text-[9px] text-slate-400 block font-normal">
+                            (Incl. of all taxes)
+                          </span>
+                        </div>
+                        <div className="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-slate-900 group-hover:text-white flex items-center justify-center text-slate-600 transition-all shadow-2xs">
+                          <ArrowRight className="w-3 h-3" />
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Card Actions Footer */}
-                  <div className="p-5 pt-0 space-y-2">
+                  <div className="p-4 pt-0 space-y-2">
                     <button
                       onClick={e => {
                         e.stopPropagation();
                         setPreviewProduct(product);
                       }}
-                      className="btn-interactive-primary w-full text-xs cursor-pointer"
+                      className="btn-interactive-primary w-full py-2 text-xs cursor-pointer"
                     >
                       <span>Inspect Decoded Intelligence</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -745,7 +762,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                     <div className="grid grid-cols-2 gap-2" onClick={e => e.stopPropagation()}>
                       <button
                         onClick={() => onToggleSave(product.id)}
-                        className={`btn-interactive-secondary w-full text-xs cursor-pointer ${
+                        className={`btn-interactive-secondary w-full py-1.5 text-xs cursor-pointer ${
                           isSaved ? 'bg-sky-50 text-sky-800 border-sky-300' : ''
                         }`}
                       >
@@ -759,7 +776,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
 
                       <button
                         onClick={() => onCompare(product.id)}
-                        className="btn-interactive-secondary w-full text-xs cursor-pointer"
+                        className="btn-interactive-secondary w-full py-1.5 text-xs cursor-pointer"
                       >
                         <GitCompare className="w-3.5 h-3.5 text-sky-700" />
                         <span>Compare</span>

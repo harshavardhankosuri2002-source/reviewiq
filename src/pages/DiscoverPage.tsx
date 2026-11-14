@@ -597,8 +597,8 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   onClick={() => setPreviewProduct(product)}
                 >
                   <div>
-                    {/* Uniform Compact Product Stage (Does not consume extra space) */}
-                    <div className="relative h-32 w-full bg-slate-50/70 p-3 flex items-center justify-center border-b border-slate-100 overflow-hidden">
+                    {/* Pure Translucent Frosted Product Stage */}
+                    <div className="relative h-32 w-full bg-white/40 backdrop-blur-sm p-3 flex items-center justify-center border-b border-white/60 overflow-hidden">
                       {/* Standardized 88px x 88px Bounding Box for ALL 23 products */}
                       <div className="w-24 h-24 flex items-center justify-center shrink-0">
                         <img
@@ -613,18 +613,18 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       </div>
 
                       {/* Brand Badge */}
-                      <div className="absolute top-2.5 left-2.5 bg-white/95 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200 shadow-2xs">
+                      <div className="absolute top-2.5 left-2.5 frosted-pill text-slate-800 px-2 py-0.5 rounded text-[10px] font-bold shadow-2xs">
                         {product.brand}
                       </div>
 
                       {/* Price Badge */}
-                      <div className="absolute top-2.5 right-2.5 bg-slate-900 text-white px-2 py-0.5 rounded text-xs font-bold shadow-2xs">
+                      <div className="absolute top-2.5 right-2.5 bg-slate-900/85 backdrop-blur-md text-white px-2 py-0.5 rounded text-xs font-bold border border-white/20 shadow-xs">
                         {formatINR(product.priceMSRP)}
                       </div>
 
                       {/* Persona Fit Score Overlay Badge if active */}
                       {personaMatch && (
-                        <div className="absolute bottom-2 left-2 bg-slate-900/90 text-white px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 shadow-xs">
+                        <div className="absolute bottom-2 left-2 bg-slate-900/85 backdrop-blur-md text-white px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 border border-white/20 shadow-xs">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                           <span>{personaMatch.score}% Match</span>
                         </div>

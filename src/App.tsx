@@ -264,7 +264,15 @@ export const App: React.FC = () => {
     SAMPLE_PRODUCTS.find(p => p.id === selectedProductId) || SAMPLE_PRODUCTS[0];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F8FC] text-[#182C45] selection:bg-[#0284C7] selection:text-white">
+    <div className="min-h-screen flex flex-col relative text-slate-900 selection:bg-sky-500 selection:text-white overflow-x-hidden">
+      {/* Global Ambient Glow Auroras for True Frosted Glass Translucency */}
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute -top-32 -left-32 w-[650px] h-[650px] bg-gradient-to-br from-sky-300/45 via-blue-200/35 to-transparent rounded-full blur-[110px]" />
+        <div className="absolute top-10 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-indigo-300/35 via-cyan-200/30 to-transparent rounded-full blur-[110px]" />
+        <div className="absolute top-[45%] left-[25%] w-[750px] h-[500px] bg-gradient-to-r from-blue-200/30 via-emerald-100/25 to-sky-200/35 rounded-full blur-[130px]" />
+        <div className="absolute -bottom-20 right-10 w-[700px] h-[700px] bg-gradient-to-tl from-purple-200/35 via-sky-200/30 to-transparent rounded-full blur-[120px]" />
+      </div>
+
       {/* Top Navigation */}
       <Navbar
         currentView={currentView}

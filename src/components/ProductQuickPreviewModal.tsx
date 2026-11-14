@@ -297,3 +297,4 @@ export const ProductQuickPreviewModal: React.FC<ProductQuickPreviewModalProps> =
     </div>
   );
 };
+

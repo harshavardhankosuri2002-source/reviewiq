@@ -1,6 +1,19 @@
 import React from 'react';
 import { AttributeThemeInfo, AttributeKey } from '../types';
-import { BatteryCharging, Camera, ShieldCheck, Zap, DollarSign, Cpu, FileText, ArrowRight } from 'lucide-react';
+import {
+  BatteryCharging,
+  Camera,
+  ShieldCheck,
+  Zap,
+  DollarSign,
+  Cpu,
+  FileText,
+  ArrowRight,
+  Headphones,
+  Volume2,
+  Smile,
+  PhoneCall,
+} from 'lucide-react';
 
 interface ThemeBreakdownProps {
   themes: AttributeThemeInfo[];
@@ -15,6 +28,10 @@ const ICON_MAP: Record<AttributeKey, React.ComponentType<{ className?: string }>
   performance: Zap,
   value: DollarSign,
   software: Cpu,
+  sound: Volume2,
+  anc: Headphones,
+  comfort: Smile,
+  callquality: PhoneCall,
 };
 
 export const ThemeBreakdown: React.FC<ThemeBreakdownProps> = ({
@@ -70,10 +87,10 @@ export const ThemeBreakdown: React.FC<ThemeBreakdownProps> = ({
                   <span
                     className={`text-xs font-bold px-2.5 py-0.5 rounded-lg border font-mono ${
                       theme.positiveScore >= 65
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                         : theme.positiveScore <= 40
-                        ? 'bg-rose-50 text-rose-800 border-rose-200'
-                        : 'bg-amber-50 text-amber-800 border-amber-200'
+                        ? 'bg-rose-50 text-rose-800 border-rose-300'
+                        : 'bg-amber-50 text-amber-800 border-amber-300'
                     }`}
                   >
                     {theme.positiveScore}% Pos
@@ -81,10 +98,10 @@ export const ThemeBreakdown: React.FC<ThemeBreakdownProps> = ({
                 </div>
 
                 {/* Progress bar */}
-                <div className="h-2 w-full rounded-full bg-[#E2E8F0] flex overflow-hidden">
+                <div className="h-2 w-full rounded-full bg-[#F1F5F9] flex overflow-hidden border border-[#E2E8F0]">
                   <div
                     style={{ width: `${(theme.positiveMentions / theme.totalMentions) * 100}%` }}
-                    className="bg-emerald-500"
+                    className="bg-emerald-600"
                     title={`Positive: ${theme.positiveMentions}`}
                   />
                   <div
@@ -94,7 +111,7 @@ export const ThemeBreakdown: React.FC<ThemeBreakdownProps> = ({
                   />
                   <div
                     style={{ width: `${(theme.negativeMentions / theme.totalMentions) * 100}%` }}
-                    className="bg-rose-500"
+                    className="bg-rose-600"
                     title={`Negative: ${theme.negativeMentions}`}
                   />
                 </div>
@@ -106,7 +123,7 @@ export const ThemeBreakdown: React.FC<ThemeBreakdownProps> = ({
 
                 {/* Highlight Quote Chip */}
                 {theme.highlightQuote && (
-                  <div className="p-3 rounded-xl bg-[#F5F8FC] border-l-2 border-[#0284C7] text-[#182C45] text-xs italic space-y-1">
+                  <div className="p-3 rounded-xl bg-[#F5F8FC] border-l-2 border-[#0284C7] text-[#334155] text-xs italic space-y-1">
                     <p className="leading-snug">"{theme.highlightQuote}"</p>
                   </div>
                 )}
@@ -115,13 +132,13 @@ export const ThemeBreakdown: React.FC<ThemeBreakdownProps> = ({
               {/* Drill-down button */}
               <button
                 onClick={() => onOpenAttributeEvidence(theme.key, theme.label)}
-                className="inline-flex items-center justify-between w-full pt-3 border-t border-[#E2E8F0] text-xs font-bold text-[#475569] hover:text-[#182C45] transition-colors"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-[#D5E9FA] text-xs font-bold text-[#0284C7] hover:text-[#0369A1] transition-colors cursor-pointer"
               >
                 <span className="flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-[#0284C7]" />
                   <span>Inspect {theme.label} reviews</span>
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#64748B] group-hover:text-[#0284C7] group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#0284C7] group-hover:translate-x-0.5 transition-transform" />
               </button>
             </div>
           );

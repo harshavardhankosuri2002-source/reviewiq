@@ -14,7 +14,7 @@ interface SearchResultsPageProps {
   onBackToDiscover: () => void;
 }
 
-const BRANDS = ['all', 'Apple', 'Samsung', 'Google', 'OnePlus', 'Xiaomi', 'Nothing', 'Motorola', 'Realme'];
+const BRANDS = ['all', 'Apple', 'Samsung', 'Sony', 'Bose', 'Google', 'OnePlus', 'Xiaomi', 'Nothing', 'Motorola', 'Realme'];
 
 export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   products,
@@ -26,6 +26,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   onBackToDiscover,
 }) => {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [minRating, setMinRating] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(150000);
@@ -36,13 +37,16 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
 
     return products
       .filter(p => {
+        if (selectedCategory !== 'all' && p.category !== selectedCategory) return false;
+
         const matchesQuery =
           !q ||
           p.name.toLowerCase().includes(q) ||
           p.brand.toLowerCase().includes(q) ||
           p.quickVerdict.toLowerCase().includes(q) ||
-          p.specsSummary.chipset.toLowerCase().includes(q) ||
-          p.specsSummary.display.toLowerCase().includes(q) ||
+          (p.category && p.category.toLowerCase().includes(q)) ||
+          (p.specsSummary?.chipset && p.specsSummary.chipset.toLowerCase().includes(q)) ||
+          (p.specsSummary?.display && p.specsSummary.display.toLowerCase().includes(q)) ||
           p.aiSummary.appreciatedFeatures.points.some(pt => pt.toLowerCase().includes(q)) ||
           p.aiSummary.commonComplaints.points.some(pt => pt.toLowerCase().includes(q));
 
@@ -74,6 +78,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   }, [products, searchQuery, selectedBrand, minRating, maxPrice, sortBy]);
 
   const resetFilters = () => {
+    setSelectedCategory('all');
     setSelectedBrand('all');
     setMinRating(0);
     setMaxPrice(150000);
@@ -123,7 +128,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
             <span className="text-xs font-bold uppercase tracking-wider text-[#182C45] flex items-center gap-1.5">
               <Filter className="w-3.5 h-3.5 text-[#0284C7]" /> Filters
             </span>
-            {(selectedBrand !== 'all' || minRating > 0 || maxPrice < 150000) && (
+            {(selectedBrand !== 'all' || selectedCategory !== 'all' || minRating > 0 || maxPrice < 150000) && (
               <button
                 onClick={resetFilters}
                 className="text-[10px] text-[#0284C7] hover:underline font-semibold"
@@ -131,6 +136,31 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
                 Clear all
               </button>
             )}
+          </div>
+
+          {/* Category Filter */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-[#182C45] block">Category</label>
+            <div className="space-y-1">
+              {[
+                { label: 'All Categories', value: 'all' },
+                { label: 'Smartphones (20)', value: 'Smartphones' },
+                { label: 'ANC Headphones (3)', value: 'Headphones' },
+              ].map(cat => (
+                <button
+                  key={cat.value}
+                  onClick={() => setSelectedCategory(cat.value as any)}
+                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
+                    selectedCategory === cat.value
+                      ? 'bg-[#EAF5FF] text-[#0284C7] font-bold border border-[#D5E9FA]'
+                      : 'text-[#475569] hover:text-[#182C45] hover:bg-[#F5F8FC]'
+                  }`}
+                >
+                  <span>{cat.label}</span>
+                  {selectedCategory === cat.value && <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Brand Filter */}

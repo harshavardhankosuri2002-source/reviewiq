@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { Product } from '../types';
+import { Product, ShopperPersona } from '../types';
 import {
   Search,
   Star,
@@ -17,9 +17,13 @@ import {
   Layers,
   SlidersHorizontal,
   X,
+  Sparkles,
+  Headphones as HeadphonesIcon,
+  Smartphone as SmartphoneIcon,
 } from 'lucide-react';
 import { getProductSentimentStats } from '../utils/analytics';
 import { FloatingPhonesHero } from '../components/FloatingPhonesHero';
+import { PersonaPresets } from '../components/PersonaPresets';
 import { formatINR, parsePriceNumber } from '../utils/currency';
 
 interface DiscoverPageProps {
@@ -31,12 +35,16 @@ interface DiscoverPageProps {
   onCompare: (id: string) => void;
   comparedIds?: string[];
   onNavigateHowItWorks: () => void;
+  onOpenLinkIngestion?: () => void;
+  onSelectPersonaPreset?: (persona: ShopperPersona) => void;
 }
 
 const BRAND_OPTIONS = [
   { label: 'All Brands', value: 'all' },
   { label: 'Apple', value: 'Apple' },
   { label: 'Samsung', value: 'Samsung' },
+  { label: 'Sony', value: 'Sony' },
+  { label: 'Bose', value: 'Bose' },
   { label: 'Google Pixel', value: 'Google' },
   { label: 'OnePlus', value: 'OnePlus' },
   { label: 'Xiaomi / Redmi', value: 'Xiaomi' },
@@ -71,8 +79,11 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
   onToggleSave,
   onCompare,
   onNavigateHowItWorks,
+  onOpenLinkIngestion,
+  onSelectPersonaPreset,
 }) => {
   const [heroSearch, setHeroSearch] = useState('');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
   const [activeBrand, setActiveBrand] = useState<string>('all');
   const [activePriceTierIndex, setActivePriceTierIndex] = useState<number>(0);
   const [catalogueSearch, setCatalogueSearch] = useState<string>('');
@@ -91,21 +102,27 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
     catalogueRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Filter & Sort Logic across all 22+ products
+  // Filter & Sort Logic across all 23 products
   const filteredProducts = useMemo(() => {
     const q = catalogueSearch.toLowerCase().trim();
     const priceTier = PRICE_TIERS[activePriceTierIndex];
 
     return products
       .filter(p => {
+        // Category match
+        if (activeCategory !== 'all') {
+          if (p.category !== activeCategory) return false;
+        }
+
         // Search query match
         const matchesQuery =
           !q ||
           p.name.toLowerCase().includes(q) ||
           p.brand.toLowerCase().includes(q) ||
           p.quickVerdict.toLowerCase().includes(q) ||
-          p.specsSummary.chipset.toLowerCase().includes(q) ||
-          p.specsSummary.display.toLowerCase().includes(q);
+          (p.category && p.category.toLowerCase().includes(q)) ||
+          (p.specsSummary?.chipset && p.specsSummary.chipset.toLowerCase().includes(q)) ||
+          (p.specsSummary?.display && p.specsSummary.display.toLowerCase().includes(q));
 
         // Brand match
         let matchesBrand = true;
@@ -135,9 +152,10 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
         if (sortBy === 'price-desc') return priceB - priceA;
         return b.releaseYear - a.releaseYear;
       });
-  }, [products, catalogueSearch, activeBrand, activePriceTierIndex, sortBy]);
+  }, [products, catalogueSearch, activeCategory, activeBrand, activePriceTierIndex, sortBy]);
 
   const resetFilters = () => {
+    setActiveCategory('all');
     setActiveBrand('all');
     setActivePriceTierIndex(0);
     setCatalogueSearch('');
@@ -366,7 +384,66 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
       </section>
 
       {/* ============================================================ */}
-      {/* 3. EXPANDED PRODUCT CATALOGUE (22 Models, Filter & Search)    */}
+      {/* 2.5 LIVE PRODUCT LINK INGESTION SCANNER BANNER               */}
+      {/* ============================================================ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-[#182C45] via-[#1E3A5F] to-[#0F1D30] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-card border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              <span>Live Ingestion Pipeline Simulator</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+              Have a retail link? Test our 8-Stage Real-Time Parser
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Paste an Amazon, Flipkart, or BestBuy link to simulate real-time HTML scraping, cross-retailer deduplication, bot cluster filtering, and consensus decoding.
+            </p>
+          </div>
+          {onOpenLinkIngestion && (
+            <button
+              onClick={onOpenLinkIngestion}
+              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-400 to-cyan-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg hover:shadow-cyan-500/30 hover:scale-[1.02] transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-slate-950 fill-current" />
+              <span>Launch Ingestion Simulator</span>
+            </button>
+          )}
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 2.7 SHOPPER PERSONA PRESETS ("Quick Profile Match")          */}
+      {/* ============================================================ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E9FA] shadow-soft space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D5E9FA] pb-3">
+            <div>
+              <span className="text-[11px] font-bold text-[#0284C7] uppercase tracking-wider">
+                Target Shopper Archetypes
+              </span>
+              <h3 className="text-lg sm:text-xl font-black text-[#182C45] tracking-tight">
+                Shopper Persona Presets — Quick Profile Match
+              </h3>
+            </div>
+            <p className="text-xs text-[#64748B] max-w-md">
+              Select a persona to test how ReviewIQ's recommendation algorithm automatically weights priorities for specific buyer archetypes.
+            </p>
+          </div>
+          <PersonaPresets
+            onSelectPersona={persona => {
+              if (onSelectPersonaPreset) {
+                onSelectPersonaPreset(persona);
+              }
+              scrollToCatalogue();
+            }}
+            variant="full"
+          />
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 3. EXPANDED PRODUCT CATALOGUE (Phones & Headphones)          */}
       {/* ============================================================ */}
       <section ref={catalogueRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header & Filter Controls Bar */}
@@ -374,22 +451,22 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7]">
-                Expanded Smartphone Catalogue
+                Multi-Category Catalogue
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#182C45] tracking-tight mt-1">
-                Explore Decoded Reviews ({products.length} Models)
+                Explore Decoded Reviews ({products.length} Products)
               </h2>
               <p className="text-xs sm:text-sm text-[#475569] mt-1">
-                Search, filter by brand or price, and inspect evidence-backed summaries across flagships and midrangers.
+                Search, filter by category, brand, or price, and inspect evidence-backed summaries across smartphones and flagship ANC headphones.
               </p>
             </div>
 
             {/* Results Counter & Reset */}
             <div className="flex items-center gap-3 self-start lg:self-auto">
               <div className="text-xs font-mono bg-[#EAF5FF] text-[#0284C7] font-bold px-3.5 py-1.5 rounded-xl border border-[#B8DBF7]">
-                Showing <strong className="text-[#182C45]">{filteredProducts.length}</strong> of {products.length} Smartphones
+                Showing <strong className="text-[#182C45]">{filteredProducts.length}</strong> of {products.length} Items
               </div>
-              {(activeBrand !== 'all' || activePriceTierIndex !== 0 || catalogueSearch.trim()) && (
+              {(activeCategory !== 'all' || activeBrand !== 'all' || activePriceTierIndex !== 0 || catalogueSearch.trim()) && (
                 <button
                   onClick={resetFilters}
                   className="flex items-center gap-1 text-xs text-[#64748B] hover:text-[#182C45] bg-white px-3 py-1.5 rounded-xl border border-[#D5E9FA] hover:border-[#8CBCE5] transition-colors"
@@ -398,6 +475,56 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   <span>Reset Filters</span>
                 </button>
               )}
+            </div>
+          </div>
+
+          {/* Multi-Category Selector Tabs */}
+          <div className="space-y-2">
+            <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider block">
+              Filter by Category:
+            </span>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setActiveCategory('all')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeCategory === 'all'
+                    ? 'bg-[#182C45] text-white shadow-sm'
+                    : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF]'
+                }`}
+              >
+                <span>All Categories</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded ${activeCategory === 'all' ? 'bg-white/20' : 'bg-slate-100 text-slate-700'}`}>
+                  {products.length}
+                </span>
+              </button>
+              <button
+                onClick={() => setActiveCategory('Smartphones')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeCategory === 'Smartphones'
+                    ? 'bg-[#0284C7] text-white shadow-sm'
+                    : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF]'
+                }`}
+              >
+                <SmartphoneIcon className="w-3.5 h-3.5" />
+                <span>Smartphones</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded ${activeCategory === 'Smartphones' ? 'bg-white/20' : 'bg-slate-100 text-slate-700'}`}>
+                  20
+                </span>
+              </button>
+              <button
+                onClick={() => setActiveCategory('Headphones')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeCategory === 'Headphones'
+                    ? 'bg-[#0284C7] text-white shadow-sm'
+                    : 'bg-white text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF]'
+                }`}
+              >
+                <HeadphonesIcon className="w-3.5 h-3.5" />
+                <span>Flagship Wireless ANC Headphones</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-extrabold">
+                  3 New
+                </span>
+              </button>
             </div>
           </div>
 
@@ -581,15 +708,19 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       <div className="grid grid-cols-2 gap-2 text-[11px] text-[#334155] bg-[#F5F8FC] p-3 rounded-xl border border-[#D5E9FA]">
                         <div>
                           <span className="text-[9px] text-[#64748B] uppercase font-bold block">
-                            Chipset
+                            {product.category === 'Headphones' ? 'Engine' : 'Chipset'}
                           </span>
-                          <span className="truncate block font-semibold">{product.specsSummary.chipset.split('(')[0]}</span>
+                          <span className="truncate block font-semibold">
+                            {(product.specsSummary.chipset || 'Integrated Processor').split('(')[0]}
+                          </span>
                         </div>
                         <div>
                           <span className="text-[9px] text-[#64748B] uppercase font-bold block">
-                            Display
+                            {product.category === 'Headphones' ? 'Acoustics' : 'Display'}
                           </span>
-                          <span className="truncate block font-semibold">{product.specsSummary.display.split(',')[0]}</span>
+                          <span className="truncate block font-semibold">
+                            {(product.specsSummary.display || 'Acoustic Driver').split(',')[0]}
+                          </span>
                         </div>
                       </div>
 

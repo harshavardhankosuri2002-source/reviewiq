@@ -1,10 +1,10 @@
 # VOX Project Status & Implementation Report
 
-**Product**: VOX — AI Customer Review Intelligence  
-**Tagline**: HEAR WHAT MATTERS  
+**Product**: ReviewIQ / VOX — AI Customer Review Intelligence  
+**Tagline**: HEAR WHAT MATTERS — Understand the experience behind the rating.  
 **Status**: Active / Production-Ready Academic Prototype  
-**Date**: September 2026  
-**Version**: 3.0.0 (VOX Brand Edition)
+**Date**: November 2026  
+**Version**: 3.5.0 (Multi-Category & MBA Commercialization Edition)
 
 ---
 
@@ -29,9 +29,11 @@ The application is built around the **VOX** brand:
 | :--- | :--- | :--- |
 | **Supporting Reviews Screen** | `supporting-reviews` | Dedicated review exploration screen with back navigation, real-time 3-tier sentiment summary bar, multi-facet filtering (Sentiment, Attribute, Source, Sort, Search), evidence traceability tags (Supporting vs Conflicting), expandable cards, and helpful upvotes. |
 | **Transparent Calculation Screen** | `transparent-calculation` | Open mathematical audit screen featuring Section A (Interactive Priorities Selector), Section B (Attribute Formulas, Step-by-Step Arithmetic, Denominator Check), Section C (Recommendation Heuristic Rules & Conflict Analysis), and Section D (Limitations & Caveats). |
-| **Discover & Catalogue Explorer** | `discover` | 22-smartphone catalogue explorer with 3D titanium phone hero, live text search, 9 brand filter pills, 5 price segment tabs, 5 sorting options, active counter badge, and reset empty state. |
-| **Product Analysis & Intelligence** | `product` | Comprehensive report for each of the 22 smartphones with zero-truncation hardware specs, personalized decision engine, 4-quadrant AI summary, 6-attribute theme breakdown, natural language Q&A (Ask VOX), and cross-source analysis. |
-| **Multi-Product Comparison** | `compare` | Dynamic side-by-side comparison matrix of 2 to 4 smartphones chosen from all 22 models with priority weightings. |
+| **Discover & Catalogue Explorer** | `discover` | 23-product multi-category catalogue explorer (20 Smartphones + 3 Flagship ANC Headphones), Category Switcher pills (All, Smartphones, Headphones), Shopper Persona Presets ("Quick Profile Match"), Live Link Ingestion Scanner banner, 11 brand filters, price tiers, and sorting. |
+| **Product Analysis & Intelligence** | `product` | Comprehensive report for 23 products with zero-truncation hardware specs, 1-click persona match, dynamic category priorities, 4-quadrant AI summary, theme breakdown, Ask VOX Q&A, and interactive Review Manipulation Stress-Test simulator. |
+| **Multi-Product Comparison** | `compare` | Dynamic side-by-side comparison matrix across smartphones and headphones with audio/spec adaptive rows, category filter tabs in modal, and saved comparison bookmarks. |
+| **Live Link Ingestion Simulator** | Modal | 5-stage retail link parsing simulator (DOM Scraping, Source Normalization, Bot Filtering, Aspect Sentiment Clustering, and Report Generation) with 1-click presets for Amazon, Flipkart, and BestBuy. |
+| **MBA Pitch Deck Modal** | Modal | 4-tab interactive commercialization pitch covering $8.2B TAM, 3 revenue streams, unit economics (CAC $4.20, LTV $26.80, 6.4x ratio, 86% margin), and 3-year ARR projections ($7.8M ARR). |
 | **Persistent Shortlist** | `saved` | Saved devices manager with `localStorage` persistence (`vox_saved_products`) and quick compare launch. |
 | **Universal Search Results** | `search` | Multi-parameter search results with instant query updates and filter sidebar. |
 | **Methodology & Architecture** | `how-it-works` | 8-stage intelligence pipeline explanation and commercial architecture blueprint in clean light styling. |

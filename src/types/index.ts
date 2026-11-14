@@ -1,4 +1,14 @@
-export type AttributeKey = 'battery' | 'camera' | 'reliability' | 'performance' | 'value' | 'software';
+export type AttributeKey = 
+  | 'battery' 
+  | 'camera' 
+  | 'reliability' 
+  | 'performance' 
+  | 'value' 
+  | 'software'
+  | 'sound'
+  | 'anc'
+  | 'comfort'
+  | 'callquality';
 
 export type ReviewSentiment = 'positive' | 'negative' | 'mixed';
 
@@ -101,11 +111,15 @@ export interface Product {
   retailerName: string;
   category: string;
   specsSummary: {
-    display: string;
-    chipset: string;
+    display?: string;
+    chipset?: string;
     battery: string;
-    camera: string;
+    camera?: string;
     weight: string;
+    anc?: string;
+    driver?: string;
+    connectivity?: string;
+    [key: string]: string | undefined;
   };
   sampleRating: number;
   sampleReviewCount: number;
@@ -216,5 +230,74 @@ export interface VoxAiContext {
   compareProductIds?: string[];
   initialAction?: ContextualActionType;
   initialPrompt?: string;
+}
+
+export interface SavedComparison {
+  id: string;
+  title: string;
+  createdAt: string;
+  productIds: string[];
+  note?: string;
+}
+
+export interface SentimentTimelinePoint {
+  month: string;
+  dateKey: string;
+  positiveCount: number;
+  mixedCount: number;
+  negativeCount: number;
+  totalCount: number;
+  positivePct: number;
+}
+
+export interface RecurringComplaintItem {
+  id: string;
+  title: string;
+  category: AttributeKey | 'hardware' | 'pricing' | 'general';
+  frequencyCount: number;
+  percentageOfReviews: number;
+  severity: 'Critical' | 'Moderate' | 'Minor';
+  affectedProducts: string[];
+  exampleQuotes: string[];
+}
+
+export interface ExtractedUrlProduct {
+  sourceUrl: string;
+  domain: string;
+  extractedTitle: string;
+  matchedCatalogueProduct?: Product;
+  isSimulatedDemo: boolean;
+  specsDetected: {
+    display?: string;
+    chipset?: string;
+    battery?: string;
+    camera?: string;
+  };
+}
+
+export interface ShopperPersona {
+  id: string;
+  name: string;
+  emoji: string;
+  tagline: string;
+  category: 'smartphones' | 'headphones' | 'all';
+  priorities: AttributeKey[];
+  description: string;
+}
+
+export type StressScenarioId = 'baseline' | 'sponsored_surge' | 'review_bomb';
+
+export interface StressScenario {
+  id: StressScenarioId;
+  label: string;
+  badge: string;
+  description: string;
+  injectedCount: number;
+  syntheticRating: number;
+  syntheticSentiment: ReviewSentiment;
+  flagTriggered: boolean;
+  anomalyTitle: string;
+  anomalyExplanation: string;
+  confidencePenaltyPct: number;
 }
 

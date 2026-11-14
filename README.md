@@ -65,12 +65,32 @@ Accessible via *"How is this calculated?"* on the recommendation card:
 - **Section D: Limitations, Uncertainty & Caveats**:
   - Plain-language disclosure of sample size limits, self-selection reporting bias, variant differences, NLP sentiment nuances, and the distinction between consensus percentage and individual satisfaction probability.
 
-### 3. Expanded 22-Smartphone Catalogue (`src/pages/DiscoverPage.tsx`)
-- 22 distinct smartphone models across 8 major manufacturers: **Apple, Samsung, Google Pixel, OnePlus, Xiaomi / Redmi, Nothing, Motorola, and Realme**.
+### 3. Multi-Category Catalogue & Switcher (`src/pages/DiscoverPage.tsx`)
+- **23 verified products across 2 major hardware categories**:
+  - **20 Smartphones** across 8 manufacturers: Apple, Samsung, Google Pixel, OnePlus, Xiaomi/Redmi, Nothing, Motorola, and Realme.
+  - **3 Flagship Wireless ANC Headphones**: Sony WH-1000XM5, Bose QuietComfort Ultra, and Apple AirPods Max with audio-specific dimensions (Acoustics, ANC Isolation, Comfort, Battery, Call Clarity).
+- **Multi-Category Switcher Tabs**: 1-click toggling between *All Categories (23)*, *Smartphones (20)*, and *Flagship Headphones (3)*.
 - 4 price segments: Budget (<₹30,000), Midrange (₹30,000–₹50,000), Flagship (₹50,000–₹1,00,000), and Ultra-Premium (₹1,00,000+).
-- Live search by model/brand/specs, 9 brand filter pills, price tier tabs, sorting by rating/price/relevance/reviews, active counter, and empty states.
+- Live search by model/brand/specs, 11 brand filter pills, price tier tabs, sorting by rating/price/relevance/reviews, active counter, and empty states.
 
-### 4. Product Intelligence & Personalized Decision Engine (`src/pages/ProductAnalysisPage.tsx`)
+### 4. Advanced MBA Innovation Features
+1. **Shopper Persona Presets ("Quick Profile Match")** (`src/components/PersonaPresets.tsx`):
+   - 4 pre-configured buyer archetypes: *Business Traveler*, *Creative Pro / Audiophile*, *Student on a Budget*, and *Power User / Executive*.
+   - 1-click matching directly adjusts purchasing priorities and recalculates compatibility scores across all products.
+2. **"Paste Product Link" / Live Ingestion Simulator** (`src/components/LinkIngestionModal.tsx`):
+   - Interactive retail link scanner simulating an 8-stage ingestion pipeline (DOM Scraping, Source Normalization, Bot Filtering, Aspect Sentiment Clustering, and Report Generation).
+   - Includes 1-click sample links for Amazon, Flipkart, and BestBuy.
+3. **Interactive "Review Manipulation" Stress-Test Tool** (`src/components/TrustAndQualityCard.tsx`):
+   - Lets users inject synthetic 5-star promotional bot surges or competitor 1-star review bombs.
+   - Shows real-time anomaly detection, confidence penalties, and score defense.
+4. **MBA Commercialization & Unit Economics Pitch Deck Modal** (`src/components/CommercializationModal.tsx`):
+   - 4 structured interactive pitch tabs:
+     - **Market Opportunity & Problem**: $8.2B TAM, 82% consumer distrust in 5-star averages.
+     - **3 Monetization Streams**: B2C Affiliate Commissions (2.8%), B2B Retailer PDP API Licensing ($15k/mo/retailer), Brand Intelligence SaaS ($299–$1,299/mo).
+     - **Unit Economics**: Blended CAC $4.20, LTV $26.80, 6.4x LTV:CAC ratio, 86% Gross Margin.
+     - **3-Year Financial Projections**: Year 1 ($420K), Year 2 ($2.4M), Year 3 ($7.8M ARR) with cash-flow positive inflection at Month 14.
+
+### 5. Product Intelligence & Personalized Decision Engine (`src/pages/ProductAnalysisPage.tsx`)
 - **Product Overview** (`src/components/ProductOverview.tsx`): 5 key hardware spec cards with full text wrapping and zero ellipsis truncation.
 - **Personalized Decision Engine** (`src/components/PersonalizedInsights.tsx`): Circular SVG fit score gauge, priority selector, tailored advice narrative, and direct triggers to Supporting Reviews and Transparent Calculation.
 - **Evidence-Backed AI Summary** (`src/components/AISummaryCard.tsx`): 4 quadrants (Appreciated Features, Common Complaints, Mixed Opinions, Caveats).

@@ -121,3 +121,11 @@ export function getAiHistoryStorageKey(userId: string): string {
 export function getPrioritiesStorageKey(userId: string): string {
   return `vox_user_priorities_${userId}`;
 }
+
+export function getSavedComparisonsStorageKey(userId: string): string {
+  return `vox_saved_comparisons_${userId}`;
+}
+
+export function getRecentResearchStorageKey(userId: string): string {
+  return `vox_recent_research_${userId}`;
+}

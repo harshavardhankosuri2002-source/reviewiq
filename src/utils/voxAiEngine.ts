@@ -81,10 +81,10 @@ export function generateVoxAiResponse({
       contextSummary: `${targetProduct.name} (Review Synthesis)`,
       activePrioritiesUsed: activeKeys,
       verifiedSpecs: [
-        { label: 'Chipset', value: targetProduct.specsSummary.chipset },
+        { label: 'Chipset / Engine', value: targetProduct.specsSummary.chipset || 'Integrated Processor' },
         { label: 'Battery', value: targetProduct.specsSummary.battery },
-        { label: 'Camera', value: targetProduct.specsSummary.camera },
-        { label: 'Display', value: targetProduct.specsSummary.display },
+        { label: targetProduct.category === 'Headphones' ? 'Acoustics' : 'Camera', value: targetProduct.specsSummary.camera || targetProduct.specsSummary.display || 'Precision Driver' },
+        { label: targetProduct.category === 'Headphones' ? 'Wireless' : 'Display', value: targetProduct.specsSummary.display || targetProduct.specsSummary.connectivity || 'Wireless Multipoint' },
       ],
       reviewEvidence: [
         {
@@ -114,7 +114,7 @@ export function generateVoxAiResponse({
         contextSummary: `${targetProduct.name} (Priority Fit)`,
         activePrioritiesUsed: [],
         verifiedSpecs: [
-          { label: 'Display', value: targetProduct.specsSummary.display },
+          { label: targetProduct.category === 'Headphones' ? 'Acoustics' : 'Display', value: targetProduct.specsSummary.display || 'Acoustic Driver' },
           { label: 'Battery', value: targetProduct.specsSummary.battery },
         ],
       };
@@ -190,7 +190,7 @@ export function generateVoxAiResponse({
       contextSummary: `${targetProduct.name} (Pros & Cons)`,
       activePrioritiesUsed: activeKeys,
       verifiedSpecs: [
-        { label: 'Chipset', value: targetProduct.specsSummary.chipset },
+        { label: 'Chipset / Engine', value: targetProduct.specsSummary.chipset || 'Integrated Processor' },
         { label: 'Weight', value: targetProduct.specsSummary.weight || 'Standard' },
       ],
       reviewEvidence: [
@@ -362,7 +362,7 @@ export function generateVoxAiResponse({
       actionType: 'custom_query',
       contextSummary: `${targetProduct.name} (Camera Analysis)`,
       activePrioritiesUsed: activeKeys,
-      verifiedSpecs: [{ label: 'Camera Hardware', value: targetProduct.specsSummary.camera }],
+      verifiedSpecs: [{ label: 'Camera Hardware', value: targetProduct.specsSummary.camera || 'Advanced Imaging Sensor' }],
       reviewEvidence: [
         {
           themeName: 'Camera & Optics Feedback',
@@ -391,7 +391,7 @@ export function generateVoxAiResponse({
     contextSummary: `${targetProduct.name} (Custom Query)`,
     activePrioritiesUsed: activeKeys,
     verifiedSpecs: [
-      { label: 'Chipset', value: targetProduct.specsSummary.chipset },
+      { label: 'Chipset / Engine', value: targetProduct.specsSummary.chipset || 'Integrated Processor' },
       { label: 'Battery', value: targetProduct.specsSummary.battery },
       { label: 'Price', value: targetProduct.priceMSRP },
     ],

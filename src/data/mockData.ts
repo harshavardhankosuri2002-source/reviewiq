@@ -1635,6 +1635,233 @@ export const SAMPLE_PRODUCTS: Product[] = [
       recencyConfidence: 'High',
       recencyNote: 'Strong tracking across European and Asian launches.'
     }
+  },
+
+  // 21. Sony WH-1000XM5
+  {
+    id: 'sony-wh1000xm5',
+    name: 'Sony WH-1000XM5',
+    brand: 'Sony',
+    releaseYear: 2023,
+    variants: ['Black', 'Silver', 'Midnight Blue'],
+    defaultVariant: 'Black',
+    priceMSRP: '₹29,990',
+    imageUrl: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&auto=format&fit=crop&q=80',
+    imageVerified: true,
+    colorVariant: 'Black',
+    officialUrl: 'https://www.sony.co.in/headphones/products/wh-1000xm5',
+    retailerName: 'Sony Center / Retailers',
+    category: 'Headphones',
+    specsSummary: {
+      battery: '30 hrs (ANC on) / 40 hrs (ANC off)',
+      weight: '250g',
+      anc: 'Auto NC Optimizer (V1 + QN1 processors)',
+      driver: '30mm Carbon Fiber composite dome',
+      connectivity: 'Bluetooth 5.2, LDAC, Multipoint, 3.5mm jack',
+    },
+    sampleRating: 4.6,
+    sampleReviewCount: 8,
+    dateRange: {
+      start: '2023-06-10',
+      end: '2024-11-20',
+    },
+    quickVerdict: 'Industry reference active noise cancellation and featherlight 250g comfort with LDAC high-res audio, though the non-folding headband design occupies more backpack space than the predecessor XM4.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Most Appreciated Features',
+        points: [
+          'Unrivaled cabin drone and office chatter reduction powered by dual V1/QN1 chips.',
+          'Featherlight 250g weight with soft-fit synthetic leather minimizes ear fatigue.',
+          'Seamless multipoint Bluetooth pairing between laptop and phone with 30-hour stamina.'
+        ],
+        supportingReviewIds: ['rev-sony-01', 'rev-sony-03', 'rev-sony-05']
+      },
+      commonComplaints: {
+        title: 'Common Complaints',
+        points: [
+          'Hinges no longer fold inward into a compact ball; larger carrying case occupies significant travel bag volume.',
+          'Auto-ANC optimization occasionally shifts intensity unexpectedly during transit head movements.',
+          'Ear cushions get warm during summer commutes.'
+        ],
+        supportingReviewIds: ['rev-sony-02', 'rev-sony-04']
+      },
+      mixedOpinions: {
+        title: 'Mixed / Conflicting Opinions',
+        points: [
+          'Touch sensor gestures on right earcup: intuitive for some, prone to accidental brushes when adjusting fit for others.',
+          'Slightly slimmer headband padding compared to the plusher XM4.'
+        ],
+        supportingReviewIds: ['rev-sony-06']
+      },
+      importantCaveats: {
+        title: 'Important Caveats Before Buying',
+        points: [
+          'Does not fold into a compact shape; check carrying case dimensions if you travel with compact backpacks.',
+          'LDAC high-res codec is exclusive to Android and Windows; iOS defaults to AAC.'
+        ],
+        supportingReviewIds: ['rev-sony-02', 'rev-sony-07']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 94,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'High consensus corroborated across audiophile forums and retail buyers.',
+      variantCompletenessScore: 92,
+      variantNote: 'Reviewers distinguish between Black, Silver, and Midnight Blue finishes.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensive multi-year verification across multiple firmware versions.'
+    }
+  },
+
+  // 22. Bose QuietComfort Ultra
+  {
+    id: 'bose-qc-ultra',
+    name: 'Bose QuietComfort Ultra',
+    brand: 'Bose',
+    releaseYear: 2024,
+    variants: ['Black', 'White Smoke', 'Sandstone'],
+    defaultVariant: 'Black',
+    priceMSRP: '₹35,900',
+    imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+    imageVerified: true,
+    colorVariant: 'Black',
+    officialUrl: 'https://www.bose.com/p/headphones/bose-quietcomfort-ultra-headphones',
+    retailerName: 'Bose Store & Authorized Partners',
+    category: 'Headphones',
+    specsSummary: {
+      battery: '24 hrs (standard) / 18 hrs (Immersive Audio)',
+      weight: '253g',
+      anc: 'CustomTune World-Class ANC + Aware Mode',
+      driver: 'Custom Bose High-Excursion Transducers',
+      connectivity: 'Bluetooth 5.3, Snapdragon Sound, aptX Adaptive',
+    },
+    sampleRating: 4.5,
+    sampleReviewCount: 8,
+    dateRange: {
+      start: '2023-10-15',
+      end: '2024-12-05',
+    },
+    quickVerdict: 'The reigning champion of long-haul travel comfort and low-frequency aircraft cabin noise cancellation, with a foldable hinge design, offset by a shorter 24-hour battery life and occasional pop sounds on Bluetooth reconnect.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Most Appreciated Features',
+        points: [
+          'Plush memory foam earcups and gentle clamping force provide unmatched 8+ hour flight comfort.',
+          'Class-leading active noise cancellation eliminates jet engine hum effortlessly.',
+          'Retains a sturdy folding hinge design that collapses into an ultra-compact travel case.'
+        ],
+        supportingReviewIds: ['rev-bose-01', 'rev-bose-03', 'rev-bose-05']
+      },
+      commonComplaints: {
+        title: 'Common Complaints',
+        points: [
+          'Battery life tops out at 24 hours (drops to ~18 hours with Immersive Audio on), trailing Sony 30 hours.',
+          'Bose Music app occasionally experiences Bluetooth sync delays during initial morning wake-up.',
+          'Volume slider strip on earcup is overly sensitive to accidental finger grazes.'
+        ],
+        supportingReviewIds: ['rev-bose-02', 'rev-bose-04']
+      },
+      mixedOpinions: {
+        title: 'Mixed / Conflicting Opinions',
+        points: [
+          'Bose Immersive Audio spatializer: captivating for orchestral music and movies, slightly echoey for podcasts and audiobooks.'
+        ],
+        supportingReviewIds: ['rev-bose-06']
+      },
+      importantCaveats: {
+        title: 'Important Caveats Before Buying',
+        points: [
+          'Enabling Bose Immersive Audio significantly penalizes battery duration by 25%.',
+          'Fast charging provides 2.5 hours in 15 mins, but standard USB-C full recharge requires ~3 hours.'
+        ],
+        supportingReviewIds: ['rev-bose-02', 'rev-bose-07']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 91,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consistent feedback between frequent flyers and audio lab benchmarks.',
+      variantCompletenessScore: 88,
+      variantNote: 'Color choices and firmware versions clearly specified by verified purchasers.',
+      recencyConfidence: 'High',
+      recencyNote: 'Strong post-launch tracking with firmware v1.4 stability verified.'
+    }
+  },
+
+  // 23. Apple AirPods Max (USB-C)
+  {
+    id: 'airpods-max',
+    name: 'Apple AirPods Max (USB-C)',
+    brand: 'Apple',
+    releaseYear: 2024,
+    variants: ['Midnight', 'Starlight', 'Space Gray', 'Sky Blue', 'Orange'],
+    defaultVariant: 'Midnight',
+    priceMSRP: '₹59,900',
+    imageUrl: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&auto=format&fit=crop&q=80',
+    imageVerified: true,
+    colorVariant: 'Midnight',
+    officialUrl: 'https://www.apple.com/in/airpods-max/',
+    retailerName: 'Apple Store & Premium Resellers',
+    category: 'Headphones',
+    specsSummary: {
+      battery: '20 hrs (ANC on with Spatial Audio)',
+      weight: '386g',
+      anc: 'Computational ANC with Natural Transparency Mode',
+      driver: '40mm Apple-designed Dynamic Driver with Dual H1 Chips',
+      connectivity: 'Bluetooth 5.0, USB-C lossless audio, Handoff',
+    },
+    sampleRating: 4.4,
+    sampleReviewCount: 8,
+    dateRange: {
+      start: '2024-09-20',
+      end: '2025-01-15',
+    },
+    quickVerdict: 'Unrivaled aluminum and breathable knit-mesh luxury build, industry-benchmark natural Transparency Mode, and USB-C audio, tempered by a heavy 386g footprint, lack of a physical power switch, and a minimalist Smart Case.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Most Appreciated Features',
+        points: [
+          'Transparency Mode sounds completely natural, allowing effortless conversation without removing headphones.',
+          'Exquisite acoustic fidelity with distortion-free sub-bass and crisp instrument separation.',
+          'Flawless Apple ecosystem integration with instantaneous switching between Mac, iPad, and iPhone.'
+        ],
+        supportingReviewIds: ['rev-apm-01', 'rev-apm-03', 'rev-apm-05']
+      },
+      commonComplaints: {
+        title: 'Common Complaints',
+        points: [
+          'Substantial 386g weight can cause neck and crown pressure during long work sessions exceeding 3 hours.',
+          'Absence of an off switch: headphones rely entirely on low-power standby inside the Smart Case.',
+          'High premium price point of ₹59,900 without included 3.5mm analog cable or hard case.'
+        ],
+        supportingReviewIds: ['rev-apm-02', 'rev-apm-04']
+      },
+      mixedOpinions: {
+        title: 'Mixed / Conflicting Opinions',
+        points: [
+          'Digital Crown volume dial: beloved for tactile precision by watch users, occasionally snagged on shirt collars when reclined.',
+          'Smart Case design continues to polarize aesthetic opinions across community forums.'
+        ],
+        supportingReviewIds: ['rev-apm-06']
+      },
+      importantCaveats: {
+        title: 'Important Caveats Before Buying',
+        points: [
+          'Weighs 386g—more than 50% heavier than Sony XM5 (250g) and Bose Ultra (253g). Test headband fit before purchasing.',
+          'Advanced head-tracked Spatial Audio and fast pairing require Apple devices; functionality on Android is basic SBC/AAC.'
+        ],
+        supportingReviewIds: ['rev-apm-02', 'rev-apm-07']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 89,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consensus verified across studio music producers and Apple ecosystem buyers.',
+      variantCompletenessScore: 94,
+      variantNote: 'Reviewers clearly designate the new 2024 USB-C variant vs legacy Lightning.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensive tracking following the USB-C fall release.'
+    }
   }
 ];
 
@@ -2137,6 +2364,348 @@ export const SAMPLE_REVIEWS: Review[] = [
     helpfulCount: 53,
     verifiedPurchase: true,
     highlightedPhrase: 'outdoors under direct tropical sun this display is clearer than any phone'
+  },
+
+  // --- Sony WH-1000XM5 Reviews ---
+  {
+    id: 'rev-sony-01',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Black',
+    author: 'FrequentFlyer_Vikram',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-03-12',
+    sentiment: 'positive',
+    attributes: ['anc', 'battery', 'sound'],
+    title: 'The gold standard for long international flights',
+    originalText: 'Wore these on a 14-hour flight to San Francisco. The cabin engine drone simply vanished. Battery still showed 55% upon landing. LDAC playback on Android is stunning.',
+    helpfulCount: 68,
+    verifiedPurchase: true,
+    highlightedPhrase: 'cabin engine drone simply vanished. Battery still showed 55% upon landing'
+  },
+  {
+    id: 'rev-sony-02',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Black',
+    author: 'PackLight_Dan',
+    source: 'Marketplace',
+    rating: 3,
+    date: '2024-04-18',
+    sentiment: 'mixed',
+    attributes: ['comfort', 'reliability', 'value'],
+    title: 'Great sound, but why did they remove the folding hinges?',
+    originalText: 'The audio fidelity and noise cancelling are 10/10, but the case is huge compared to my old XM4. It occupies half my briefcase. Be aware if bag space is your priority.',
+    helpfulCount: 84,
+    verifiedPurchase: true,
+    highlightedPhrase: 'case is huge compared to my old XM4. It occupies half my briefcase'
+  },
+  {
+    id: 'rev-sony-03',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Silver',
+    author: 'StudioTech_Ananya',
+    source: 'Retailer website',
+    rating: 5,
+    date: '2024-06-04',
+    sentiment: 'positive',
+    attributes: ['sound', 'callquality', 'performance'],
+    title: 'Crisp microphone beamforming during Zoom calls',
+    originalText: 'The 4 beamforming microphones filter out my noisy office coffee machine completely. Clients said I sounded like I was in a treated recording booth.',
+    helpfulCount: 42,
+    verifiedPurchase: true,
+    highlightedPhrase: 'microphones filter out noisy office coffee machine completely'
+  },
+  {
+    id: 'rev-sony-04',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Midnight Blue',
+    author: 'MetroCommuter_Rahul',
+    source: 'Consumer community',
+    rating: 3,
+    date: '2024-08-22',
+    sentiment: 'mixed',
+    attributes: ['anc', 'comfort'],
+    title: 'Auto-ANC optimization can be over-sensitive',
+    originalText: 'When moving between walking and seated subway cars, the adaptive ANC shifts its profile and causes an audible pressure change in the ears. Turning off adaptive mode in the app solved it.',
+    helpfulCount: 31,
+    verifiedPurchase: true,
+    highlightedPhrase: 'adaptive ANC shifts its profile and causes an audible pressure change'
+  },
+  {
+    id: 'rev-sony-05',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Black',
+    author: 'Developer_Priya',
+    source: 'Marketplace',
+    rating: 5,
+    date: '2024-09-15',
+    sentiment: 'positive',
+    attributes: ['comfort', 'battery', 'reliability'],
+    title: 'Extremely lightweight, zero crown hot-spot',
+    originalText: 'At 250 grams, these are vastly more comfortable than the 385g AirPods Max. I code for 8 hours daily without any headband sore spot. Multipoint connection between MacBook and phone is instant.',
+    helpfulCount: 57,
+    verifiedPurchase: true,
+    highlightedPhrase: 'code for 8 hours daily without any headband sore spot'
+  },
+  {
+    id: 'rev-sony-06',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Silver',
+    author: 'AudioCritic_Mark',
+    source: 'Consumer community',
+    rating: 4,
+    date: '2024-10-10',
+    sentiment: 'mixed',
+    attributes: ['sound', 'performance'],
+    title: 'Bass is tight, but default EQ needs a slight treble boost',
+    originalText: 'Out of the box the sound signature is warm and consumer-friendly. Once you apply the Bright or Excited preset in the Sony Headphones app, acoustic guitars and hi-hats come alive.',
+    helpfulCount: 29,
+    verifiedPurchase: true,
+    highlightedPhrase: 'once you apply Bright preset, acoustic guitars and hi-hats come alive'
+  },
+  {
+    id: 'rev-sony-07',
+    productId: 'sony-wh1000xm5',
+    productVariant: 'Black',
+    author: 'BudgetTechReviewer',
+    source: 'Retailer website',
+    rating: 5,
+    date: '2024-11-20',
+    sentiment: 'positive',
+    attributes: ['value', 'anc', 'sound'],
+    title: 'Best all-around value in premium flagship ANC',
+    originalText: 'At ₹29,990 this beats the ₹35,900 Bose Ultra and ₹59,900 AirPods Max on battery longevity and price-to-performance. The default flagship recommendation.',
+    helpfulCount: 46,
+    verifiedPurchase: true,
+    highlightedPhrase: 'beats competitors on battery longevity and price-to-performance'
+  },
+
+  // --- Bose QuietComfort Ultra Reviews ---
+  {
+    id: 'rev-bose-01',
+    productId: 'bose-qc-ultra',
+    productVariant: 'Black',
+    author: 'Captain_Arjun',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-01-20',
+    sentiment: 'positive',
+    attributes: ['anc', 'comfort'],
+    title: 'Nobody beats Bose on low-frequency aircraft rumble',
+    originalText: 'As an airline pilot traveling deadhead, Bose ANC remains the pinnacle. The cabin rumble is completely neutralized. The clamping force is gentle like a cloud.',
+    helpfulCount: 77,
+    verifiedPurchase: true,
+    highlightedPhrase: 'cabin rumble is completely neutralized. Clamping force is gentle like a cloud'
+  },
+  {
+    id: 'rev-bose-02',
+    productId: 'bose-qc-ultra',
+    productVariant: 'White Smoke',
+    author: 'RoadWarrior_Sam',
+    source: 'Marketplace',
+    rating: 3,
+    date: '2024-03-15',
+    sentiment: 'mixed',
+    attributes: ['battery', 'value'],
+    title: 'Comfort is unmatched, but 24-hr battery trails Sony',
+    originalText: 'I get roughly 20-22 hours of real-world playback with Immersive Audio enabled. Fine for weekly trips, but Sony gives a guaranteed 30+ hours. Fast charging is reliable though.',
+    helpfulCount: 48,
+    verifiedPurchase: true,
+    highlightedPhrase: 'battery tops out around 20-22 hours with Immersive Audio enabled'
+  },
+  {
+    id: 'rev-bose-03',
+    productId: 'bose-qc-ultra',
+    productVariant: 'Black',
+    author: 'CompactTraveler',
+    source: 'Retailer website',
+    rating: 5,
+    date: '2024-05-18',
+    sentiment: 'positive',
+    attributes: ['reliability', 'comfort', 'anc'],
+    title: 'Thank goodness Bose kept the folding hinges!',
+    originalText: 'Unlike the Sony XM5 and AirPods Max which stay flat, these fold inward into a compact clamshell. Fits effortlessly in my small sling bag.',
+    helpfulCount: 63,
+    verifiedPurchase: true,
+    highlightedPhrase: 'fold inward into a compact clamshell. Fits effortlessly in my sling'
+  },
+  {
+    id: 'rev-bose-04',
+    productId: 'bose-qc-ultra',
+    productVariant: 'Black',
+    author: 'TechGeek_Naveen',
+    source: 'Consumer community',
+    rating: 3,
+    date: '2024-07-29',
+    sentiment: 'mixed',
+    attributes: ['software', 'performance'],
+    title: 'Volume slider capacitive strip takes getting used to',
+    originalText: 'The physical touch volume strip on the right cup is sensitive. When I adjust the headphone angle on my head, I occasionally blast the volume up by accident.',
+    helpfulCount: 39,
+    verifiedPurchase: true,
+    highlightedPhrase: 'capacitive volume strip is overly sensitive to accidental adjustment'
+  },
+  {
+    id: 'rev-bose-05',
+    productId: 'bose-qc-ultra',
+    productVariant: 'Sandstone',
+    author: 'ClassicalListener',
+    source: 'Marketplace',
+    rating: 5,
+    date: '2024-09-08',
+    sentiment: 'positive',
+    attributes: ['sound', 'comfort'],
+    title: 'Immersive Audio elevates symphonic music',
+    originalText: 'Listening to Hans Zimmer scores with Bose Immersive mode turned on feels like sitting in the 5th row of a concert hall. Spatial imaging is wide and organic.',
+    helpfulCount: 34,
+    verifiedPurchase: true,
+    highlightedPhrase: 'feels like sitting in the 5th row of a concert hall'
+  },
+  {
+    id: 'rev-bose-06',
+    productId: 'bose-qc-ultra',
+    productVariant: 'Black',
+    author: 'OfficeWorker_Sneha',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-10-25',
+    sentiment: 'positive',
+    attributes: ['callquality', 'anc'],
+    title: 'Great voice isolation in open office cubicles',
+    originalText: 'Our open-plan office is loud, but Bose Aware mode with ActiveSense automatically drops coworker shouting without me touching a button.',
+    helpfulCount: 28,
+    verifiedPurchase: true,
+    highlightedPhrase: 'ActiveSense drops coworker shouting without me touching a button'
+  },
+  {
+    id: 'rev-bose-07',
+    productId: 'bose-qc-ultra',
+    productVariant: 'White Smoke',
+    author: 'Audiophile_Rohan',
+    source: 'Consumer community',
+    rating: 4,
+    date: '2024-12-05',
+    sentiment: 'positive',
+    attributes: ['value', 'sound', 'comfort'],
+    title: 'Top pick if long-term comfort is your #1 priority',
+    originalText: 'If you suffer from headache pressure from heavy headphones, buy the Bose Ultra without hesitation. The acoustic seal is effortless and the foam breathes well.',
+    helpfulCount: 52,
+    verifiedPurchase: true,
+    highlightedPhrase: 'if you suffer from headache pressure, buy the Bose Ultra without hesitation'
+  },
+
+  // --- Apple AirPods Max Reviews ---
+  {
+    id: 'rev-apm-01',
+    productId: 'airpods-max',
+    productVariant: 'Midnight',
+    author: 'AppleEcosystem_Deepak',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-09-28',
+    sentiment: 'positive',
+    attributes: ['sound', 'anc', 'software'],
+    title: 'The most natural Transparency Mode ever built',
+    originalText: 'You can hold full conversations with people and literally forget you are wearing over-ear headphones. It sounds indistinguishable from open air. USB-C audio with Apple Lossless is sublime.',
+    helpfulCount: 88,
+    verifiedPurchase: true,
+    highlightedPhrase: 'indistinguishable from open air. USB-C audio with Apple Lossless is sublime'
+  },
+  {
+    id: 'rev-apm-02',
+    productId: 'airpods-max',
+    productVariant: 'Midnight',
+    author: 'HeavyNeck_Gaurav',
+    source: 'Marketplace',
+    rating: 3,
+    date: '2024-10-14',
+    sentiment: 'mixed',
+    attributes: ['comfort', 'value'],
+    title: 'Gorgeous aluminum, but 386g is heavy for all-day use',
+    originalText: 'The anodized aluminum earcups and stainless steel arms look like luxury jewelry, but at 386 grams you feel the gravitational pull on your neck after two consecutive movie streams.',
+    helpfulCount: 95,
+    verifiedPurchase: true,
+    highlightedPhrase: 'at 386 grams you feel the gravitational pull on your neck'
+  },
+  {
+    id: 'rev-apm-03',
+    productId: 'airpods-max',
+    productVariant: 'Space Gray',
+    author: 'MusicProducer_Kunal',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-11-02',
+    sentiment: 'positive',
+    attributes: ['sound', 'performance', 'reliability'],
+    title: 'Distortion-free sub-bass and studio reference tuning',
+    originalText: 'Dual neodymium ring magnets deliver zero harmonic distortion even at 90% volume. Kick drums hit with tactile authority without bleeding into vocals. Superior sound to Sony and Bose.',
+    helpfulCount: 64,
+    verifiedPurchase: true,
+    highlightedPhrase: 'zero harmonic distortion even at 90% volume. Superior sound to Sony and Bose'
+  },
+  {
+    id: 'rev-apm-04',
+    productId: 'airpods-max',
+    productVariant: 'Midnight',
+    author: 'MinimalistTraveler',
+    source: 'Retailer website',
+    rating: 2,
+    date: '2024-11-18',
+    sentiment: 'negative',
+    attributes: ['value', 'reliability'],
+    title: 'Still no real case and no power switch at ₹59,900?',
+    originalText: 'The Smart Case is still a joke that leaves the mesh canopy completely exposed in your backpack. And having no power button means they drain slowly if left on your desk overnight.',
+    helpfulCount: 110,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Smart Case leaves mesh canopy exposed. Having no power button drains battery'
+  },
+  {
+    id: 'rev-apm-05',
+    productId: 'airpods-max',
+    productVariant: 'Starlight',
+    author: 'MacPowerUser_Neha',
+    source: 'Marketplace',
+    rating: 5,
+    date: '2024-12-10',
+    sentiment: 'positive',
+    attributes: ['software', 'callquality', 'reliability'],
+    title: 'Switching between iPhone, iPad and Mac is pure sorcery',
+    originalText: 'I pick up an incoming FaceTime call on my Mac and the audio transfers instantly. Microphones during work calls reject room reverb brilliantly.',
+    helpfulCount: 45,
+    verifiedPurchase: true,
+    highlightedPhrase: 'audio transfers instantly between devices without Bluetooth fiddling'
+  },
+  {
+    id: 'rev-apm-06',
+    productId: 'airpods-max',
+    productVariant: 'Sky Blue',
+    author: 'WatchCollector',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2025-01-05',
+    sentiment: 'positive',
+    attributes: ['performance', 'sound'],
+    title: 'Digital Crown is the finest volume control on any headphone',
+    originalText: 'Touch gestures on other headphones are imprecise and annoying. The Apple Digital Crown allows granular single-decibel volume adjustments and instant play/pause.',
+    helpfulCount: 38,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Digital Crown allows granular single-decibel volume adjustments'
+  },
+  {
+    id: 'rev-apm-07',
+    productId: 'airpods-max',
+    productVariant: 'Midnight',
+    author: 'ExecutiveBuyer_Dev',
+    source: 'Consumer community',
+    rating: 4,
+    date: '2025-01-15',
+    sentiment: 'positive',
+    attributes: ['value', 'sound', 'anc'],
+    title: 'Luxury purchase worth it if you live in Apple ecosystem',
+    originalText: 'It is undeniably expensive, but the mesh canopy breathability, lossless USB-C audio for Apple Music, and pristine build quality make it a keeper for the next 5+ years.',
+    helpfulCount: 51,
+    verifiedPurchase: true,
+    highlightedPhrase: 'pristine build quality make it a keeper for the next 5+ years'
   }
 ];
 
@@ -2170,6 +2739,26 @@ export const ATTRIBUTE_CONFIG: { [key in import('../types').AttributeKey]: { lab
     label: 'Software Experience',
     icon: 'Cpu',
     description: 'Operating system polish, AI feature utility, update commitment, and notification handling.'
+  },
+  sound: {
+    label: 'Sound Quality',
+    icon: 'Music',
+    description: 'Acoustic fidelity, dynamic range, bass depth, and soundstage imaging.'
+  },
+  anc: {
+    label: 'Noise Cancellation',
+    icon: 'VolumeX',
+    description: 'Isolation of low-frequency engine drone, office chatter attenuation, and transparency mode.'
+  },
+  comfort: {
+    label: 'Comfort & Fit',
+    icon: 'Smile',
+    description: 'Clamping force balance, headband weight distribution, ear-cushion breathability, and all-day fatigue.'
+  },
+  callquality: {
+    label: 'Call Clarity',
+    icon: 'Mic',
+    description: 'Beamforming voice isolation, wind noise suppression, and microphone pickup in public transit.'
   }
 };
 
@@ -2267,6 +2856,147 @@ export const PREDEFINED_QA_ITEMS: QAItem[] = [
     category: 'value',
     supportingReviewIds: ['rev-np2a-01'],
     confidenceNote: 'Strong positive consensus in budget roundups.'
+  },
+
+  // Sony WH-1000XM5 QA
+  {
+    id: 'qa-sony-1',
+    productId: 'sony-wh1000xm5',
+    question: 'How effective is the active noise cancellation on the Sony XM5?',
+    answer: 'Industry-leading: dual V1 and QN1 noise-cancelling processors create an acoustic dead-zone that effortlessly removes jet engine drone and open-office chatter. The only complaint is that the auto-optimizer occasionally shifts intensity during walking head movements.',
+    category: 'anc',
+    supportingReviewIds: ['rev-sony-01', 'rev-sony-04'],
+    confidenceNote: 'High consensus across international travelers and commute reviewers.'
+  },
+  {
+    id: 'qa-sony-2',
+    productId: 'sony-wh1000xm5',
+    question: 'Can the Sony WH-1000XM5 fold into a compact travel case?',
+    answer: 'No. Sony redesigned the headband with a stepless friction slider that folds flat but does not fold inward into a ball like the prior XM4. The included zippered carrying case occupies noticeably more briefcase or backpack volume.',
+    category: 'comfort',
+    supportingReviewIds: ['rev-sony-02'],
+    confidenceNote: 'Frequently cited by frequent flyers and backpack commuters.'
+  },
+
+  // Bose QuietComfort Ultra QA
+  {
+    id: 'qa-bose-1',
+    productId: 'bose-qc-ultra',
+    question: 'Is the Bose QuietComfort Ultra comfortable for long-haul flights?',
+    answer: 'Yes, it remains the comfort reference standard in personal audio. Plush memory foam earcups, generous acoustic cavity depth, and a featherweight 253g weight completely eliminate crown hot-spots on 10+ hour flights.',
+    category: 'comfort',
+    supportingReviewIds: ['rev-bose-01', 'rev-bose-07'],
+    confidenceNote: 'Unanimous praise from airline crew and frequent flyers.'
+  },
+  {
+    id: 'qa-bose-2',
+    productId: 'bose-qc-ultra',
+    question: 'How long does the battery last with Immersive Audio turned on?',
+    answer: 'Real-world customer feedback indicates battery life reaches 22-24 hours with standard ANC, but drops to approximately 18 hours when Bose Immersive Audio spatial rendering is kept continuously on.',
+    category: 'battery',
+    supportingReviewIds: ['rev-bose-02'],
+    confidenceNote: 'Tested across travel reviews and lab measurements.'
+  },
+
+  // Apple AirPods Max QA
+  {
+    id: 'qa-apm-1',
+    productId: 'airpods-max',
+    question: 'Are the Apple AirPods Max too heavy for daily 8-hour work sessions?',
+    answer: 'For many buyers, yes. At 386 grams, they are over 50% heavier than the Sony XM5 (250g) and Bose Ultra (253g). While the breathable knit canopy distributes weight well, multiple reviewers report neck fatigue after 3-4 continuous hours.',
+    category: 'comfort',
+    supportingReviewIds: ['rev-apm-02'],
+    confidenceNote: 'Consistent ergonomic tradeoff noted across desk workers.'
+  },
+  {
+    id: 'qa-apm-2',
+    productId: 'airpods-max',
+    question: 'Is Transparency Mode noticeably better than Sony or Bose?',
+    answer: 'Yes, reviewers almost universally praise Apple Transparency Mode as the most organic in the industry, sounding indistinguishable from natural open hearing without digitized robotic artifacts.',
+    category: 'anc',
+    supportingReviewIds: ['rev-apm-01'],
+    confidenceNote: 'Unanimous consensus across all audiophile and tech press comparisons.'
+  }
+];
+
+export const SHOPPER_PERSONAS: import('../types').ShopperPersona[] = [
+  {
+    id: 'business_traveler',
+    name: 'Business Traveler',
+    emoji: '🧳',
+    tagline: 'All-Day Endurance & Noise Isolation',
+    category: 'all',
+    priorities: ['battery', 'anc', 'comfort', 'reliability'],
+    description: 'Prioritizes dependable battery stamina, gentle long-haul clamping force, and class-topping cabin noise cancellation.'
+  },
+  {
+    id: 'creative_audiophile',
+    name: 'Creative / Audiophile',
+    emoji: '🎧',
+    tagline: 'Acoustic Fidelity & Optical Precision',
+    category: 'all',
+    priorities: ['sound', 'camera', 'performance'],
+    description: 'Demands studio-reference dynamic range, low distortion, or professional 4K120fps video and color calibration.'
+  },
+  {
+    id: 'value_student',
+    name: 'Budget / Student',
+    emoji: '🎓',
+    tagline: 'High Price-to-Performance Ratio',
+    category: 'all',
+    priorities: ['value', 'battery', 'reliability'],
+    description: 'Focuses on multi-year software longevity, durable chassis build, and maximum features per dollar.'
+  },
+  {
+    id: 'power_user',
+    name: 'Power Commuter',
+    emoji: '⚡',
+    tagline: 'Multipoint Speed & Call Clarity',
+    category: 'all',
+    priorities: ['performance', 'callquality', 'software'],
+    description: 'Requires instantaneous device switching, responsive mic beamforming, and seamless OS integration.'
+  }
+];
+
+export const STRESS_SCENARIOS: import('../types').StressScenario[] = [
+  {
+    id: 'baseline',
+    label: 'Normal Organic Baseline',
+    badge: 'Standard Audit',
+    description: 'Natural review distribution across verified retail and enthusiast channels. Zero artificial clustering.',
+    injectedCount: 0,
+    syntheticRating: 0,
+    syntheticSentiment: 'positive',
+    flagTriggered: false,
+    anomalyTitle: 'Clean Organic Distribution',
+    anomalyExplanation: 'Lexical analysis shows varied sentence cadence, natural typos, and healthy sentiment variance.',
+    confidencePenaltyPct: 0
+  },
+  {
+    id: 'sponsored_surge',
+    label: 'Sponsored 5-Star Surge',
+    badge: 'Astroturfing Alert',
+    description: 'Simulates a vendor promotional burst injecting +50 5-star reviews with repetitive unboxing phrases within 48 hours.',
+    injectedCount: 50,
+    syntheticRating: 5.0,
+    syntheticSentiment: 'positive',
+    flagTriggered: true,
+    anomalyTitle: 'Repetitive Text Clustering Detected',
+    anomalyExplanation: 'ReviewIQ isolated a surge of 50 five-star reviews within a 48-hr window sharing 86% lexical similarity. Confidence penalised by 25%.',
+    confidencePenaltyPct: 25
+  },
+  {
+    id: 'review_bomb',
+    label: 'Competitor 1-Star Raid',
+    badge: 'Review Bombing Alert',
+    description: 'Simulates malicious coordinated 1-star brigading (-40 reviews in 12 hours) targeting non-verified accounts.',
+    injectedCount: 40,
+    syntheticRating: 1.0,
+    syntheticSentiment: 'negative',
+    flagTriggered: true,
+    anomalyTitle: 'Unverified Negative Brigading Cluster',
+    anomalyExplanation: 'Sudden spike of 40 unverified single-star reviews lacking variant specifications. Filtered from true consensus rating.',
+    confidencePenaltyPct: 35
   }
 ];
 

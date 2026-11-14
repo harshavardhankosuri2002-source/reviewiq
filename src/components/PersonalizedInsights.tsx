@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PrioritySelection, AttributeKey, Product, ReviewSentiment } from '../types';
+import { PrioritySelection, AttributeKey, Product, ReviewSentiment, ShopperPersona } from '../types';
 import {
   Sparkles,
   Check,
@@ -9,18 +9,20 @@ import {
   UserCheck,
 } from 'lucide-react';
 import { calculatePersonalizedMatch, getThemeBreakdown } from '../utils/analytics';
-import { ATTRIBUTE_CONFIG } from '../data/mockData';
+import { SHOPPER_PERSONAS } from '../data/mockData';
+import { PersonaPresets } from './PersonaPresets';
 
 interface PersonalizedInsightsProps {
   product: Product;
   priorities: PrioritySelection;
   onTogglePriority: (key: AttributeKey) => void;
+  onSetPriorities?: (priorities: PrioritySelection) => void;
   onOpenEvidence: (title: string, subtitle: string, reviewIds?: string[], attribute?: AttributeKey) => void;
   onNavigateSupportingReviews?: (attribute?: AttributeKey, sentiment?: ReviewSentiment, focusTitle?: string) => void;
   onNavigateCalculation?: () => void;
 }
 
-const AVAILABLE_PRIORITIES: { key: AttributeKey; label: string }[] = [
+const SMARTPHONE_PRIORITIES: { key: AttributeKey; label: string }[] = [
   { key: 'battery', label: 'Battery life' },
   { key: 'camera', label: 'Camera quality' },
   { key: 'reliability', label: 'Reliability' },
@@ -29,10 +31,20 @@ const AVAILABLE_PRIORITIES: { key: AttributeKey; label: string }[] = [
   { key: 'software', label: 'Software experience' },
 ];
 
+const HEADPHONE_PRIORITIES: { key: AttributeKey; label: string }[] = [
+  { key: 'sound', label: 'Acoustic Clarity & Bass' },
+  { key: 'anc', label: 'Active Noise Cancellation' },
+  { key: 'comfort', label: 'Wearing Comfort & Fit' },
+  { key: 'battery', label: 'Battery Endurance (30h+)' },
+  { key: 'callquality', label: 'Microphone & Call Clarity' },
+  { key: 'value', label: 'Value for Money' },
+];
+
 export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
   product,
   priorities,
   onTogglePriority,
+  onSetPriorities,
   onOpenEvidence,
   onNavigateSupportingReviews,
   onNavigateCalculation,
@@ -44,25 +56,25 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
 
   // Map 0-100 score to 4 verdict states
   let verdictLabel = 'Good fit';
-  let verdictStyle = 'bg-emerald-50 text-emerald-800 border-emerald-200';
+  let verdictStyle = 'bg-emerald-50 text-emerald-800 border-emerald-300';
   let strokeColor = '#0284C7';
 
   if (activeKeys.length === 0) {
     verdictLabel = 'Select priorities';
-    verdictStyle = 'bg-gray-100 text-gray-500 border-gray-200';
-    strokeColor = '#CBD5E1';
+    verdictStyle = 'bg-slate-100 text-slate-600 border-slate-300';
+    strokeColor = '#94A3B8';
   } else if (matchResult.score >= 70) {
     verdictLabel = 'Good fit';
-    verdictStyle = 'bg-emerald-50 text-emerald-800 border-emerald-200';
-    strokeColor = '#059669';
+    verdictStyle = 'bg-emerald-50 text-emerald-800 border-emerald-300';
+    strokeColor = '#10B981';
   } else if (matchResult.score >= 40) {
     verdictLabel = 'Mixed fit';
-    verdictStyle = 'bg-amber-50 text-amber-800 border-amber-200';
-    strokeColor = '#D97706';
+    verdictStyle = 'bg-amber-50 text-amber-800 border-amber-300';
+    strokeColor = '#F59E0B';
   } else {
     verdictLabel = 'Potential mismatch';
-    verdictStyle = 'bg-rose-50 text-rose-800 border-rose-200';
-    strokeColor = '#DC2626';
+    verdictStyle = 'bg-rose-50 text-rose-800 border-rose-300';
+    strokeColor = '#EF4444';
   }
 
   // Calculate evidence counts for selected priorities
@@ -78,6 +90,31 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
     activeKeys.length === 0
       ? 251.2
       : Math.max(0, 251.2 - (251.2 * matchResult.score) / 100);
+
+  const availablePriorities = product.category === 'Headphones' ? HEADPHONE_PRIORITIES : SMARTPHONE_PRIORITIES;
+
+  // Check matching persona
+  const activePersona = SHOPPER_PERSONAS.find(p => {
+    if (p.priorities.length !== activeKeys.length) return false;
+    return p.priorities.every(k => priorities[k]);
+  });
+
+  const handleSelectPersona = (persona: ShopperPersona) => {
+    const newP: PrioritySelection = {};
+    persona.priorities.forEach(k => {
+      newP[k] = true;
+    });
+    if (onSetPriorities) {
+      onSetPriorities(newP);
+    } else {
+      activeKeys.forEach(k => {
+        if (!newP[k]) onTogglePriority(k);
+      });
+      persona.priorities.forEach(k => {
+        if (!priorities[k]) onTogglePriority(k);
+      });
+    }
+  };
 
   const handleHowItCalculatedClick = () => {
     if (onNavigateCalculation) {
@@ -123,7 +160,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
             Is this product right for you?
           </h2>
           <p className="text-xs sm:text-sm text-[#64748B] mt-0.5">
-            VOX weighs customer satisfaction across your chosen priorities to assess genuine compatibility.
+            ReviewIQ weighs customer satisfaction across your chosen priorities to assess genuine compatibility.
           </p>
         </div>
 
@@ -136,19 +173,44 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
         </button>
       </div>
 
+      {/* Quick Persona Match Presets */}
+      <div className="bg-[#F5F8FC] p-4 rounded-2xl border border-[#D5E9FA]">
+        <PersonaPresets
+          activePersonaId={activePersona?.id}
+          onSelectPersona={handleSelectPersona}
+          variant="compact"
+        />
+      </div>
+
       {/* 1. Purchasing Priorities Selector */}
       <div className="space-y-3">
-        <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider block">
-          Select What Matters Most to You:
-        </span>
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider block">
+            Select Custom Priorities ({product.category || 'Device'}):
+          </span>
+          {activeKeys.length > 0 && (
+            <button
+              onClick={() => {
+                if (onSetPriorities) {
+                  onSetPriorities({});
+                } else {
+                  activeKeys.forEach(k => onTogglePriority(k));
+                }
+              }}
+              className="text-[11px] text-[#64748B] hover:text-[#0284C7] transition-colors"
+            >
+              Clear selections
+            </button>
+          )}
+        </div>
         <div className="flex flex-wrap gap-2.5">
-          {AVAILABLE_PRIORITIES.map(p => {
+          {availablePriorities.map(p => {
             const isSelected = !!priorities[p.key];
             return (
               <button
                 key={p.key}
                 onClick={() => onTogglePriority(p.key)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   isSelected
                     ? 'bg-[#0284C7] text-white shadow-sm'
                     : 'bg-[#F5F8FC] text-[#475569] border border-[#D5E9FA] hover:bg-[#EAF5FF] hover:text-[#0284C7]'
@@ -200,7 +262,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
           </div>
 
           <span
-            className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${verdictStyle}`}
+            className={`px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider border shadow-2xs ${verdictStyle}`}
           >
             {verdictLabel}
           </span>
@@ -212,7 +274,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
             <span className="text-xs font-bold text-[#0284C7] uppercase tracking-widest flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" /> Tailored Customer Advice
             </span>
-            <p className="text-sm sm:text-base text-[#182C45] leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
               {matchResult.summary}
             </p>
           </div>
@@ -228,7 +290,7 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
                   <div
                     key={item.key}
                     onClick={() => handleViewSupportingReviewsClick(item.key, item.label)}
-                    className="bg-white p-2.5 rounded-xl border border-[#D5E9FA] hover:border-[#8CBCE5] cursor-pointer transition-colors flex items-center justify-between group shadow-soft"
+                    className="bg-white p-2.5 rounded-xl border border-[#D5E9FA] hover:border-[#8CBCE5] cursor-pointer transition-colors flex items-center justify-between group shadow-2xs"
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-[#182C45] group-hover:text-[#0284C7]">
@@ -264,40 +326,40 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
 
       {/* Calculation Transparency Drawer (Fallback) */}
       {showCalculationModal && (
-        <div className="p-6 rounded-2xl bg-[#F5F8FC] border border-[#D5E9FA] text-xs text-[#475569] space-y-4 animate-fadeIn">
+        <div className="p-6 rounded-2xl bg-[#F5F8FC] border border-[#B8DBF7] text-xs text-[#334155] space-y-4 animate-fadeIn shadow-soft">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2 text-[#0284C7] font-bold text-sm">
               <Info className="w-4 h-4" />
-              <span>How VOX Calculates Your Fit Score</span>
+              <span>How ReviewIQ Calculates Your Fit Score</span>
             </div>
             <button
               onClick={() => setShowCalculationModal(false)}
-              className="text-[#94A3B8] hover:text-[#182C45]"
+              className="text-[#64748B] hover:text-[#182C45] cursor-pointer"
             >
               ✕
             </button>
           </div>
-          <p className="leading-relaxed text-[#334155]">
-            VOX parses customer reviews and maps sentences to core product attributes (Battery, Camera, Reliability, Performance, Value, Software). When you select priority tags, the algorithm extracts the net positive sentiment score specifically for those attributes and computes a uniform-denominator percentage.
+          <p className="leading-relaxed text-[#475569]">
+            ReviewIQ parses customer reviews and maps sentences to core product attributes. When you select priority tags, the algorithm extracts the net positive sentiment score specifically for those attributes and computes a uniform-denominator percentage.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] pt-1 font-mono">
             <div className="p-2.5 rounded-lg bg-white border border-[#D5E9FA]">
               <span className="text-[#0284C7] font-bold block">1. Attribute Extraction</span>
-              <span>Reviews filtered by selected priority mentions.</span>
+              <span className="text-[#64748B]">Reviews filtered by selected priority mentions.</span>
             </div>
             <div className="p-2.5 rounded-lg bg-white border border-[#D5E9FA]">
               <span className="text-[#0284C7] font-bold block">2. Net Positive Ratio</span>
-              <span>Positive mentions divided by total attribute discussions.</span>
+              <span className="text-[#64748B]">Positive mentions divided by total attribute discussions.</span>
             </div>
             <div className="p-2.5 rounded-lg bg-white border border-[#D5E9FA]">
               <span className="text-[#0284C7] font-bold block">3. Combined Score</span>
-              <span>Equal weight average across selected priorities.</span>
+              <span className="text-[#64748B]">Equal weight average across selected priorities.</span>
             </div>
           </div>
           <div className="pt-2 text-right">
             <button
               onClick={onNavigateCalculation}
-              className="text-[#0284C7] hover:text-[#0369A1] font-bold underline"
+              className="text-[#0284C7] hover:text-[#0369A1] font-bold underline cursor-pointer"
             >
               Open Full Transparent Calculation Audit Screen &rarr;
             </button>

@@ -20,6 +20,7 @@ interface ProductAnalysisPageProps {
   onBackToDiscover: () => void;
   priorities: PrioritySelection;
   onTogglePriority: (key: AttributeKey) => void;
+  onSetPriorities?: (priorities: PrioritySelection) => void;
   onNavigateSupportingReviews?: (attribute?: AttributeKey, sentiment?: ReviewSentiment, focusTitle?: string) => void;
   onNavigateCalculation?: () => void;
   onOpenAskVoxWithAction?: (action: ContextualActionType) => void;
@@ -33,6 +34,7 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
   onBackToDiscover,
   priorities,
   onTogglePriority,
+  onSetPriorities,
   onNavigateSupportingReviews,
   onNavigateCalculation,
   onOpenAskVoxWithAction,
@@ -159,6 +161,7 @@ export const ProductAnalysisPage: React.FC<ProductAnalysisPageProps> = ({
         product={product}
         priorities={priorities}
         onTogglePriority={onTogglePriority}
+        onSetPriorities={onSetPriorities}
         onOpenEvidence={handleOpenEvidence}
         onNavigateSupportingReviews={onNavigateSupportingReviews}
         onNavigateCalculation={onNavigateCalculation}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Search, Bookmark, GitCompare, HelpCircle, Menu, X, User, Lock } from 'lucide-react';
-import { VoxLogo } from './VoxLogo';
+import { Search, Bookmark, GitCompare, HelpCircle, Menu, X, User, Lock, TrendingUp } from 'lucide-react';
+import { ReviewIQLogo } from './ReviewIQLogo';
 import { UserProfile } from '../types';
 
 interface NavbarProps {
@@ -10,6 +10,7 @@ interface NavbarProps {
   onSearchSubmit: (query: string) => void;
   currentUser?: UserProfile;
   onOpenAuth: () => void;
+  onOpenCommercialization?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -19,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchSubmit,
   currentUser,
   onOpenAuth,
+  onOpenCommercialization,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navSearch, setNavSearch] = useState('');
@@ -42,17 +44,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               MBA Prototype
             </span>
             <span className="text-[11px] text-[#325682] truncate">
-              Demonstration dataset. Ratings and AI summaries are simulated for academic illustration.
+              ReviewIQ Intelligence • 23 Multi-Category Verified Records (Smartphones & Flagship ANC Headphones)
             </span>
           </div>
-          <div className="flex items-center gap-2 hidden lg:flex">
+          <div className="flex items-center gap-3 hidden lg:flex">
+            {onOpenCommercialization && (
+              <button
+                onClick={onOpenCommercialization}
+                className="text-[11px] text-amber-700 hover:text-amber-900 font-semibold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 transition-colors cursor-pointer"
+              >
+                <TrendingUp className="w-3 h-3 text-amber-600" />
+                <span>MBA Business Model & Unit Economics</span>
+              </button>
+            )}
+            <span className="text-[#94A3B8]">•</span>
             <span className="text-[11px] text-[#0284C7] font-mono font-semibold flex items-center gap-1">
               <Lock className="w-3 h-3 text-emerald-600" />
               <span>Private User Isolation Active</span>
             </span>
             <span className="text-[#94A3B8]">•</span>
             <span className="text-[11px] text-[#0284C7] font-mono font-semibold">
-              VOX • HEAR WHAT MATTERS
+              REVIEW<span className="text-[#182C45]">IQ</span> • CUSTOMER FEEDBACK, DECODED
             </span>
           </div>
         </div>
@@ -60,12 +72,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* VOX Logo & Tagline */}
+          {/* ReviewIQ Logo & Tagline */}
           <div
-            className="cursor-pointer group select-none"
+            className="cursor-pointer group select-none shrink-0"
             onClick={() => onNavigate('discover')}
           >
-            <VoxLogo size="md" showTagline={true} />
+            <ReviewIQLogo size="md" showTagline={true} />
           </div>
 
           {/* Center Search Bar */}
@@ -75,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="text"
                 value={navSearch}
                 onChange={e => setNavSearch(e.target.value)}
-                placeholder="Search 22 smartphones (e.g., iPhone 16, Pixel 9, OnePlus 12)..."
+                placeholder="Search 23 products (e.g. iPhone 16 Pro, Sony XM5, Bose Ultra)..."
                 className="w-full bg-[#F5F8FC] text-sm text-[#182C45] placeholder-[#94A3B8] pl-10 pr-4 py-2 rounded-xl border border-[#D5E9FA] focus:outline-none focus:border-[#0284C7] focus:bg-white focus:ring-1 focus:ring-[#0284C7] transition-all"
               />
               <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3" />
@@ -116,9 +128,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <Bookmark className="w-4 h-4 text-[#0284C7]" />
-              <span>Shortlist</span>
+              <span>Saved</span>
               {savedCount > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full text-[11px] font-bold bg-[#0284C7] text-white">
+                <span className="w-4 h-4 rounded-full bg-[#0284C7] text-white font-bold text-[10px] flex items-center justify-center ml-0.5">
                   {savedCount}
                 </span>
               )}
@@ -126,28 +138,36 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => onNavigate('how-it-works')}
-              className={`flex items-center gap-1 px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all ${
                 currentView === 'how-it-works'
                   ? 'bg-[#EAF5FF] text-[#0284C7] border border-[#B8DBF7] font-bold'
                   : 'text-[#475569] hover:text-[#182C45] hover:bg-[#F5F8FC]'
               }`}
             >
               <HelpCircle className="w-4 h-4 text-[#0284C7]" />
-              <span>Methodology</span>
+              <span>How It Works</span>
             </button>
 
-            {/* Profile / Privacy Modal Button */}
+            {onOpenCommercialization && (
+              <button
+                onClick={onOpenCommercialization}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 transition-all shadow-2xs ml-1"
+                title="ReviewIQ MBA Commercialization & Unit Economics Deck"
+              >
+                <TrendingUp className="w-3.5 h-3.5 text-amber-600" />
+                <span>MBA Deck</span>
+              </button>
+            )}
+
+            {/* User Session Profile Pill */}
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-1.5 ml-1 px-3 py-1.5 rounded-xl bg-white border border-[#D5E9FA] hover:border-[#0284C7] text-xs font-bold text-[#182C45] transition-all shadow-2xs group"
-              title="Private User Profile & Data Isolation Settings"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F5F8FC] hover:bg-[#EAF5FF] border border-[#D5E9FA] text-xs text-[#182C45] transition-all font-medium ml-2"
             >
-              <div className="w-5 h-5 rounded-lg bg-[#EAF5FF] group-hover:bg-[#0284C7] text-[#0284C7] group-hover:text-white flex items-center justify-center transition-colors">
-                <User className="w-3 h-3" />
+              <div className="w-5 h-5 rounded-full bg-[#EAF5FF] text-[#0284C7] flex items-center justify-center text-[10px] font-bold border border-[#B8DBF7]">
+                {currentUser?.name?.charAt(0).toUpperCase() || 'G'}
               </div>
-              <span className="max-w-[90px] truncate">
-                {currentUser?.isGuest ? 'Guest' : currentUser?.name?.split(' ')[0] || 'Profile'}
-              </span>
+              <span className="max-w-[100px] truncate">{currentUser?.name || 'Guest'}</span>
             </button>
           </nav>
 
@@ -190,7 +210,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="text"
               value={navSearch}
               onChange={e => setNavSearch(e.target.value)}
-              placeholder="Search 22 smartphones..."
+              placeholder="Search 23 products..."
               className="w-full bg-[#F5F8FC] text-sm text-[#182C45] placeholder-[#94A3B8] pl-10 pr-4 py-2.5 rounded-xl border border-[#D5E9FA] focus:outline-none focus:border-[#0284C7]"
             />
             <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3.5" />
@@ -248,6 +268,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Methodology & Transparency</span>
               <HelpCircle className="w-4 h-4 text-[#0284C7]" />
             </button>
+            {onOpenCommercialization && (
+              <button
+                onClick={() => {
+                  onOpenCommercialization();
+                  setMobileMenuOpen(false);
+                }}
+                className="text-left px-3 py-2 rounded-xl text-sm font-bold flex items-center justify-between bg-amber-50 text-amber-800 border border-amber-200"
+              >
+                <span>MBA Commercialization & Pitch Deck</span>
+                <TrendingUp className="w-4 h-4 text-amber-600" />
+              </button>
+            )}
             <button
               onClick={() => {
                 onOpenAuth();

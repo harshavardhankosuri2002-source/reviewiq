@@ -22,6 +22,8 @@ import { SavedProductsPage } from './pages/SavedProductsPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { SupportingReviewsPage } from './pages/SupportingReviewsPage';
 import { TransparentCalculationPage } from './pages/TransparentCalculationPage';
+import { LinkIngestionModal } from './components/LinkIngestionModal';
+import { CommercializationModal } from './components/CommercializationModal';
 import {
   getCurrentUser,
   getSavedProductsStorageKey,
@@ -33,14 +35,16 @@ export const App: React.FC = () => {
   // Active User Profile & Privacy State
   const [currentUser, setCurrentUser] = useState<UserProfile>(() => getCurrentUser());
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [isCommercializationModalOpen, setIsCommercializationModalOpen] = useState<boolean>(false);
+  const [isLinkIngestionModalOpen, setIsLinkIngestionModalOpen] = useState<boolean>(false);
 
   // Global Personal VOX AI State
   const [isAskVoxOpen, setIsAskVoxOpen] = useState<boolean>(false);
   const [askVoxContext, setAskVoxContext] = useState<VoxAiContext>({ type: 'general' });
 
-  // Navigation View State
+  // Navigation View State (Default to Discover page matching deployed prototype)
   const [currentView, setCurrentView] = useState<string>('discover');
-  const [selectedProductId, setSelectedProductId] = useState<string>('iphone-16');
+  const [selectedProductId, setSelectedProductId] = useState<string>('iphone-16-pro-max');
   const [selectedVariant, setSelectedVariant] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -59,13 +63,13 @@ export const App: React.FC = () => {
     try {
       const user = getCurrentUser();
       const saved = localStorage.getItem(getComparisonStorageKey(user.id));
-      return saved ? JSON.parse(saved) : ['iphone-16', 'galaxy-s24'];
+      return saved ? JSON.parse(saved) : ['iphone-16-pro-max', 'galaxy-s24-ultra'];
     } catch {
-      return ['iphone-16', 'galaxy-s24'];
+      return ['iphone-16-pro-max', 'galaxy-s24-ultra'];
     }
   });
 
-  // Isolated Saved Products State - Every new visitor or shared link starts with [] (EMPTY)
+  // Isolated Saved Products State
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
       const user = getCurrentUser();
@@ -81,9 +85,11 @@ export const App: React.FC = () => {
     try {
       const user = getCurrentUser();
       const saved = localStorage.getItem(getPrioritiesStorageKey(user.id));
-      return saved ? JSON.parse(saved) : { battery: true, camera: false, reliability: false, performance: false, value: false, software: false };
+      return saved
+        ? JSON.parse(saved)
+        : { battery: true, camera: true };
     } catch {
-      return { battery: true };
+      return { battery: true, camera: true };
     }
   });
 
@@ -122,10 +128,14 @@ export const App: React.FC = () => {
       setSavedIds(userSaved ? JSON.parse(userSaved) : []);
 
       const userCompared = localStorage.getItem(getComparisonStorageKey(newUser.id));
-      setComparedProductIds(userCompared ? JSON.parse(userCompared) : ['iphone-16', 'galaxy-s24']);
+      setComparedProductIds(userCompared ? JSON.parse(userCompared) : ['iphone-16-pro-max', 'galaxy-s24-ultra']);
 
       const userPriorities = localStorage.getItem(getPrioritiesStorageKey(newUser.id));
-      setPriorities(userPriorities ? JSON.parse(userPriorities) : { battery: true });
+      setPriorities(
+        userPriorities
+          ? JSON.parse(userPriorities)
+          : { battery: true, camera: true }
+      );
     } catch (e) {
       console.warn('Could not switch user state', e);
       setSavedIds([]);
@@ -169,7 +179,6 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentView, selectedProductId]);
 
-  // Actions
   const handleToggleSave = (productId: string) => {
     setSavedIds(prev =>
       prev.includes(productId) ? prev.filter(id => id !== productId) : [...prev, productId]
@@ -193,11 +202,10 @@ export const App: React.FC = () => {
   const handleCompareLaunch = (productId: string) => {
     setComparedProductIds(prev => {
       if (prev.includes(productId)) {
-        return prev.length >= 2 ? prev : [...prev, 'galaxy-s24'].slice(0, 2);
+        return prev.length >= 2 ? prev : [...prev, 'galaxy-s24-ultra'].slice(0, 2);
       }
-      // Keep up to 3 products
       const updated = [productId, ...prev.filter(id => id !== productId)].slice(0, 3);
-      return updated.length >= 2 ? updated : [...updated, 'galaxy-s24'];
+      return updated.length >= 2 ? updated : [...updated, 'galaxy-s24-ultra'];
     });
     setCurrentView('compare');
   };
@@ -205,7 +213,7 @@ export const App: React.FC = () => {
   const handleToggleProductInCompare = (productId: string) => {
     setComparedProductIds(prev => {
       if (prev.includes(productId)) {
-        if (prev.length <= 1) return prev; // keep at least 1
+        if (prev.length <= 1) return prev;
         return prev.filter(id => id !== productId);
       } else {
         if (prev.length >= 3) {
@@ -265,6 +273,7 @@ export const App: React.FC = () => {
         onSearchSubmit={handleSearchSubmit}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthModalOpen(true)}
+        onOpenCommercialization={() => setIsCommercializationModalOpen(true)}
       />
 
       {/* Main Content View Switcher */}
@@ -278,6 +287,14 @@ export const App: React.FC = () => {
             onToggleSave={handleToggleSave}
             onCompare={handleCompareLaunch}
             onNavigateHowItWorks={() => setCurrentView('how-it-works')}
+            onOpenLinkIngestion={() => setIsLinkIngestionModalOpen(true)}
+            onSelectPersonaPreset={persona => {
+              const newP: PrioritySelection = {};
+              persona.priorities.forEach(k => {
+                newP[k] = true;
+              });
+              setPriorities(newP);
+            }}
           />
         )}
 
@@ -302,6 +319,7 @@ export const App: React.FC = () => {
             onBackToDiscover={() => setCurrentView('discover')}
             priorities={priorities}
             onTogglePriority={handleTogglePriority}
+            onSetPriorities={setPriorities}
             onNavigateSupportingReviews={handleNavigateSupportingReviews}
             onNavigateCalculation={handleNavigateCalculation}
             onOpenAskVoxWithAction={handleOpenAskVoxWithAction}
@@ -375,13 +393,13 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Persistent Floating Ask VOX Trigger */}
+      {/* Floating Personal Assistant Trigger */}
       <AskVoxFloatingButton
         onClick={() => handleOpenAskVox()}
         isOpen={isAskVoxOpen}
       />
 
-      {/* Slide-over Personal VOX AI Assistant Drawer */}
+      {/* Slide-over Personal Assistant Drawer */}
       <AskVoxDrawer
         isOpen={isAskVoxOpen}
         onClose={() => setIsAskVoxOpen(false)}
@@ -390,7 +408,7 @@ export const App: React.FC = () => {
         onTogglePriority={handleTogglePriority}
         onClearPriorities={handleClearPriorities}
         currentUser={currentUser}
-        onOpenEvidence={(title, subtitle, reviewIds) => {
+        onOpenEvidence={(title) => {
           setIsAskVoxOpen(false);
           handleNavigateSupportingReviews(undefined, undefined, title);
         }}
@@ -408,8 +426,26 @@ export const App: React.FC = () => {
         savedCount={savedIds.length}
       />
 
-      {/* Footer */}
-      <Footer onNavigate={handleNavigate} />
+      {/* Live Retail Link Ingestion Pipeline Modal */}
+      <LinkIngestionModal
+        isOpen={isLinkIngestionModalOpen}
+        onClose={() => setIsLinkIngestionModalOpen(false)}
+        onSelectProduct={id => {
+          handleSelectProduct(id);
+        }}
+      />
+
+      {/* MBA Commercialization & Unit Economics Pitch Deck Modal */}
+      <CommercializationModal
+        isOpen={isCommercializationModalOpen}
+        onClose={() => setIsCommercializationModalOpen(false)}
+      />
+
+      {/* Clean Light Footer */}
+      <Footer
+        onNavigate={handleNavigate}
+        onOpenCommercialization={() => setIsCommercializationModalOpen(true)}
+      />
     </div>
   );
 };

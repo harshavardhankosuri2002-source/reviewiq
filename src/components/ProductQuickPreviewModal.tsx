@@ -33,13 +33,21 @@ export const ProductQuickPreviewModal: React.FC<ProductQuickPreviewModalProps> =
   onCompare,
   activePriorities = {},
 }) => {
-  // Close on Escape key
+  // Close on Escape key & Lock background scroll
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    // Prevent background scrolling while inspection modal is active
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
   }, [onClose]);
 
   if (!product) return null;
@@ -50,12 +58,12 @@ export const ProductQuickPreviewModal: React.FC<ProductQuickPreviewModalProps> =
     : null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/45 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 modal-backdrop-deep-blur animate-fadeIn">
       {/* Click outside to close */}
-      <div className="absolute inset-0" onClick={onClose} />
+      <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
 
-      {/* High-Density Frosted Glass Dialog (Zero Wasted Space) */}
-      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto frosted-modal rounded-3xl p-5 sm:p-7 space-y-4 text-slate-900 animate-scaleUp">
+      {/* High-Density Frosted Glass Dialog (Zero Wasted Space, Crisp High Focus) */}
+      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto frosted-modal rounded-3xl p-5 sm:p-7 space-y-4 text-slate-900 shadow-2xl animate-scaleUp">
         {/* Top Header Bar */}
         <div className="flex items-center justify-between pb-3 border-b border-white/60">
           <div className="flex items-center gap-2">

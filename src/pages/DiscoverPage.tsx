@@ -234,7 +234,15 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
   const hasActiveFilters = activeCategory !== 'all' || activeBrand !== 'all' || activePriceTierIndex !== 0 || catalogueSearch.trim() || activePersona !== null;
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-24 relative overflow-hidden">
+    <>
+      {/* Homepage Main Content - Automatically defocused and blurred when interactive modal is open */}
+      <div
+        className={`space-y-12 sm:space-y-16 pb-24 relative overflow-hidden transition-all duration-300 ${
+          previewProduct
+            ? 'filter blur-md brightness-90 contrast-95 scale-[0.99] select-none pointer-events-none'
+            : ''
+        }`}
+      >
       {/* Background Subtle Gradient Mesh for Frosted Glass See-Through Effect */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-sky-200/20 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute top-40 right-1/4 w-[500px] h-[350px] bg-indigo-200/15 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -926,6 +934,8 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
       {/* ============================================================ */}
       {/* DELIGHT FACTOR: INTERACTIVE DEVICE POP-UP MODAL             */}
       {/* ============================================================ */}
+      </div>
+
       {previewProduct && (
         <ProductQuickPreviewModal
           product={previewProduct}
@@ -940,6 +950,6 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           activePriorities={activePriorities}
         />
       )}
-    </div>
+    </>
   );
 };

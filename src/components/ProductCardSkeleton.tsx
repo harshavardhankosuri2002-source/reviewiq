@@ -14,16 +14,16 @@ export const ProductCardSkeleton: React.FC<ProductCardSkeletonProps> = ({ count 
         >
           <div>
             {/* Image Placeholder */}
-            <div className="relative aspect-16/10 bg-slate-50/70 border-b border-slate-100 p-6 flex items-center justify-center overflow-hidden">
-              <div className="w-28 h-36 rounded-xl skeleton-shimmer" />
+            <div className="relative h-32 w-full bg-slate-50/70 border-b border-slate-100 p-3 flex items-center justify-center overflow-hidden">
+              <div className="w-20 h-20 rounded-xl skeleton-shimmer" />
               
               {/* Badges */}
-              <div className="absolute top-4 left-4 w-16 h-5 rounded-md skeleton-shimmer" />
-              <div className="absolute top-4 right-4 w-20 h-5 rounded-md skeleton-shimmer" />
+              <div className="absolute top-2.5 left-2.5 w-14 h-4 rounded skeleton-shimmer" />
+              <div className="absolute top-2.5 right-2.5 w-16 h-4 rounded skeleton-shimmer" />
             </div>
 
             {/* Card Body */}
-            <div className="p-6 space-y-4">
+            <div className="p-5 space-y-3">
               {/* Title & Star Rating */}
               <div className="space-y-2">
                 <div className="h-5 w-4/5 rounded skeleton-shimmer" />

@@ -724,41 +724,45 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   className="card-elevated rounded-2xl overflow-hidden flex flex-col justify-between group"
                 >
                   <div>
-                    {/* Clean Image Container */}
+                    {/* Uniform Compact Product Stage (Does not consume extra space) */}
                     <div
-                      className="relative aspect-16/10 bg-gradient-to-b from-slate-50/80 to-slate-100/30 p-6 flex items-center justify-center cursor-pointer border-b border-slate-100"
+                      className="relative h-32 w-full bg-slate-50/60 p-3 flex items-center justify-center cursor-pointer border-b border-slate-100 overflow-hidden"
                       onClick={() => onSelectProduct(product.id)}
                     >
-                      <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
-                        }}
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
-                      />
+                      {/* Standardized 88px x 88px Bounding Box for ALL 23 products */}
+                      <div className="w-24 h-24 flex items-center justify-center shrink-0">
+                        <img
+                          src={product.imageUrl}
+                          alt={product.name}
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
+                          }}
+                          className="max-h-24 max-w-24 w-auto h-auto object-contain mx-auto drop-shadow-xs group-hover:scale-105 transition-transform duration-200 select-none"
+                          loading="lazy"
+                        />
+                      </div>
 
                       {/* Brand Badge */}
-                      <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-slate-700 px-2 py-0.5 rounded-md text-[11px] font-bold border border-slate-200 shadow-2xs">
+                      <div className="absolute top-2.5 left-2.5 bg-white/95 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200 shadow-2xs">
                         {product.brand}
                       </div>
 
                       {/* Price Badge */}
-                      <div className="absolute top-3 right-3 bg-slate-900 text-white px-2.5 py-0.5 rounded-md text-xs font-bold shadow-xs">
+                      <div className="absolute top-2.5 right-2.5 bg-slate-900 text-white px-2 py-0.5 rounded text-xs font-bold shadow-2xs">
                         {formatINR(product.priceMSRP)}
                       </div>
 
                       {/* Persona Fit Score Overlay Badge if active */}
                       {personaMatch && (
-                        <div className="absolute bottom-3 left-3 bg-slate-900/90 backdrop-blur-xs text-white px-2.5 py-1 rounded-md text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm">
-                          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                          <span>{personaMatch.score}% Fit Match</span>
+                        <div className="absolute bottom-2 left-2 bg-slate-900/90 text-white px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 shadow-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                          <span>{personaMatch.score}% Match</span>
                         </div>
                       )}
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-6 space-y-3.5">
+                    <div className="p-5 space-y-3">
                       <div>
                         <h3
                           onClick={() => onSelectProduct(product.id)}

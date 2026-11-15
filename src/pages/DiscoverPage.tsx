@@ -32,6 +32,9 @@ import { SHOPPER_PERSONAS, ATTRIBUTE_CONFIG } from '../data/mockData';
 import { ProductCardSkeleton } from '../components/ProductCardSkeleton';
 import { ProductQuickPreviewModal } from '../components/ProductQuickPreviewModal';
 import { ParallaxDeviceStage } from '../components/ParallaxDeviceStage';
+import { ProductColorSwatches } from '../components/ProductColorSwatches';
+import { getProductColorOptions } from '../utils/productColors';
+import { haptics } from '../utils/haptics';
 import { formatINR } from '../utils/currency';
 
 interface DiscoverPageProps {
@@ -101,6 +104,8 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
 
   // Delight Factor: Interactive Pop-up Mobile Preview Modal
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
+  // Interactive Color Swatch Selections per Product
+  const [productColors, setProductColors] = useState<Record<string, number>>({});
 
   // Accordion Disclosures for Secondary Content (Order of Operations)
   const [expandedAccordion, setExpandedAccordion] = useState<'capabilities' | 'ingestion' | 'trust' | null>(null);
@@ -598,6 +603,9 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
               const personaMatch = activePersona
                 ? calculatePersonalizedMatch(product.id, activePriorities)
                 : null;
+              const colorIndex = productColors[product.id] || 0;
+              const colorOptions = getProductColorOptions(product.id);
+              const activeColor = colorOptions[colorIndex] || colorOptions[0];
 
               return (
                 <div
@@ -623,40 +631,24 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                         <ParallaxDeviceStage maxTilt={8} showGlare={true} className="w-full h-full">
                           <img
                             src={product.imageUrl}
-                            alt={product.name}
+                            alt={`${product.name} in ${activeColor.name}`}
                             onError={e => {
                               (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
                             }}
-                            className="max-h-32 sm:max-h-36 max-w-full object-contain mx-auto drop-shadow-md select-none pointer-events-none"
+                            className="max-h-32 sm:max-h-36 max-w-full object-contain mx-auto drop-shadow-md select-none pointer-events-none transition-all duration-300"
+                            style={{ filter: activeColor.filterStyle || 'none' }}
                             loading="lazy"
                           />
                         </ParallaxDeviceStage>
                       </div>
 
-                      {/* Color Swatch Dots with Principle 13 & 14: Fitts's Law Generous Hit Areas */}
-                      <div
-                        className="flex items-center gap-0.5 frosted-pill px-1.5 py-0.5 rounded-full shadow-2xs z-10"
-                        onClick={e => e.stopPropagation()}
-                      >
-                        {[
-                          { bg: 'bg-slate-900', label: 'Obsidian / Midnight' },
-                          { bg: 'bg-slate-300', label: 'Silver / White' },
-                          { bg: 'bg-emerald-700', label: 'Emerald / Titanium Green' },
-                          { bg: 'bg-sky-600', label: 'Blue / Desert' },
-                        ].map((swatch, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            title={swatch.label}
-                            aria-label={`Color option: ${swatch.label}`}
-                            className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/80 active:scale-90 transition-all cursor-pointer group/swatch"
-                          >
-                            <span
-                              className={`w-2 h-2 rounded-full ${swatch.bg} border border-white/80 group-hover/swatch:scale-125 transition-transform`}
-                            />
-                          </button>
-                        ))}
-                      </div>
+                      {/* Interactive Color Swatch Selector (Option 2) */}
+                      <ProductColorSwatches
+                        productId={product.id}
+                        selectedIndex={colorIndex}
+                        onSelectColor={(idx) => setProductColors(prev => ({ ...prev, [product.id]: idx }))}
+                        size="sm"
+                      />
                     </div>
 
                     {/* Card Content - Clean Apple Typography */}
@@ -772,6 +764,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                     <button
                       onClick={e => {
                         e.stopPropagation();
+                        haptics.play('click');
                         setPreviewProduct(product);
                       }}
                       className="btn-interactive-primary w-full py-2 text-xs cursor-pointer"
@@ -782,7 +775,10 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
 
                     <div className="grid grid-cols-2 gap-2" onClick={e => e.stopPropagation()}>
                       <button
-                        onClick={() => onToggleSave(product.id)}
+                        onClick={() => {
+                          haptics.play('pop');
+                          onToggleSave(product.id);
+                        }}
                         className={`btn-interactive-secondary w-full py-1.5 text-xs cursor-pointer ${
                           isSaved ? 'bg-sky-50 text-sky-800 border-sky-300' : ''
                         }`}
@@ -796,7 +792,10 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       </button>
 
                       <button
-                        onClick={() => onCompare(product.id)}
+                        onClick={() => {
+                          haptics.play('click');
+                          onCompare(product.id);
+                        }}
                         className="btn-interactive-secondary w-full py-1.5 text-xs cursor-pointer"
                       >
                         <GitCompare className="w-3.5 h-3.5 text-sky-700" />

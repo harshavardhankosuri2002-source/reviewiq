@@ -21,6 +21,9 @@ import {
 import { getProductSentimentStats } from '../utils/analytics';
 import { formatINR } from '../utils/currency';
 import { ParallaxDeviceStage } from './ParallaxDeviceStage';
+import { ProductColorSwatches } from './ProductColorSwatches';
+import { getProductColorOptions } from '../utils/productColors';
+import { haptics } from '../utils/haptics';
 
 interface ProductOverviewProps {
   product: Product;
@@ -41,6 +44,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
 }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.defaultVariant);
   const [imgSrc, setImgSrc] = useState(product.imageUrl);
+  const [selectedColorIdx, setSelectedColorIdx] = useState(0);
   const stats = getProductSentimentStats(product.id);
 
   // Sync image source when product changes
@@ -129,33 +133,22 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
               <ParallaxDeviceStage maxTilt={8} showGlare={true} className="w-full flex items-center justify-center my-auto">
                 <img
                   src={imgSrc}
-                  alt={product.name}
+                  alt={`${product.name} in ${getProductColorOptions(product.id)[selectedColorIdx]?.name || 'default finish'}`}
                   onError={() => {
                     setImgSrc('/images/products/device-placeholder.svg');
                   }}
-                  className="max-h-52 sm:max-h-56 max-w-full object-contain my-auto drop-shadow-md select-none pointer-events-none"
+                  className="max-h-52 sm:max-h-56 max-w-full object-contain my-auto drop-shadow-md select-none pointer-events-none transition-all duration-300"
+                  style={{ filter: getProductColorOptions(product.id)[selectedColorIdx]?.filterStyle || 'none' }}
                 />
               </ParallaxDeviceStage>
 
-              {/* Color Swatch Dots with Principle 13 & 14: Fitts's Law Generous Hit Area */}
-              <div className="flex items-center gap-1 pt-1">
-                {[
-                  { bg: 'bg-slate-900', label: 'Dark Titanium / Black' },
-                  { bg: 'bg-slate-300', label: 'Silver / White' },
-                  { bg: 'bg-emerald-700', label: 'Emerald / Green' },
-                  { bg: 'bg-sky-600', label: 'Blue / Violet' },
-                ].map((swatch, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    title={swatch.label}
-                    aria-label={`Color option: ${swatch.label}`}
-                    className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/80 active:scale-90 transition-all cursor-pointer group/swatch"
-                  >
-                    <span className={`w-2.5 h-2.5 rounded-full ${swatch.bg} border border-white/80 shadow-2xs group-hover/swatch:scale-125 transition-transform`} />
-                  </button>
-                ))}
-              </div>
+              {/* Interactive Color Swatch Switcher (Option 2) */}
+              <ProductColorSwatches
+                productId={product.id}
+                selectedIndex={selectedColorIdx}
+                onSelectColor={setSelectedColorIdx}
+                size="md"
+              />
             </div>
           </div>
 

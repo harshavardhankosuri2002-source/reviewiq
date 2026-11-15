@@ -88,3 +88,4 @@ export const ParallaxDeviceStage: React.FC<ParallaxDeviceStageProps> = ({
     </div>
   );
 };
+

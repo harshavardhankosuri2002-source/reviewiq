@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, Bot } from 'lucide-react';
+import { haptics } from '../utils/haptics';
 
 interface InteractiveVoxAvatarProps {
   size?: 'sm' | 'md' | 'lg';
@@ -33,9 +34,15 @@ export const InteractiveVoxAvatar: React.FC<InteractiveVoxAvatarProps> = ({
   return (
     <div
       className={`relative inline-flex flex-col items-center select-none cursor-pointer group ${dims.container} ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        haptics.play('laptop');
+      }}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
+      onClick={() => {
+        haptics.play('click');
+        onClick?.();
+      }}
     >
       {/* Speech Thought Bubble on Hover */}
       {showBubble && isHovered && (

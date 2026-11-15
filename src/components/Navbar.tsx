@@ -9,7 +9,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react';
-import { ReviewIQLogo } from './ReviewIQLogo';
+import { VoxLogo } from './VoxLogo';
 import { UserProfile } from '../types';
 import { haptics } from '../utils/haptics';
 
@@ -74,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onNavigate('discover');
               }}
             >
-              <ReviewIQLogo size="md" showTagline={false} />
+              <VoxLogo size="md" showTagline={false} />
             </div>
           </div>
 

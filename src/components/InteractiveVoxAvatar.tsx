@@ -79,7 +79,7 @@ export const InteractiveVoxAvatar: React.FC<InteractiveVoxAvatarProps> = ({
           {/* Working Robot with Headset */}
           <img
             src="/images/vox-robot.jpg"
-            alt="ReviewIQ VOX Working Robot"
+            alt="VOX AI Review Assistant"
             className="w-full h-full object-cover object-[32%_15%]"
           />
 

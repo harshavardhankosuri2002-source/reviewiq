@@ -666,7 +666,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
 
           <div className="flex items-center gap-2">
             <span className="font-extrabold text-sky-800 bg-sky-50 px-2 py-0.5 rounded border border-sky-200 text-[10px]">
-              ReviewIQ Spotlight
+              VOX Spotlight
             </span>
           </div>
         </div>

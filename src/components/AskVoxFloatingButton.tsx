@@ -11,7 +11,7 @@ export const AskVoxFloatingButton: React.FC<AskVoxFloatingButtonProps> = ({ onCl
 
   return (
     <aside
-      aria-label="Personal ReviewIQ VOX AI Assistant Trigger"
+      aria-label="Personal VOX AI Assistant Trigger"
       className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40"
     >
       <div
@@ -19,7 +19,7 @@ export const AskVoxFloatingButton: React.FC<AskVoxFloatingButtonProps> = ({ onCl
         onClick={onClick}
         role="button"
         tabIndex={0}
-        aria-label="Open ReviewIQ VOX AI Assistant"
+        aria-label="Open VOX AI Assistant"
         className="group relative flex flex-col items-center p-2 rounded-2xl frosted-glass-card shadow-2xl hover:shadow-sky-400/20 border border-white/90 hover:border-sky-300 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
       >
         {/* Interactive Character Avatar with Laptop */}

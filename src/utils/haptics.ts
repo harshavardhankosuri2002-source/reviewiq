@@ -10,7 +10,7 @@ class HapticAudioEngine {
 
   constructor() {
     try {
-      this.isMuted = localStorage.getItem('reviewiq_audio_muted') === 'true';
+      this.isMuted = (localStorage.getItem('vox_audio_muted') || localStorage.getItem('reviewiq_audio_muted')) === 'true';
     } catch {}
   }
 
@@ -29,7 +29,7 @@ class HapticAudioEngine {
   public setMuted(muted: boolean) {
     this.isMuted = muted;
     try {
-      localStorage.setItem('reviewiq_audio_muted', String(muted));
+      localStorage.setItem('vox_audio_muted', String(muted));
     } catch {}
   }
 

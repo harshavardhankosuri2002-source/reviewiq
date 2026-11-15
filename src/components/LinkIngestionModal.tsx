@@ -119,7 +119,7 @@ export const LinkIngestionModal: React.FC<LinkIngestionModalProps> = ({
                 </span>
               </div>
               <p className="text-xs text-sky/70">
-                Paste any retail link to simulate ReviewIQ multi-source deduplication and decoding.
+                Paste any retail link to simulate VOX multi-source deduplication and decoding.
               </p>
             </div>
           </div>
@@ -286,7 +286,7 @@ export const LinkIngestionModal: React.FC<LinkIngestionModalProps> = ({
         {/* Footer */}
         <div className="bg-white px-6 py-3 border-t border-bordergray flex items-center justify-between text-xs text-slateSecondary">
           <p className="text-[11px]">
-            In production, ReviewIQ ingests live customer feeds via retailer API syndication.
+            In production, VOX ingests live customer feeds via retailer API syndication.
           </p>
           <button
             onClick={onClose}

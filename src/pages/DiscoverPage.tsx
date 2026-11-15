@@ -274,7 +274,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full frosted-panel shadow-2xs text-xs font-semibold text-slate-700">
             <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
-            <span>ReviewIQ • Customer feedback, decoded</span>
+            <span>VOX • Customer feedback, decoded</span>
           </div>
 
           {/* Master Headline */}
@@ -985,7 +985,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           {expandedAccordion === 'ingestion' && (
             <div className="p-6 pt-2 border-t border-slate-200/80 space-y-4 animate-fadeIn">
               <p className="text-xs text-slate-600 leading-relaxed">
-                Test how ReviewIQ processes unverified external URLs through HTML sanitization, bot clustering, sentiment scoring, and cross-reference verification in real time.
+                Test how VOX processes unverified external URLs through HTML sanitization, bot clustering, sentiment scoring, and cross-reference verification in real time.
               </p>
               {onOpenLinkIngestion && (
                 <button
@@ -1015,7 +1015,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   Trust, Bot Purging & Manipulation Stress-Testing
                 </h4>
                 <p className="text-xs text-slate-500">
-                  Inspect how ReviewIQ detects duplicate review text and coordinated astroturfing campaigns.
+                  Inspect how VOX detects duplicate review text and coordinated astroturfing campaigns.
                 </p>
               </div>
             </div>
@@ -1029,7 +1029,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           {expandedAccordion === 'trust' && (
             <div className="p-6 pt-2 border-t border-slate-200/80 space-y-3 animate-fadeIn text-xs text-slate-600">
               <p className="leading-relaxed">
-                ReviewIQ screens for artificial bot clusters, sudden burst velocity, and promotional sponsor bias.
+                VOX screens for artificial bot clusters, sudden burst velocity, and promotional sponsor bias.
                 You can run live stress-test scenarios in the full product analysis page.
               </p>
               <button

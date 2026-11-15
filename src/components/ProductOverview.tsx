@@ -260,7 +260,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
               <div className="flex items-start gap-1 text-[10px] text-slate-500 pt-1 border-t border-sky-200/60">
                 <Info className="w-3 h-3 text-sky-600 shrink-0 mt-0.5" />
                 <span>
-                  ReviewIQ is an independent review analysis engine and does not sell products or process payments. Clicking will direct you safely to the manufacturer's official portal.
+                  VOX is an independent review analysis engine and does not sell products or process payments. Clicking will direct you safely to the manufacturer's official portal.
                 </span>
               </div>
             </div>
@@ -303,7 +303,7 @@ export const ProductOverview: React.FC<ProductOverviewProps> = ({
                 className="btn-interactive-primary flex-1 sm:flex-initial py-2.5 px-4 text-xs font-bold cursor-pointer"
               >
                 <MessageSquareCode className="w-4 h-4 text-white" />
-                <span>Ask ReviewIQ a Question</span>
+                <span>Ask VOX a Question</span>
               </button>
 
               <button

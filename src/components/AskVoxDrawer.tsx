@@ -245,7 +245,7 @@ export const AskVoxDrawer: React.FC<AskVoxDrawerProps> = ({
                   <span>Online</span>
                 </span>
               </div>
-              <p className="text-[11px] text-[#64748B]">ReviewIQ Lead Analyst — Evidence Grounded</p>
+              <p className="text-[11px] text-[#64748B]">VOX Lead Analyst — Evidence Grounded</p>
             </div>
           </div>
 

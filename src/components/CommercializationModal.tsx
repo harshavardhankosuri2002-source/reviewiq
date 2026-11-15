@@ -31,7 +31,7 @@ export const CommercializationModal: React.FC<CommercializationModalProps> = ({
               <span className="text-xs text-slate-300">• Commercial Strategy & Financial Architecture</span>
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-              ReviewIQ: Business Model & Unit Economics
+              VOX: Business Model & Unit Economics
             </h3>
             <p className="text-xs text-sky/70 mt-0.5">
               Decoded customer feedback as a dual B2C decision engine and high-margin B2B data intelligence platform.
@@ -162,7 +162,7 @@ export const CommercializationModal: React.FC<CommercializationModalProps> = ({
                     </span>
                     <h4 className="text-base font-extrabold text-midnight">Affiliate Commerce</h4>
                     <p className="text-xs text-slateSecondary leading-relaxed">
-                      Consumers click verified buy links after reviewing personalized fit. ReviewIQ earns <strong>1.5% to 3.5%</strong> high-intent affiliate commission on completed transactions.
+                      Consumers click verified buy links after reviewing personalized fit. VOX earns <strong>1.5% to 3.5%</strong> high-intent affiliate commission on completed transactions.
                     </p>
                   </div>
                   <div className="pt-3 border-t border-bordergray/60 text-xs font-bold text-feedback-positive">
@@ -177,7 +177,7 @@ export const CommercializationModal: React.FC<CommercializationModalProps> = ({
                     </span>
                     <h4 className="text-base font-extrabold text-midnight">Enterprise PDP API</h4>
                     <p className="text-xs text-slateSecondary leading-relaxed">
-                      E-commerce marketplaces license ReviewIQ's decoded theme badges directly onto product detail pages (PDPs) on a <strong>$0.004 / call</strong> consumption model.
+                      E-commerce marketplaces license VOX's decoded theme badges directly onto product detail pages (PDPs) on a <strong>$0.004 / call</strong> consumption model.
                     </p>
                   </div>
                   <div className="pt-3 border-t border-bordergray/60 text-xs font-bold text-glacier-deep">
@@ -334,7 +334,7 @@ export const CommercializationModal: React.FC<CommercializationModalProps> = ({
         {/* Modal Footer */}
         <div className="bg-white px-6 py-4 border-t border-bordergray flex flex-col sm:flex-row items-center justify-between text-xs text-slateSecondary gap-3">
           <p className="text-[11px]">
-            ReviewIQ MBA Capstone Business Deck • Prepared for Evaluators & Investors.
+            VOX MBA Capstone Business Deck • Prepared for Evaluators & Investors.
           </p>
           <button
             onClick={onClose}

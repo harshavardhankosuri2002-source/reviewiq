@@ -114,7 +114,7 @@ export const TrustAndQualityCard: React.FC<TrustAndQualityCardProps> = ({ produc
         </div>
 
         <p className="text-xs text-[#475569] leading-relaxed">
-          Inject synthetic review anomalies to observe how ReviewIQ's anti-gaming algorithms protect customer fit scores against coordinated promotional surges or competitor smear campaigns.
+          Inject synthetic review anomalies to observe how VOX's anti-gaming algorithms protect customer fit scores against coordinated promotional surges or competitor smear campaigns.
         </p>
 
         {/* Scenario Switcher Buttons */}

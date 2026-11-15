@@ -124,7 +124,7 @@ export const AskVox: React.FC<AskVoxProps> = ({ product, onOpenEvidence }) => {
                 <MessageSquare className="w-3.5 h-3.5" />
               </span>
               <span className="text-[10px] font-bold uppercase tracking-wider text-sky-700">
-                ReviewIQ Interactive Assistant
+                VOX Interactive Assistant
               </span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">

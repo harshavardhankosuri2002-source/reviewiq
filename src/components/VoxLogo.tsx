@@ -8,7 +8,7 @@ interface LogoProps {
   theme?: 'light' | 'dark';
 }
 
-export const ReviewIQLogo: React.FC<LogoProps> = ({
+export const VoxLogo: React.FC<LogoProps> = ({
   size = 'md',
   showTagline = true,
   className = '',
@@ -68,7 +68,7 @@ export const ReviewIQLogo: React.FC<LogoProps> = ({
               className={`${textSizes[size]} font-black tracking-tight ${theme === 'dark' ? 'text-white' : 'text-[#182C45]'}`}
               style={{ letterSpacing: '-0.03em' }}
             >
-              Review<span className="text-[#0284C7]">IQ</span>
+              VOX<span className="text-[#0284C7]">.ai</span>
             </span>
           </div>
           {showTagline && (
@@ -84,4 +84,4 @@ export const ReviewIQLogo: React.FC<LogoProps> = ({
   );
 };
 
-export const VoxLogo = ReviewIQLogo;
+export const ReviewIQLogo = VoxLogo;

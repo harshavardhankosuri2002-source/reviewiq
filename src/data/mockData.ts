@@ -4143,7 +4143,7 @@ export const STRESS_SCENARIOS: import('../types').StressScenario[] = [
     syntheticSentiment: 'positive',
     flagTriggered: true,
     anomalyTitle: 'Repetitive Text Clustering Detected',
-    anomalyExplanation: 'ReviewIQ isolated a surge of 50 five-star reviews within a 48-hr window sharing 86% lexical similarity. Confidence penalised by 25%.',
+    anomalyExplanation: 'VOX isolated a surge of 50 five-star reviews within a 48-hr window sharing 86% lexical similarity. Confidence penalised by 25%.',
     confidencePenaltyPct: 25
   },
   {

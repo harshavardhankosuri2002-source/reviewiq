@@ -1,6 +1,6 @@
 import React from 'react';
 import { Shield, Info, TrendingUp } from 'lucide-react';
-import { ReviewIQLogo } from './ReviewIQLogo';
+import { VoxLogo } from './VoxLogo';
 
 interface FooterProps {
   onNavigate: (view: string) => void;
@@ -15,18 +15,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCommercializat
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-3">
             <div className="cursor-pointer" onClick={() => onNavigate('discover')}>
-              <ReviewIQLogo size="md" showTagline={true} />
+              <VoxLogo size="md" showTagline={true} />
             </div>
             <p className="text-[#182C45] font-semibold text-sm">
               "Understand the experience behind the rating."
             </p>
             <p className="text-xs text-[#64748B] leading-relaxed max-w-md">
-              ReviewIQ decodes fragmented customer feedback across marketplaces, retailers, and tech communities into transparent, evidence-backed, and personalized purchasing intelligence.
+              VOX decodes fragmented customer feedback across marketplaces, retailers, and tech communities into transparent, evidence-backed, and personalized purchasing intelligence.
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#EAF5FF] border border-[#D5E9FA] text-xs text-[#0284C7] font-medium">
                 <Shield className="w-3.5 h-3.5 text-[#0284C7]" />
-                <span>Uniform-Denominator Standard • 23 Multi-Category Records</span>
+                <span>Uniform-Denominator Standard • 110+ Flagship Records</span>
               </div>
               {onOpenCommercialization && (
                 <button
@@ -110,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCommercializat
         </div>
 
         <div className="pt-8 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between text-xs text-[#94A3B8] gap-4">
-          <p>© {new Date().getFullYear()} ReviewIQ — Customer feedback, decoded. Academic Demonstration Prototype.</p>
+          <p>© {new Date().getFullYear()} VOX — Customer feedback, decoded. Academic Demonstration Prototype.</p>
           <div className="flex items-center gap-4">
             <span
               className="hover:text-[#0284C7] cursor-pointer"

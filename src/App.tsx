@@ -297,6 +297,7 @@ export const App: React.FC = () => {
         currentView={currentView}
         onNavigate={handleNavigate}
         savedCount={savedIds.length}
+        compareCount={comparedProductIds.length}
         onSearchSubmit={handleSearchSubmit}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthModalOpen(true)}

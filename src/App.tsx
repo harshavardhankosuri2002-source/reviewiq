@@ -42,12 +42,15 @@ export const App: React.FC = () => {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [isAudioMuted, setIsAudioMuted] = useState<boolean>(() => haptics.getIsMuted());
 
-  // Global Keyboard Shortcut: ⌘K / Ctrl+K or / (when outside form inputs)
+  // Global Keyboard Shortcuts: ⌘K (Spotlight), ⌘J (Ask VOX AI), or / (Search)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsCommandPaletteOpen(prev => !prev);
+      } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        setIsAskVoxOpen(prev => !prev);
       } else if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
         e.preventDefault();
         setIsCommandPaletteOpen(true);

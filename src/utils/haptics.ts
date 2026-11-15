@@ -40,7 +40,7 @@ class HapticAudioEngine {
   /**
    * Play an ultra-subtle tactile transient
    */
-  public play(type: 'click' | 'pop' | 'slide' | 'whoosh' | 'laptop' = 'click') {
+  public play(type: 'click' | 'pop' | 'slide' | 'whoosh' | 'laptop' | 'hover' = 'click') {
     if (this.isMuted) return;
     try {
       this.initContext();
@@ -53,7 +53,18 @@ class HapticAudioEngine {
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
-      if (type === 'click') {
+      if (type === 'hover') {
+        // Ultra-delicate micro-tick for cursor hovering (12ms)
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(1200, now + 0.012);
+
+        gain.gain.setValueAtTime(0.015, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.012);
+
+        osc.start(now);
+        osc.stop(now + 0.012);
+      } else if (type === 'click') {
         // High-precision mechanical key/button click (18ms duration)
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(1200, now);

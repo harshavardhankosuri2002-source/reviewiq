@@ -477,16 +477,16 @@ export const AskVoxDrawer: React.FC<AskVoxDrawerProps> = ({
             </div>
           ))}
 
-          {/* Typing Animation with Character on Laptop */}
+          {/* Typing Animation with Neural AI Core */}
           {isTyping && (
             <div className="flex items-center gap-3 text-xs text-slate-700 bg-sky-50/80 border border-sky-200/90 p-3 rounded-2xl w-fit animate-fadeIn shadow-xs">
               <InteractiveVoxAvatar size="sm" isTyping={true} forceOpen={true} showBubble={false} />
               <div className="space-y-0.5">
                 <span className="font-bold text-slate-900 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-ping" />
-                  <span>VOX AI is typing a response...</span>
+                  <span>VOX AI is synthesizing a response...</span>
                 </span>
-                <span className="text-[10px] text-slate-500 block">Synthesizing customer reviews on laptop</span>
+                <span className="text-[10px] text-slate-500 block">Grounding across verified reviews & specs</span>
               </div>
             </div>
           )}

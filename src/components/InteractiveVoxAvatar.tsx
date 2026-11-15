@@ -21,22 +21,37 @@ export const InteractiveVoxAvatar: React.FC<InteractiveVoxAvatarProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Laptop is open if hovered, forceOpen is true, or AI is currently typing
-  const isLaptopOpen = isHovered || forceOpen || isTyping;
+  // Active state when hovered, forced open, or typing
+  const isActive = isHovered || forceOpen || isTyping;
 
   // Size dimensions
   const dims = {
-    sm: { container: 'w-14 h-16', avatar: 'w-12 h-12', laptopW: 46, laptopH: 28 },
-    md: { container: 'w-20 h-22', avatar: 'w-16 h-16', laptopW: 62, laptopH: 36 },
-    lg: { container: 'w-28 h-32', avatar: 'w-24 h-24', laptopW: 84, laptopH: 50 },
+    sm: {
+      outer: 'w-9 h-9',
+      icon: 'w-4 h-4',
+      badge: 'w-2 h-2',
+      bars: 'h-2 w-0.5',
+    },
+    md: {
+      outer: 'w-14 h-14',
+      icon: 'w-6 h-6',
+      badge: 'w-3 h-3',
+      bars: 'h-3 w-1',
+    },
+    lg: {
+      outer: 'w-20 h-20',
+      icon: 'w-9 h-9',
+      badge: 'w-3.5 h-3.5',
+      bars: 'h-4 w-1.5',
+    },
   }[size];
 
   return (
     <div
-      className={`relative inline-flex flex-col items-center select-none cursor-pointer group ${dims.container} ${className}`}
+      className={`relative inline-flex items-center justify-center select-none cursor-pointer group ${dims.outer} ${className}`}
       onMouseEnter={() => {
         setIsHovered(true);
-        haptics.play('laptop');
+        haptics.play('hover');
       }}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
@@ -44,139 +59,88 @@ export const InteractiveVoxAvatar: React.FC<InteractiveVoxAvatarProps> = ({
         onClick?.();
       }}
     >
-      {/* Speech Thought Bubble on Hover */}
+      {/* Speech / Action Bubble on Hover */}
       {showBubble && isHovered && (
-        <div className="absolute -top-12 -left-40 sm:-left-48 z-50 pointer-events-none animate-fadeIn">
-          <div className="frosted-modal px-3 py-1.5 rounded-2xl shadow-xl border border-white/90 text-slate-800 text-[11px] font-semibold flex items-center gap-2 whitespace-nowrap">
-            <Bot className="w-3.5 h-3.5 text-sky-600 animate-bounce" />
-            <span>{isTyping ? 'VOX Bot is analyzing reviews...' : 'VOX Bot is online • Ask me! 🤖'}</span>
-            <div className="absolute right-3 -bottom-1.5 w-3 h-3 bg-white/90 rotate-45 border-r border-b border-white/80" />
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-50 pointer-events-none animate-fadeIn whitespace-nowrap">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900/95 backdrop-blur-md text-white text-[11px] font-semibold flex items-center gap-2 shadow-xl border border-white/20">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-spin" style={{ animationDuration: '4s' }} />
+            <span>
+              {isTyping
+                ? 'Synthesizing evidence across reviews...'
+                : 'VOX Copilot • Grounded in 314 reviews ✦'}
+            </span>
+            <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-slate-900/95 rotate-45 border-r border-b border-white/20" />
           </div>
         </div>
       )}
 
-      {/* Main Robot Avatar Stage */}
-      <div className="relative flex items-center justify-center">
-        {/* Cyber Neon Backlight Glow (Expands & pulses when laptop opens) */}
+      {/* 1. Ambient Background Neural Glow Aura */}
+      <div
+        className={`absolute inset-0 rounded-full blur-md transition-all duration-500 pointer-events-none ${
+          isActive
+            ? 'bg-gradient-to-tr from-cyan-400/60 via-sky-500/50 to-indigo-600/55 scale-125 opacity-100'
+            : 'bg-cyan-500/25 scale-100 opacity-60 group-hover:opacity-90'
+        }`}
+      />
+
+      {/* 2. Rotating Orbital Gradient Ring */}
+      <div
+        className={`absolute -inset-0.5 rounded-full border border-dashed transition-all duration-700 pointer-events-none ${
+          isActive
+            ? 'border-cyan-300/80 animate-[spin_6s_linear_infinite] scale-105'
+            : 'border-cyan-400/30 group-hover:border-cyan-300/60'
+        }`}
+      />
+
+      {/* 3. Main Neural Core Sphere */}
+      <div
+        className={`relative w-full h-full rounded-full overflow-hidden transition-all duration-300 flex items-center justify-center border shadow-inner ${
+          isActive
+            ? 'border-cyan-300 shadow-cyan-400/40 bg-gradient-to-br from-slate-950 via-sky-950 to-indigo-950 scale-102'
+            : 'border-white/30 bg-gradient-to-br from-slate-900 via-slate-950 to-sky-950 group-hover:border-cyan-400/50'
+        }`}
+      >
+        {/* Shimmering Internal Aurora Wave */}
         <div
-          className={`absolute inset-0 rounded-full blur-xl transition-all duration-500 pointer-events-none ${
-            isLaptopOpen
-              ? 'bg-gradient-to-tr from-cyan-400/50 via-sky-500/40 to-blue-600/45 scale-130'
-              : 'bg-sky-400/20 scale-95'
+          className={`absolute inset-0 bg-gradient-to-tr from-cyan-500/40 via-blue-600/30 to-purple-600/40 transition-opacity duration-300 pointer-events-none ${
+            isActive ? 'opacity-100 animate-pulse' : 'opacity-60'
           }`}
         />
 
-        {/* Circular Robot Avatar Frame */}
-        <div
-          className={`relative rounded-full overflow-hidden border-2 transition-all duration-300 shadow-md ${
-            dims.avatar
-          } ${
-            isLaptopOpen
-              ? 'border-cyan-400 shadow-cyan-300/60 scale-102 ring-2 ring-sky-300/40'
-              : 'border-white/80 group-hover:border-sky-300'
-          }`}
-        >
-          {/* Working Robot with Headset */}
-          <img
-            src="/images/vox-robot.jpg"
-            alt="VOX AI Review Assistant"
-            className="w-full h-full object-cover object-[32%_15%]"
-          />
-
-          {/* Cyan Screen Light Reflection onto Robot Visor & Body when Laptop is open */}
-          <div
-            className={`absolute inset-0 bg-gradient-to-t from-cyan-400/35 via-transparent to-transparent pointer-events-none transition-opacity duration-300 ${
-              isLaptopOpen ? 'opacity-100' : 'opacity-0'
+        {/* Central Luminous AI Glyph */}
+        <div className="relative z-10 flex flex-col items-center justify-center">
+          <Sparkles
+            className={`${dims.icon} text-cyan-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] transition-transform duration-300 ${
+              isActive ? 'scale-110 text-cyan-200 rotate-6' : 'group-hover:scale-105'
             }`}
           />
-        </div>
 
-        {/* Robot Online Indicator Light */}
-        <div className="absolute bottom-1 right-0 z-20 flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500 border-2 border-white shadow-2xs" />
-        </div>
-      </div>
-
-      {/* ============================================================ */}
-      {/* 3D INTERACTIVE LAPTOP (Closed by default, Opens on hover/text) */}
-      {/* ============================================================ */}
-      <div
-        className="relative -mt-4 z-30 transition-transform duration-300 perspective-[600px]"
-        style={{ width: `${dims.laptopW}px` }}
-      >
-        {/* SVG Detailed Laptop Component */}
-        <div className="relative w-full flex flex-col items-center">
-          {/* 1. LAPTOP LID / SCREEN */}
-          <div
-            className="w-full transition-all duration-400 origin-bottom ease-out"
-            style={{
-              transform: isLaptopOpen
-                ? 'rotateX(0deg) translateY(0px)'
-                : 'rotateX(82deg) translateY(6px) scaleY(0.4)',
-              transformStyle: 'preserve-3d',
-            }}
-          >
-            {isLaptopOpen ? (
-              /* OPEN SCREEN */
-              <div className="w-full h-8 sm:h-9 bg-slate-900 rounded-t-md p-1 border-t border-x border-slate-700 shadow-lg relative flex flex-col justify-between overflow-hidden">
-                {/* Glowing Screen Content */}
-                <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/25 to-blue-600/35 pointer-events-none" />
-                <div className="flex items-center justify-between z-10">
-                  <div className="flex gap-0.5">
-                    <span className="w-1 h-1 rounded-full bg-rose-500/80" />
-                    <span className="w-1 h-1 rounded-full bg-amber-500/80" />
-                    <span className="w-1 h-1 rounded-full bg-emerald-500/80" />
-                  </div>
-                  <Sparkles className="w-2 h-2 text-cyan-300 animate-pulse" />
-                </div>
-
-                {/* Animated Chat / Typing Wave on Screen */}
-                <div className="space-y-0.5 z-10 px-0.5">
-                  <div className="h-0.5 w-3/4 bg-cyan-300/90 rounded-full animate-pulse" />
-                  <div className="h-0.5 w-1/2 bg-sky-200/70 rounded-full" />
-                </div>
-
-                {/* Screen Bezel Notch / Webcam */}
-                <div className="absolute top-0.5 left-1/2 -translate-x-1/2 w-1.5 h-0.5 bg-slate-800 rounded-b-xs" />
-              </div>
-            ) : (
-              /* CLOSED LAPTOP LID (Back of metallic screen showing Logo) */
-              <div className="w-full h-3 bg-gradient-to-b from-slate-300 via-slate-400 to-slate-500 rounded-t-sm border-t border-slate-200 shadow-xs flex items-center justify-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-300/80 shadow-xs animate-pulse" />
-              </div>
-            )}
-          </div>
-
-          {/* 2. LAPTOP BASE / KEYBOARD & TRACKPAD */}
-          <div className="w-full h-3.5 sm:h-4 bg-gradient-to-b from-slate-200 via-slate-300 to-slate-400 rounded-b-sm border-t border-slate-400 shadow-md relative flex flex-col items-center justify-between px-1 py-0.5">
-            {/* Keyboard Keys Strip */}
-            <div className="w-full h-1.5 bg-slate-700/80 rounded-xs flex items-center justify-around px-0.5">
-              {[...Array(6)].map((_, i) => (
+          {/* Dynamic Equalizer / Neural Activity Bars (visible when active or typing) */}
+          {size !== 'sm' && (
+            <div className="flex items-center gap-0.5 mt-0.5 pointer-events-none">
+              {[0, 1, 2, 3].map(i => (
                 <span
                   key={i}
-                  className={`w-1 h-1 rounded-2xs transition-colors ${
-                    isLaptopOpen && (isTyping || isHovered)
-                      ? 'animate-pulse bg-cyan-400'
-                      : 'bg-slate-800'
+                  className={`${dims.bars} rounded-full transition-all duration-200 ${
+                    isActive
+                      ? 'bg-cyan-300 animate-pulse'
+                      : 'bg-cyan-500/40'
                   }`}
-                  style={{ animationDelay: `${i * 120}ms` }}
+                  style={{
+                    animationDuration: `${400 + i * 150}ms`,
+                    animationDelay: `${i * 100}ms`,
+                  }}
                 />
               ))}
             </div>
-
-            {/* Trackpad */}
-            <div className="w-3 h-1 bg-slate-400/60 rounded-2xs border border-slate-400/50 mt-0.5" />
-
-            {/* Animated Metallic Robot Typing Fingers Effect when Open */}
-            {isLaptopOpen && (
-              <div className="absolute -top-1 w-full flex justify-around px-1 pointer-events-none">
-                <span className="w-1.5 h-1 rounded-full bg-cyan-100/90 shadow-xs animate-bounce" style={{ animationDuration: '500ms' }} />
-                <span className="w-1.5 h-1 rounded-full bg-cyan-100/90 shadow-xs animate-bounce" style={{ animationDuration: '500ms', animationDelay: '120ms' }} />
-              </div>
-            )}
-          </div>
+          )}
         </div>
+      </div>
+
+      {/* 4. Live Grounded Online Indicator Dot */}
+      <div className={`absolute bottom-0 right-0 z-20 flex ${dims.badge}`}>
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+        <span className="relative inline-flex rounded-full h-full w-full bg-emerald-500 border border-white shadow-xs" />
       </div>
     </div>
   );

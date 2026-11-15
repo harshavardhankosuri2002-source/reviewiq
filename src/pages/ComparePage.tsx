@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Product, PrioritySelection, AttributeKey, SavedComparison } from '../types';
+import React, { useState, useRef, useEffect } from 'react';
+import { Product, PrioritySelection, AttributeKey } from '../types';
 import {
   Star,
   GitCompare,
@@ -16,11 +16,16 @@ import {
   AlertTriangle,
   Info,
   Sliders,
-  Copy,
+  Smartphone,
+  Headphones,
 } from 'lucide-react';
-import { getProductSentimentStats, calculatePersonalizedMatch, calculateAttributeConsensus } from '../utils/analytics';
+import { getProductSentimentStats, calculatePersonalizedMatch } from '../utils/analytics';
 import { ATTRIBUTE_CONFIG } from '../data/mockData';
 import { formatINR } from '../utils/currency';
+import { ParallaxDeviceStage } from '../components/ParallaxDeviceStage';
+import { ProductColorSwatches } from '../components/ProductColorSwatches';
+import { getProductColorOptions } from '../utils/productColors';
+import { haptics } from '../utils/haptics';
 
 interface ComparePageProps {
   products: Product[];
@@ -54,8 +59,21 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   const [modalCategory, setModalCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
   const [highlightDifferences, setHighlightDifferences] = useState(true);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
+  const [productColors, setProductColors] = useState<Record<string, number>>({});
+  const addModalRef = useRef<HTMLDialogElement | null>(null);
 
   const activeProducts = products.filter(p => selectedProductIds.includes(p.id));
+
+  // Chrome Guidance native dialog sync for Add Device modal
+  useEffect(() => {
+    const dialog = addModalRef.current;
+    if (!dialog) return;
+    if (isAddModalOpen) {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      if (dialog.open) dialog.close();
+    }
+  }, [isAddModalOpen]);
 
   const filteredCatalogueForModal = products.filter(p => {
     if (modalCategory !== 'all' && p.category !== modalCategory) return false;
@@ -68,6 +86,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
 
   const handleSaveCurrentComparison = () => {
     if (activeProducts.length < 2) return;
+    haptics.play('pop');
     const title = activeProducts.map(p => p.name.split(' ')[0] + ' ' + (p.name.split(' ')[1] || '')).join(' vs ');
     if (onSaveComparison) {
       onSaveComparison(title, activeProducts.map(p => p.id));
@@ -79,7 +98,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   // Dynamic AI Comparison Summary Synthesis
   const renderComparisonSummary = () => {
     if (activeProducts.length < 2) {
-      return 'Select at least two smartphones from the 22-model catalogue below to generate an automated comparison synthesis.';
+      return 'Select at least two smartphones or headphones from the 25-model verified catalogue below to generate an automated comparative consensus synthesis.';
     }
 
     const names = activeProducts.map(p => p.name).join(', ');
@@ -93,28 +112,46 @@ export const ComparePage: React.FC<ComparePageProps> = ({
     return `Comparing ${activeProducts.length} devices (${names}): ${highestRated.name} leads verified buyer satisfaction (${highestRated.sampleRating} ★, ${highestRated.quickVerdict.slice(0, 85)}...). For budget efficiency, ${lowestPrice.name} delivers core fundamentals at ${lowestPrice.priceMSRP}. Trade-offs primarily center on charging velocity vs sustained thermals, telephoto reach vs weight, and software update duration.`;
   };
 
+  // Helper to test if a spec row differs between active products
+  const isSpecDifferent = (getter: (p: Product) => string | undefined) => {
+    if (activeProducts.length < 2) return false;
+    const firstVal = getter(activeProducts[0]) || '';
+    return activeProducts.some(p => (getter(p) || '') !== firstVal);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
-      {/* Top Navigation & Action Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-7 animate-fadeIn">
+      {/* ============================================================ */}
+      {/* 1. TOP NAVIGATION & WORKSPACE HEADER                         */}
+      {/* ============================================================ */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/80">
         <div className="flex items-center gap-3">
           <button
-            onClick={onBackToDiscover}
-            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 transition-colors shadow-sm"
+            onClick={() => {
+              haptics.play('click');
+              onBackToDiscover();
+            }}
+            className="p-2.5 rounded-xl frosted-pill hover:bg-white text-slate-700 hover:text-slate-900 border border-white/80 transition-all active:scale-95 shadow-2xs cursor-pointer"
             aria-label="Back to Overview"
           >
-            <ArrowLeft className="w-4 h-4 text-sky-400" />
+            <ArrowLeft className="w-4 h-4 text-sky-600" />
           </button>
+
           <div>
-            <div className="flex items-center gap-2 mb-0.5">
-              <span className="p-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="p-1 rounded-md bg-sky-100/80 border border-sky-300/60 text-sky-700">
                 <GitCompare className="w-3.5 h-3.5" />
               </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-sky-700">
                 Comparison Workspace
               </span>
+              <span className="text-slate-300">•</span>
+              <span className="text-[11px] font-semibold text-slate-500">
+                {activeProducts.length} Models Selected
+              </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
               Side-by-Side Review Intelligence Matrix
             </h1>
           </div>
@@ -125,61 +162,77 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           {activeProducts.length >= 2 && onSaveComparison && (
             <button
               onClick={handleSaveCurrentComparison}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition-all"
+              className="btn-interactive-secondary py-2 px-3.5 text-xs cursor-pointer"
             >
-              <Bookmark className="w-3.5 h-3.5 text-amber-400" />
+              <Bookmark className={`w-3.5 h-3.5 ${saveSuccessMsg ? 'fill-sky-700 text-sky-700' : 'text-slate-500'}`} />
               <span>{saveSuccessMsg ? 'Saved to Research!' : 'Save Comparison'}</span>
             </button>
           )}
 
           <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider transition-all shadow-glow-cyan"
+            onClick={() => {
+              haptics.play('click');
+              setIsAddModalOpen(true);
+            }}
+            className="btn-interactive-primary py-2 px-4 text-xs cursor-pointer"
           >
-            <Plus className="w-4 h-4 text-slate-950" />
-            <span>Add Phone ({products.length})</span>
+            <Plus className="w-4 h-4" />
+            <span>Add Device ({products.length})</span>
           </button>
         </div>
       </div>
 
-      {/* Dynamic AI Executive Consensus Delta Banner */}
-      <div className="rounded-2xl glass-panel p-6 border border-cyan-500/25 space-y-4 shadow-glass-card">
+      {/* ============================================================ */}
+      {/* 2. AUTOMATED COMPARATIVE CONSENSUS SYNTHESIS CARD             */}
+      {/* ============================================================ */}
+      <div className="frosted-panel rounded-3xl p-5 sm:p-6 border border-white/90 shadow-lg space-y-3">
         <div className="flex items-center justify-between flex-wrap gap-2">
-          <div className="flex items-center gap-2 text-cyan-400">
-            <Sparkles className="w-4 h-4 fill-current" />
-            <h2 className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+            <h2 className="text-xs font-extrabold uppercase tracking-wider text-sky-800">
               Automated Comparative Consensus Synthesis
             </h2>
           </div>
+
           {activeProducts.length >= 2 && onOpenAskVoxCompare && (
             <button
-              onClick={() => onOpenAskVoxCompare(selectedProductIds)}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl glass-card hover:glass-chip text-white font-bold text-xs shadow-sm transition-all cursor-pointer border border-cyan-400/30"
+              onClick={() => {
+                haptics.play('click');
+                onOpenAskVoxCompare(selectedProductIds);
+              }}
+              className="btn-interactive-secondary py-1.5 px-3 text-xs font-semibold text-slate-800 hover:text-sky-700 border-sky-300 shadow-2xs cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <Sparkles className="w-3.5 h-3.5 text-sky-600 animate-pulse" />
               <span>Ask VOX to analyze trade-offs</span>
             </button>
           )}
         </div>
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+
+        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal border-l-2 border-sky-400 pl-3">
           {renderComparisonSummary()}
         </p>
       </div>
 
-      {/* Controls Bar: Priority Weighting & Difference Highlighter */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass-panel p-4 rounded-xl border border-white/[0.08] text-xs">
+      {/* ============================================================ */}
+      {/* 3. PRIORITY WEIGHTING & DIFFERENCE FILTER BAR                 */}
+      {/* ============================================================ */}
+      <div className="frosted-panel p-3.5 sm:p-4 rounded-2xl border border-white/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs shadow-xs">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-slate-400 font-medium">Priority Weighting:</span>
+          <span className="text-slate-600 font-bold">Priority Weighting:</span>
           {(Object.keys(ATTRIBUTE_CONFIG) as AttributeKey[]).map(key => {
             const isSelected = !!priorities[key];
             return (
               <button
                 key={key}
-                onClick={() => onTogglePriority(key)}
-                className={`px-2.5 py-1 rounded-lg font-semibold transition-all ${isSelected
-                    ? 'glass-chip-active'
-                    : 'glass-chip text-slate-300 hover:text-white'
-                  }`}
+                onClick={() => {
+                  haptics.play('pop');
+                  onTogglePriority(key);
+                }}
+                className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all active:scale-95 cursor-pointer ${
+                  isSelected
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
               >
                 {ATTRIBUTE_CONFIG[key].label}
               </button>
@@ -187,32 +240,40 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           })}
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer text-slate-300 font-medium select-none">
+        <label className="flex items-center gap-2 cursor-pointer text-slate-800 font-semibold select-none shrink-0">
           <input
             type="checkbox"
             checked={highlightDifferences}
-            onChange={e => setHighlightDifferences(e.target.checked)}
-            className="w-4 h-4 rounded bg-slate-950 border-slate-700 text-sky-500 focus:ring-0 cursor-pointer"
+            onChange={e => {
+              haptics.play('pop');
+              setHighlightDifferences(e.target.checked);
+            }}
+            className="w-4 h-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500 cursor-pointer"
           />
           <span>Highlight Spec Differences</span>
         </label>
       </div>
 
-      {/* Comparison Grid Stage */}
+      {/* ============================================================ */}
+      {/* 4. COMPARISON MATRIX STAGE                                    */}
+      {/* ============================================================ */}
       {activeProducts.length === 0 ? (
-        <div className="rounded-3xl glass-card border border-white/[0.08] p-12 text-center space-y-4 max-w-md mx-auto shadow-glass-card">
-          <div className="w-12 h-12 rounded-2xl glass-chip text-cyan-400 flex items-center justify-center mx-auto border border-cyan-500/30">
-            <GitCompare className="w-6 h-6" />
+        <div className="frosted-modal rounded-3xl border border-white/90 p-12 text-center space-y-4 max-w-md mx-auto shadow-2xl">
+          <div className="w-14 h-14 rounded-2xl frosted-pill text-sky-600 flex items-center justify-center mx-auto border border-sky-200">
+            <GitCompare className="w-7 h-7" />
           </div>
-          <h3 className="text-base font-bold text-white">No products selected for comparison</h3>
-          <p className="text-xs text-slate-400">
-            Select smartphones from the 22-model catalogue to view side-by-side specs, trade-offs, and customer consensus.
+          <h3 className="text-lg font-black text-slate-900">No products selected for comparison</h3>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Select smartphones or headphones from the 25-model verified catalogue to view side-by-side specs, trade-offs, and decoded customer consensus.
           </p>
           <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-slate-950 font-bold text-xs hover:from-sky-400 hover:to-cyan-400 transition-colors shadow-glow-cyan"
+            onClick={() => {
+              haptics.play('click');
+              setIsAddModalOpen(true);
+            }}
+            className="btn-interactive-primary px-6 py-2.5 text-xs font-bold cursor-pointer"
           >
-            Browse 22 Smartphones
+            Browse 25 Models
           </button>
         </div>
       ) : (
@@ -223,55 +284,88 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               const stats = getProductSentimentStats(product.id);
               const isSaved = savedIds.includes(product.id);
               const match = calculatePersonalizedMatch(product.id, priorities);
+              const colorIndex = productColors[product.id] || 0;
+              const colorOptions = getProductColorOptions(product.id);
+              const activeColor = colorOptions[colorIndex] || colorOptions[0];
 
               return (
                 <div
                   key={product.id}
-                  className="rounded-2xl glass-card border border-white/[0.08] p-5 space-y-4 relative flex flex-col justify-between shadow-glass-card hover:border-cyan-400/40 transition-all"
+                  className="frosted-glass-card rounded-3xl p-5 space-y-4 relative flex flex-col justify-between border border-white/90 shadow-xl group"
                 >
                   {/* Remove button */}
                   <button
-                    onClick={() => onToggleProductInCompare(product.id)}
-                    className="absolute top-3 right-3 p-1.5 rounded-lg glass-nested text-slate-400 hover:text-rose-400 border border-white/[0.08] transition-colors"
+                    onClick={() => {
+                      haptics.play('pop');
+                      onToggleProductInCompare(product.id);
+                    }}
+                    className="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-slate-100/90 hover:bg-rose-100 hover:text-rose-600 text-slate-400 flex items-center justify-center transition-all z-20 cursor-pointer shadow-2xs"
                     title="Remove from comparison"
                   >
                     <X className="w-4 h-4" />
                   </button>
 
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-14 h-16 bg-slate-950 rounded-xl border border-slate-800 p-1 flex items-center justify-center shrink-0">
-                        <img
-                          src={product.imageUrl}
-                          alt={product.name}
-                          onError={(e) => {
-                            (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
-                          }}
-                          className="max-h-full max-w-full object-contain"
-                        />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">
+                  <div className="space-y-3.5">
+                    {/* Device Presentation Stage with 3D Parallax Tilt */}
+                    <div className="relative h-44 w-full frosted-panel rounded-2xl p-3 flex flex-col items-center justify-between border border-white/80 overflow-hidden">
+                      {/* Top Badges */}
+                      <div className="w-full flex items-center justify-between z-10">
+                        <span className="frosted-pill text-slate-800 px-2 py-0.5 rounded text-[10px] font-bold shadow-2xs">
                           {product.brand}
                         </span>
-                        <h3
-                          onClick={() => onSelectProduct(product.id)}
-                          className="text-base font-extrabold text-white hover:text-cyan-300 transition-colors cursor-pointer leading-tight"
-                        >
-                          {product.name}
-                        </h3>
-                        <span className="text-xs font-bold text-slate-300">{formatINR(product.priceMSRP)}</span>
+                        <span className="bg-slate-900/85 backdrop-blur-md text-white px-2 py-0.5 rounded text-xs font-bold border border-white/20 shadow-xs">
+                          {formatINR(product.priceMSRP)}
+                        </span>
                       </div>
+
+                      {/* Parallax Image */}
+                      <div className="my-auto flex items-center justify-center w-full h-28">
+                        <ParallaxDeviceStage maxTilt={8} showGlare={true} className="w-full h-full">
+                          <img
+                            src={product.imageUrl}
+                            alt={`${product.name} in ${activeColor.name}`}
+                            onError={e => {
+                              (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
+                            }}
+                            className="max-h-28 max-w-full object-contain mx-auto drop-shadow-md select-none pointer-events-none transition-all duration-300"
+                            style={{ filter: activeColor.filterStyle || 'none' }}
+                          />
+                        </ParallaxDeviceStage>
+                      </div>
+
+                      {/* Interactive Color Swatch Switcher */}
+                      <ProductColorSwatches
+                        productId={product.id}
+                        selectedIndex={colorIndex}
+                        onSelectColor={idx => setProductColors(prev => ({ ...prev, [product.id]: idx }))}
+                        size="sm"
+                      />
+                    </div>
+
+                    {/* Product Identity */}
+                    <div>
+                      <h3
+                        onClick={() => {
+                          haptics.play('click');
+                          onSelectProduct(product.id);
+                        }}
+                        className="text-base sm:text-lg font-black text-slate-900 hover:text-sky-600 transition-colors cursor-pointer leading-tight"
+                      >
+                        {product.name}
+                      </h3>
+                      <span className="text-xs text-slate-500 font-medium">
+                        Finish: <span className="font-semibold text-slate-800">{activeColor.name}</span>
+                      </span>
                     </div>
 
                     {/* Rating & Match Pill */}
-                    <div className="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                      <div className="flex items-center gap-1 text-xs">
+                    <div className="flex items-center justify-between frosted-panel p-2.5 rounded-xl border border-white/80">
+                      <div className="flex items-center gap-1.5 text-xs">
                         <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
-                        <span className="font-bold text-white">{product.sampleRating}</span>
-                        <span className="text-slate-500 text-[11px]">({product.sampleReviewCount} reviews)</span>
+                        <span className="font-bold text-slate-900">{product.sampleRating}</span>
+                        <span className="text-slate-400 text-[11px]">({product.sampleReviewCount} reviews)</span>
                       </div>
-                      <span className="text-[11px] font-mono font-bold text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
+                      <span className="text-[11px] font-mono font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded border border-emerald-300/80">
                         {match.score}% Fit
                       </span>
                     </div>
@@ -279,35 +373,41 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                     {/* Sentiment Bar */}
                     <div className="space-y-1.5 text-[11px]">
                       <div className="flex justify-between font-semibold">
-                        <span className="text-slate-400">Customer Sentiment</span>
-                        <span className="text-emerald-400">{stats.positivePct}% Positive</span>
+                        <span className="text-slate-500">Customer Sentiment</span>
+                        <span className="text-emerald-700 font-mono font-bold">{stats.positivePct}% Positive</span>
                       </div>
-                      <div className="h-1.5 w-full rounded-full bg-slate-950 flex overflow-hidden border border-slate-800">
+                      <div className="h-1.5 w-full rounded-full bg-slate-100 flex overflow-hidden border border-slate-200">
                         <div style={{ width: `${stats.positivePct}%` }} className="bg-emerald-500" />
-                        <div style={{ width: `${stats.mixedPct}%` }} className="bg-amber-500" />
-                        <div style={{ width: `${stats.negativePct}%` }} className="bg-rose-500" />
+                        <div style={{ width: `${stats.mixedPct}%` }} className="bg-amber-400" />
+                        <div style={{ width: `${stats.negativePct}%` }} className="bg-rose-400" />
                       </div>
                     </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-2 border-t border-slate-800 grid grid-cols-2 gap-2">
+                  <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2">
                     <button
-                      onClick={() => onSelectProduct(product.id)}
-                      className="py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all flex items-center justify-center gap-1 shadow-sm"
+                      onClick={() => {
+                        haptics.play('click');
+                        onSelectProduct(product.id);
+                      }}
+                      className="btn-interactive-primary py-2 text-xs font-bold cursor-pointer"
                     >
                       <span>Inspect</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
+
                     <button
-                      onClick={() => onToggleSave(product.id)}
-                      className={`py-2 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1 transition-colors ${isSaved
-                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                          : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
-                        }`}
+                      onClick={() => {
+                        haptics.play('pop');
+                        onToggleSave(product.id);
+                      }}
+                      className={`btn-interactive-secondary py-2 text-xs font-semibold cursor-pointer ${
+                        isSaved ? 'bg-sky-50 text-sky-800 border-sky-300' : ''
+                      }`}
                     >
-                      <Bookmark className={`w-3 h-3 ${isSaved ? 'fill-current' : ''}`} />
-                      <span>{isSaved ? 'Saved' : 'Save'}</span>
+                      <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-sky-700 text-sky-700' : 'text-slate-400'}`} />
+                      <span>{isSaved ? 'Saved' : 'Shortlist'}</span>
                     </button>
                   </div>
                 </div>
@@ -315,96 +415,139 @@ export const ComparePage: React.FC<ComparePageProps> = ({
             })}
           </div>
 
-          {/* Side-by-Side Detailed Specs & Consensus Table */}
-          <div className="rounded-2xl glass-card border border-white/[0.08] overflow-hidden shadow-glass-card">
-            <div className="p-4 glass-panel border-b border-white/[0.08] flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-white">
-                Detailed Technical & Review Comparison Matrix
+          {/* ============================================================ */}
+          {/* 5. SIDE-BY-SIDE DETAILED SPECS & CONSENSUS TABLE             */}
+          {/* ============================================================ */}
+          <div className="frosted-modal rounded-3xl border border-white/90 overflow-hidden shadow-2xl">
+            <div className="p-4 frosted-panel border-b border-white/80 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                Detailed Technical & Consensus Comparison Matrix
               </span>
-              <span className="text-xs text-slate-400">
-                {activeProducts.length} Phones Compared
+              <span className="text-xs font-semibold text-slate-500 frosted-pill px-2.5 py-0.5 rounded-full">
+                {activeProducts.length} Models Side-by-Side
               </span>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
-                <tbody className="divide-y divide-white/[0.06]">
+              <table className="w-full text-left text-xs text-slate-800">
+                <tbody className="divide-y divide-slate-200/60">
                   {/* Row: Chipset */}
-                  <tr className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 font-bold text-white glass-nested w-48 shrink-0">Processor / Audio Engine</td>
-                    {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 font-medium leading-relaxed text-slate-200">
-                        {p.specsSummary.chipset}
-                      </td>
-                    ))}
-                  </tr>
+                  {(() => {
+                    const isDiff = isSpecDifferent(p => p.specsSummary.chipset);
+                    return (
+                      <tr className={`transition-colors ${highlightDifferences && isDiff ? 'bg-sky-50/40' : 'hover:bg-white/40'}`}>
+                        <td className="p-4 font-bold text-slate-900 bg-white/50 w-52 shrink-0 border-r border-slate-200/60">
+                          Processor / Audio Engine
+                        </td>
+                        {activeProducts.map(p => (
+                          <td key={p.id} className="p-4 font-medium leading-relaxed text-slate-700 border-r border-slate-200/40 last:border-r-0">
+                            {p.specsSummary.chipset || 'Integrated OEM Audio Processor'}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })()}
 
                   {/* Row: Display / Driver */}
-                  <tr className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 font-bold text-white glass-nested">Display / Acoustic Driver</td>
-                    {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 leading-relaxed text-slate-300">
-                        {p.specsSummary.display}
-                      </td>
-                    ))}
-                  </tr>
+                  {(() => {
+                    const isDiff = isSpecDifferent(p => p.specsSummary.display || p.specsSummary.driver);
+                    return (
+                      <tr className={`transition-colors ${highlightDifferences && isDiff ? 'bg-sky-50/40' : 'hover:bg-white/40'}`}>
+                        <td className="p-4 font-bold text-slate-900 bg-white/50 border-r border-slate-200/60">
+                          Display / Acoustic Driver
+                        </td>
+                        {activeProducts.map(p => (
+                          <td key={p.id} className="p-4 leading-relaxed text-slate-700 border-r border-slate-200/40 last:border-r-0">
+                            {p.specsSummary.display || p.specsSummary.driver}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })()}
 
                   {/* Row: Battery & Charging */}
-                  <tr className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 font-bold text-white glass-nested">Battery & Charging</td>
-                    {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 leading-relaxed text-slate-300">
-                        {p.specsSummary.battery}
-                      </td>
-                    ))}
-                  </tr>
+                  {(() => {
+                    const isDiff = isSpecDifferent(p => p.specsSummary.battery);
+                    return (
+                      <tr className={`transition-colors ${highlightDifferences && isDiff ? 'bg-sky-50/40' : 'hover:bg-white/40'}`}>
+                        <td className="p-4 font-bold text-slate-900 bg-white/50 border-r border-slate-200/60">
+                          Battery & Charging Stamina
+                        </td>
+                        {activeProducts.map(p => (
+                          <td key={p.id} className="p-4 leading-relaxed text-slate-700 border-r border-slate-200/40 last:border-r-0">
+                            {p.specsSummary.battery}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })()}
 
-                  {/* Row: Camera Optics / Wireless Connectivity */}
-                  <tr className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 font-bold text-white glass-nested">Camera Optics / Wireless & ANC</td>
-                    {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 leading-relaxed text-slate-300">
-                        {p.specsSummary.camera || p.specsSummary.connectivity || 'Multipoint Bluetooth 5.3 • ANC'}
-                      </td>
-                    ))}
-                  </tr>
+                  {/* Row: Camera / Connectivity */}
+                  {(() => {
+                    const isDiff = isSpecDifferent(p => p.specsSummary.camera || p.specsSummary.connectivity);
+                    return (
+                      <tr className={`transition-colors ${highlightDifferences && isDiff ? 'bg-sky-50/40' : 'hover:bg-white/40'}`}>
+                        <td className="p-4 font-bold text-slate-900 bg-white/50 border-r border-slate-200/60">
+                          Camera Optics / Wireless & ANC
+                        </td>
+                        {activeProducts.map(p => (
+                          <td key={p.id} className="p-4 leading-relaxed text-slate-700 border-r border-slate-200/40 last:border-r-0">
+                            {p.specsSummary.camera || p.specsSummary.connectivity || 'Multipoint Bluetooth 5.3 • ANC'}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })()}
 
                   {/* Row: Chassis Weight */}
-                  <tr className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 font-bold text-white glass-nested">Chassis Weight</td>
-                    {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 font-mono font-bold text-cyan-300">
-                        {p.specsSummary.weight}
-                      </td>
-                    ))}
-                  </tr>
+                  {(() => {
+                    const isDiff = isSpecDifferent(p => p.specsSummary.weight);
+                    return (
+                      <tr className={`transition-colors ${highlightDifferences && isDiff ? 'bg-sky-50/40' : 'hover:bg-white/40'}`}>
+                        <td className="p-4 font-bold text-slate-900 bg-white/50 border-r border-slate-200/60">
+                          Chassis Weight
+                        </td>
+                        {activeProducts.map(p => (
+                          <td key={p.id} className="p-4 font-mono font-bold text-slate-900 border-r border-slate-200/40 last:border-r-0">
+                            {p.specsSummary.weight}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })()}
 
                   {/* Row: Top Appreciated Feature */}
-                  <tr className="hover:bg-emerald-500/10 transition-colors bg-emerald-500/[0.05]">
-                    <td className="p-4 font-bold text-emerald-400 glass-nested">Top Consensus Strength</td>
+                  <tr className="bg-emerald-50/70 border-t border-emerald-200/80">
+                    <td className="p-4 font-bold text-emerald-900 bg-emerald-100/50 border-r border-emerald-200/60">
+                      ✓ Top Consensus Strength
+                    </td>
                     {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 text-emerald-300 leading-relaxed">
-                        ✓ {p.aiSummary.appreciatedFeatures.points[0]}
+                      <td key={p.id} className="p-4 text-emerald-950 font-medium leading-relaxed border-r border-emerald-200/40 last:border-r-0">
+                        {p.aiSummary?.appreciatedFeatures?.points?.[0] || 'Flagship verified build and verified battery life.'}
                       </td>
                     ))}
                   </tr>
 
                   {/* Row: Top Complaint */}
-                  <tr className="hover:bg-rose-500/10 transition-colors bg-rose-500/[0.05]">
-                    <td className="p-4 font-bold text-rose-400 glass-nested">Top Consensus Drawback</td>
+                  <tr className="bg-rose-50/70 border-t border-rose-200/80">
+                    <td className="p-4 font-bold text-rose-900 bg-rose-100/50 border-r border-rose-200/60">
+                      ! Verified Drawback & Caveat
+                    </td>
                     {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 text-rose-300 leading-relaxed">
-                        ! {p.aiSummary.commonComplaints.points[0]}
+                      <td key={p.id} className="p-4 text-rose-950 font-medium leading-relaxed border-r border-rose-200/40 last:border-r-0">
+                        {p.aiSummary?.commonComplaints?.points?.[0] || 'MSRP premium reflects import duties & flagship positioning.'}
                       </td>
                     ))}
                   </tr>
 
                   {/* Row: Uncertainty & Evidence Limitations */}
-                  <tr className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 font-bold text-slate-400 glass-nested">Evidence Limitations</td>
+                  <tr className="bg-slate-50/60 border-t border-slate-200/80">
+                    <td className="p-4 font-bold text-slate-600 bg-slate-100/50 border-r border-slate-200/60">
+                      Evidence Limitations
+                    </td>
                     {activeProducts.map(p => (
-                      <td key={p.id} className="p-4 text-slate-400 text-[11px] leading-relaxed">
-                        Evaluated across {p.sampleReviewCount} reviews ({p.dateRange.start} to {p.dateRange.end}). Long-term battery degradation beyond 12 months remains unverified.
+                      <td key={p.id} className="p-4 text-slate-500 text-[11px] leading-relaxed border-r border-slate-200/40 last:border-r-0">
+                        Evaluated across {p.sampleReviewCount} verified reviews ({p.dateRange.start} to {p.dateRange.end}). Long-term endurance beyond 12 months remains unverified.
                       </td>
                     ))}
                   </tr>
@@ -416,129 +559,163 @@ export const ComparePage: React.FC<ComparePageProps> = ({
       )}
 
       {/* ============================================================ */}
-      {/* ADD PRODUCT MODAL (Browse all 22 Models)                     */}
+      {/* 6. ADD PRODUCT MODAL (Google Chrome Native Dialog Guideline)  */}
       {/* ============================================================ */}
-      {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fadeIn">
-          <div className="rounded-3xl glass-drawer border border-white/[0.12] max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-            {/* Modal Header */}
-            <div className="p-5 border-b border-white/[0.08] glass-panel flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-bold text-white">Add Device to Compare</h3>
-                <p className="text-xs text-slate-400">Choose from all 23 verified smartphones and ANC headphones</p>
-              </div>
+      <dialog
+        ref={addModalRef}
+        onCancel={e => {
+          e.preventDefault();
+          haptics.play('pop');
+          setIsAddModalOpen(false);
+        }}
+        onClick={e => {
+          if (e.target === addModalRef.current) {
+            haptics.play('pop');
+            setIsAddModalOpen(false);
+          }
+        }}
+        className="frosted-native-dialog p-0 bg-transparent border-none max-w-2xl w-[calc(100%-2rem)] m-auto animate-scaleUp text-slate-900"
+      >
+        <div className="frosted-modal rounded-3xl border border-white/90 max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
+          {/* Modal Header */}
+          <div className="p-5 border-b border-white/80 frosted-panel flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-black text-slate-900 tracking-tight">Add Device to Compare</h3>
+              <p className="text-xs text-slate-500 font-medium">Choose from all 25 verified smartphones and ANC headphones</p>
+            </div>
+            <button
+              onClick={() => {
+                haptics.play('click');
+                setIsAddModalOpen(false);
+              }}
+              className="w-9 h-9 rounded-full hover:bg-slate-200/60 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Category Filter Tabs & Search Input */}
+          <div className="p-4 border-b border-white/80 frosted-panel space-y-3">
+            <div className="flex gap-2">
               <button
-                onClick={() => setIsAddModalOpen(false)}
-                className="p-2 rounded-xl glass-nested text-slate-400 hover:text-white border border-white/[0.08]"
+                onClick={() => {
+                  haptics.play('pop');
+                  setModalCategory('all');
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  modalCategory === 'all'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
               >
-                <X className="w-5 h-5" />
+                All ({products.length})
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  setModalCategory('Smartphones');
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  modalCategory === 'Smartphones'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
+              >
+                📱 Smartphones (22)
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  setModalCategory('Headphones');
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  modalCategory === 'Headphones'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
+              >
+                🎧 Headphones (3)
               </button>
             </div>
 
-            {/* Category Filter Tabs & Search Input */}
-            <div className="p-4 border-b border-white/[0.08] glass-panel space-y-3">
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setModalCategory('all')}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${modalCategory === 'all'
-                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                      : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
-                    }`}
-                >
-                  All ({products.length})
-                </button>
-                <button
-                  onClick={() => setModalCategory('Smartphones')}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${modalCategory === 'Smartphones'
-                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                      : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
-                    }`}
-                >
-                  📱 Smartphones (20)
-                </button>
-                <button
-                  onClick={() => setModalCategory('Headphones')}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${modalCategory === 'Headphones'
-                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                      : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
-                    }`}
-                >
-                  🎧 ANC Headphones (3)
-                </button>
-              </div>
-
-              <div className="relative">
-                <input
-                  type="text"
-                  value={modalSearch}
-                  onChange={e => setModalSearch(e.target.value)}
-                  placeholder="Search brand or model (e.g. Sony, Bose, Apple, Samsung)..."
-                  className="w-full glass-input text-white placeholder-slate-400 text-xs sm:text-sm pl-10 pr-4 py-2.5 rounded-xl border border-white/[0.10] focus:outline-none focus:border-cyan-400"
-                />
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-              </div>
-            </div>
-
-            {/* Modal Products List */}
-            <div className="p-4 overflow-y-auto space-y-2 flex-1 divide-y divide-white/[0.06]">
-              {filteredCatalogueForModal.map(p => {
-                const isSelected = selectedProductIds.includes(p.id);
-                return (
-                  <div
-                    key={p.id}
-                    className="pt-2 flex items-center justify-between p-3 rounded-xl hover:bg-slate-950 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg bg-slate-950 p-1 border border-slate-800 flex items-center justify-center shrink-0">
-                        <img
-                          src={p.imageUrl}
-                          alt={p.name}
-                          onError={(e) => {
-                            (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
-                          }}
-                          className="max-h-full max-w-full object-contain"
-                        />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-bold text-sky-400 uppercase">{p.brand}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">{formatINR(p.priceMSRP)}</span>
-                        </div>
-                        <h4 className="text-sm font-bold text-white">{p.name}</h4>
-                        <div className="flex items-center gap-1 text-[11px] text-amber-400">
-                          <Star className="w-3 h-3 fill-current" />
-                          <span>{p.sampleRating}</span>
-                          <span className="text-slate-500">({p.sampleReviewCount} reviews)</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => onToggleProductInCompare(p.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${isSelected
-                          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                          : 'bg-sky-600 hover:bg-sky-500 text-white shadow-sm'
-                        }`}
-                    >
-                      {isSelected ? 'Remove' : 'Add to Compare'}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Modal Footer */}
-            <div className="p-4 border-t border-slate-800 bg-slate-950 flex justify-end">
-              <button
-                onClick={() => setIsAddModalOpen(false)}
-                className="px-5 py-2 rounded-xl bg-sky-600 text-white text-xs font-bold hover:bg-sky-500"
-              >
-                Done
-              </button>
+            <div className="relative">
+              <input
+                type="text"
+                value={modalSearch}
+                onChange={e => setModalSearch(e.target.value)}
+                placeholder="Search brand or model (e.g. Sony, Bose, Apple, Samsung)..."
+                className="w-full bg-white/80 text-slate-900 placeholder-slate-400 text-xs sm:text-sm pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 shadow-2xs"
+              />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             </div>
           </div>
+
+          {/* Modal Products List */}
+          <div className="p-4 overflow-y-auto space-y-2 flex-1 divide-y divide-slate-100">
+            {filteredCatalogueForModal.map(p => {
+              const isSelected = selectedProductIds.includes(p.id);
+              return (
+                <div
+                  key={p.id}
+                  className="pt-2 flex items-center justify-between p-3 rounded-2xl hover:bg-white/70 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-14 bg-white rounded-xl p-1 border border-slate-200/80 flex items-center justify-center shrink-0 shadow-2xs">
+                      <img
+                        src={p.imageUrl}
+                        alt={p.name}
+                        onError={e => {
+                          (e.currentTarget as HTMLImageElement).src = '/images/products/device-placeholder.svg';
+                        }}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold text-sky-700 uppercase tracking-wide">{p.brand}</span>
+                        <span className="text-[10px] text-slate-500 font-mono font-semibold">{formatINR(p.priceMSRP)}</span>
+                      </div>
+                      <h4 className="text-sm font-bold text-slate-900">{p.name}</h4>
+                      <div className="flex items-center gap-1 text-[11px] text-amber-500 font-semibold">
+                        <Star className="w-3 h-3 fill-current" />
+                        <span>{p.sampleRating}</span>
+                        <span className="text-slate-400 font-normal">({p.sampleReviewCount} reviews)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      haptics.play(isSelected ? 'pop' : 'click');
+                      onToggleProductInCompare(p.id);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
+                        : 'btn-interactive-primary'
+                    }`}
+                  >
+                    {isSelected ? 'Remove' : 'Add to Compare'}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Modal Footer */}
+          <div className="p-4 border-t border-white/80 frosted-panel flex justify-end">
+            <button
+              onClick={() => {
+                haptics.play('click');
+                setIsAddModalOpen(false);
+              }}
+              className="btn-interactive-primary px-5 py-2 text-xs font-bold cursor-pointer"
+            >
+              Done
+            </button>
+          </div>
         </div>
-      )}
+      </dialog>
     </div>
   );
 };

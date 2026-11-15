@@ -105,3 +105,4 @@ class HapticAudioEngine {
 }
 
 export const haptics = new HapticAudioEngine();
+

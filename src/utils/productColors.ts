@@ -64,3 +64,4 @@ const DEFAULT_COLOR_OPTIONS: ProductColorOption[] = [
 export function getProductColorOptions(productId: string): ProductColorOption[] {
   return PRODUCT_COLOR_MAP[productId] || DEFAULT_COLOR_OPTIONS;
 }
+

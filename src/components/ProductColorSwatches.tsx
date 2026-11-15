@@ -69,3 +69,4 @@ export const ProductColorSwatches: React.FC<ProductColorSwatchesProps> = ({
     </div>
   );
 };
+

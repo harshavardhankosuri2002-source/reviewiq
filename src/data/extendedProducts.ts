@@ -1111,7 +1111,7 @@ export const EXTENDED_PRODUCTS: Product[] = [
     variants: ["512GB - 16GB RAM - Asteroid Black","512GB - 16GB RAM - Sunset Orange"],
     defaultVariant: '512GB - 16GB RAM - Asteroid Black',
     priceMSRP: '₹89,999',
-    imageUrl: '/images/products/xiaomi-14-ultra.png',
+    imageUrl: '/images/products/vivo-x100-pro.png',
     imageVerified: true,
     colorVariant: 'Asteroid Black',
     officialUrl: 'https://www.vivo.com/in/products/x100-pro',

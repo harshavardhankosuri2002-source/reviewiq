@@ -25,6 +25,7 @@ import { formatINR } from '../utils/currency';
 import { ParallaxDeviceStage } from '../components/ParallaxDeviceStage';
 import { ProductColorSwatches } from '../components/ProductColorSwatches';
 import { getProductColorOptions } from '../utils/productColors';
+import { RadarComparisonChart } from '../components/RadarComparisonChart';
 import { haptics } from '../utils/haptics';
 
 interface ComparePageProps {
@@ -414,6 +415,32 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               );
             })}
           </div>
+
+          {/* ============================================================ */}
+          {/* 4.5. VISUAL 5-AXIS RADAR TRADE-OFF CHART (Option 2)           */}
+          {/* ============================================================ */}
+          {activeProducts.length >= 2 && (
+            <div className="frosted-panel rounded-3xl p-5 sm:p-6 border border-white/90 shadow-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/80 pb-3">
+                <div>
+                  <h3 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                    <span className="p-1 rounded-md bg-sky-100 text-sky-700">⚡</span>
+                    <span>Multi-Dimensional Capability Trade-Offs (5-Axis Radar)</span>
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    Holistic visual trade-off comparison across Battery, Camera, Performance, Value, and Display
+                  </p>
+                </div>
+                <span className="self-start sm:self-auto text-[10px] font-bold text-sky-800 bg-sky-50 border border-sky-200/80 px-2.5 py-0.5 rounded-full shadow-2xs">
+                  Real-Time Capability Overlap
+                </span>
+              </div>
+
+              <div className="flex justify-center py-2 overflow-x-auto">
+                <RadarComparisonChart products={activeProducts} size={300} />
+              </div>
+            </div>
+          )}
 
           {/* ============================================================ */}
           {/* 5. SIDE-BY-SIDE DETAILED SPECS & CONSENSUS TABLE             */}

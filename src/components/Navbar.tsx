@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Search, Bookmark, GitCompare, HelpCircle, Menu, X, User, Lock, TrendingUp, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Bookmark, GitCompare, HelpCircle, Menu, X, User, Lock, TrendingUp, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { ReviewIQLogo } from './ReviewIQLogo';
 import { UserProfile } from '../types';
+import { haptics } from '../utils/haptics';
 
 interface NavbarProps {
   currentView: string;
@@ -11,6 +12,7 @@ interface NavbarProps {
   currentUser?: UserProfile;
   onOpenAuth: () => void;
   onOpenCommercialization?: () => void;
+  onOpenCommandPalette?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -21,9 +23,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentUser,
   onOpenAuth,
   onOpenCommercialization,
+  onOpenCommandPalette,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navSearch, setNavSearch] = useState('');
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
+
+  useEffect(() => {
+    setIsAudioMuted(haptics.getIsMuted());
+  }, []);
+
+  const handleToggleAudio = () => {
+    const nextState = !isAudioMuted;
+    haptics.setMuted(nextState);
+    setIsAudioMuted(nextState);
+    if (!nextState) haptics.play('click');
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,8 +75,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="text"
                 value={navSearch}
                 onChange={e => setNavSearch(e.target.value)}
-                placeholder="Search catalog (e.g. iPhone, Sony, S24)..."
-                className="w-full bg-white/70 hover:bg-white focus:bg-white text-xs text-slate-800 placeholder-slate-400 pl-8 pr-12 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-slate-800 transition-all shadow-2xs"
+                onClick={() => onOpenCommandPalette?.()}
+                placeholder="Search catalog or press ⌘K..."
+                className="w-full bg-white/70 hover:bg-white focus:bg-white text-xs text-slate-800 placeholder-slate-400 pl-8 pr-12 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-slate-800 transition-all shadow-2xs cursor-pointer"
               />
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
               <span className="absolute right-2.5 top-2 text-[10px] font-mono text-slate-400 pointer-events-none">
@@ -135,6 +151,27 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>MBA Deck</span>
               </button>
             )}
+
+            {/* Sound & Haptics Toggle Pill */}
+            <button
+              onClick={handleToggleAudio}
+              className="p-1.5 rounded-lg frosted-pill hover:bg-white text-slate-600 hover:text-slate-900 border border-slate-200 transition-all flex items-center gap-1 cursor-pointer ml-1 shadow-2xs"
+              title={isAudioMuted ? 'Unmute Haptic Audio' : 'Mute Haptic Audio'}
+              aria-label={isAudioMuted ? 'Unmute interface audio' : 'Mute interface audio'}
+            >
+              {isAudioMuted ? (
+                <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+              ) : (
+                <>
+                  <Volume2 className="w-3.5 h-3.5 text-sky-600" />
+                  <span className="hidden xl:flex gap-0.5 items-end h-2.5">
+                    <span className="w-0.5 h-1.5 bg-sky-500 rounded-full" />
+                    <span className="w-0.5 h-2.5 bg-sky-500 rounded-full" />
+                    <span className="w-0.5 h-1 bg-sky-500 rounded-full" />
+                  </span>
+                </>
+              )}
+            </button>
 
             {/* User Session Profile Pill */}
             <button

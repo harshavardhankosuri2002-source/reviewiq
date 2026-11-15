@@ -24,6 +24,8 @@ import { SupportingReviewsPage } from './pages/SupportingReviewsPage';
 import { TransparentCalculationPage } from './pages/TransparentCalculationPage';
 import { LinkIngestionModal } from './components/LinkIngestionModal';
 import { CommercializationModal } from './components/CommercializationModal';
+import { CommandPaletteModal } from './components/CommandPaletteModal';
+import { haptics } from './utils/haptics';
 import {
   getCurrentUser,
   getSavedProductsStorageKey,
@@ -37,6 +39,23 @@ export const App: React.FC = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isCommercializationModalOpen, setIsCommercializationModalOpen] = useState<boolean>(false);
   const [isLinkIngestionModalOpen, setIsLinkIngestionModalOpen] = useState<boolean>(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  const [isAudioMuted, setIsAudioMuted] = useState<boolean>(() => haptics.getIsMuted());
+
+  // Global Keyboard Shortcut: ⌘K / Ctrl+K or / (when outside form inputs)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen(prev => !prev);
+      } else if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
+        e.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Global Personal VOX AI State
   const [isAskVoxOpen, setIsAskVoxOpen] = useState<boolean>(false);
@@ -282,6 +301,7 @@ export const App: React.FC = () => {
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthModalOpen(true)}
         onOpenCommercialization={() => setIsCommercializationModalOpen(true)}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
       {/* Main Content View Switcher */}
@@ -447,6 +467,27 @@ export const App: React.FC = () => {
       <CommercializationModal
         isOpen={isCommercializationModalOpen}
         onClose={() => setIsCommercializationModalOpen(false)}
+      />
+
+      {/* Spotlight Command Palette (⌘K) */}
+      <CommandPaletteModal
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onSelectProduct={id => {
+          handleSelectProduct(id);
+        }}
+        onCompareProducts={ids => {
+          setComparedProductIds(ids);
+          setCurrentView('compare');
+        }}
+        onOpenAskVox={() => handleOpenAskVox()}
+        onToggleMute={() => {
+          const nextState = !isAudioMuted;
+          haptics.setMuted(nextState);
+          setIsAudioMuted(nextState);
+          if (!nextState) haptics.play('click');
+        }}
+        isMuted={isAudioMuted}
       />
 
       {/* Clean Light Footer */}

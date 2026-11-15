@@ -20,6 +20,9 @@ import {
   Sparkles,
   Headphones as HeadphonesIcon,
   Smartphone as SmartphoneIcon,
+  Laptop as LaptopIcon,
+  Watch as WatchIcon,
+  Tablet as TabletIcon,
   RotateCcw,
   Sliders,
   ChevronDown,
@@ -95,12 +98,22 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
   const [heroSearch, setHeroSearch] = useState('');
   const [activePersona, setActivePersona] = useState<ShopperPersona | null>(null);
   const [isLoadingSkeletons, setIsLoadingSkeletons] = useState<boolean>(false);
-  const [activeCategory, setActiveCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'Smartphones' | 'Headphones' | 'Laptops' | 'Wearables' | 'Tablets'>('all');
   const [activeBrand, setActiveBrand] = useState<string>('all');
   const [activePriceTierIndex, setActivePriceTierIndex] = useState<number>(0);
   const [catalogueSearch, setCatalogueSearch] = useState<string>('');
   const [sortBy, setSortBy] = useState<'rating' | 'fit' | 'reviews' | 'price-asc' | 'price-desc' | 'newest'>('rating');
   const [showExtendedFilters, setShowExtendedFilters] = useState<boolean>(false);
+
+  // Dynamic category counts
+  const categoryCounts = useMemo(() => ({
+    all: products.length,
+    Smartphones: products.filter(p => p.category === 'Smartphones').length,
+    Laptops: products.filter(p => p.category === 'Laptops').length,
+    Wearables: products.filter(p => p.category === 'Wearables').length,
+    Tablets: products.filter(p => p.category === 'Tablets').length,
+    Headphones: products.filter(p => p.category === 'Headphones').length,
+  }), [products]);
 
   // Delight Factor: Interactive Pop-up Mobile Preview Modal
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
@@ -141,7 +154,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
   };
 
   // Category switch with Iceberg Shimmer transition
-  const handleCategorySwitch = (cat: 'all' | 'Smartphones' | 'Headphones') => {
+  const handleCategorySwitch = (cat: 'all' | 'Smartphones' | 'Headphones' | 'Laptops' | 'Wearables' | 'Tablets') => {
     setIsLoadingSkeletons(true);
     setActiveCategory(cat);
     setTimeout(() => {
@@ -445,38 +458,89 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           {/* ========================================================== */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 frosted-panel p-2 rounded-2xl">
             {/* Category Segmented Tabs */}
-            <div className="p-1 bg-slate-200/50 rounded-xl flex items-center gap-1 text-xs font-semibold">
+            <div className="p-1 bg-slate-200/50 rounded-xl flex items-center gap-1 text-xs font-semibold overflow-x-auto scrollbar-none max-w-full">
               <button
-                onClick={() => handleCategorySwitch('all')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                onClick={() => {
+                  haptics.play('pop');
+                  handleCategorySwitch('all');
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                   activeCategory === 'all'
                     ? 'bg-white text-slate-900 shadow-xs font-bold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                All ({products.length})
+                All ({categoryCounts.all})
               </button>
               <button
-                onClick={() => handleCategorySwitch('Smartphones')}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                onClick={() => {
+                  haptics.play('pop');
+                  handleCategorySwitch('Smartphones');
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   activeCategory === 'Smartphones'
                     ? 'bg-white text-slate-900 shadow-xs font-bold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <SmartphoneIcon className="w-3.5 h-3.5" />
-                <span>Smartphones (20)</span>
+                <span>Smartphones ({categoryCounts.Smartphones})</span>
               </button>
               <button
-                onClick={() => handleCategorySwitch('Headphones')}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                onClick={() => {
+                  haptics.play('pop');
+                  handleCategorySwitch('Laptops');
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  activeCategory === 'Laptops'
+                    ? 'bg-white text-slate-900 shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <LaptopIcon className="w-3.5 h-3.5" />
+                <span>Laptops ({categoryCounts.Laptops})</span>
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  handleCategorySwitch('Wearables');
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  activeCategory === 'Wearables'
+                    ? 'bg-white text-slate-900 shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <WatchIcon className="w-3.5 h-3.5" />
+                <span>Wearables ({categoryCounts.Wearables})</span>
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  handleCategorySwitch('Tablets');
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  activeCategory === 'Tablets'
+                    ? 'bg-white text-slate-900 shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <TabletIcon className="w-3.5 h-3.5" />
+                <span>Tablets ({categoryCounts.Tablets})</span>
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  handleCategorySwitch('Headphones');
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   activeCategory === 'Headphones'
                     ? 'bg-white text-slate-900 shadow-xs font-bold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <HeadphonesIcon className="w-3.5 h-3.5" />
-                <span>Headphones (3)</span>
+                <span>Headphones ({categoryCounts.Headphones})</span>
               </button>
             </div>
 
@@ -656,7 +720,15 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       {/* Category Label & Fit Match */}
                       <div className="flex items-center justify-between text-[11px]">
                         <span className="font-bold text-amber-600 tracking-wider uppercase text-[10px]">
-                          {product.category === 'Headphones' ? 'Premium Audio' : 'Verified Flagship'}
+                          {product.category === 'Headphones'
+                            ? 'Premium Audio'
+                            : product.category === 'Laptops'
+                            ? 'Pro Workstation'
+                            : product.category === 'Wearables'
+                            ? 'Adventure Wearable'
+                            : product.category === 'Tablets'
+                            ? 'Flagship Tablet'
+                            : 'Verified Flagship'}
                         </span>
                         {personaMatch && (
                           <span className="font-mono text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 doherty-fast-transition animate-in fade-in zoom-in-95 duration-150">
@@ -694,14 +766,18 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                       {/* Specs Line */}
                       <div className="text-[11px] text-slate-500 font-medium truncate flex items-center gap-1.5">
                         <span className="font-semibold text-slate-700">
-                          {product.category === 'Headphones' ? 'Engine:' : 'Chipset:'}
+                          {product.category === 'Headphones'
+                            ? 'Acoustic Driver:'
+                            : product.category === 'Wearables'
+                            ? 'Processor / GPS:'
+                            : 'Chipset:'}
                         </span>
                         <span className="truncate">
-                          {(product.specsSummary.chipset || 'Integrated').split('(')[0]}
+                          {(product.specsSummary.chipset || product.specsSummary.driver || product.specsSummary.sensors || 'Integrated').split('(')[0]}
                         </span>
                         <span className="text-slate-300">•</span>
                         <span className="truncate">
-                          {(product.specsSummary.display || 'Acoustic Driver').split(',')[0]}
+                          {(product.specsSummary.display || product.specsSummary.anc || product.specsSummary.battery || 'Pro Display').split(',')[0]}
                         </span>
                       </div>
 

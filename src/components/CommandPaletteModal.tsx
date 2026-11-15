@@ -75,6 +75,22 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
       run: () => onCompareProducts(['iphone-16-pro-max', 'galaxy-s24-ultra']),
     },
     {
+      id: 'action-compare-laptops',
+      type: 'action',
+      title: 'Compare MacBook Pro 16 vs Dell XPS 16',
+      subtitle: 'M3 Max vs Core Ultra 9 workstation clash',
+      icon: GitCompare,
+      run: () => onCompareProducts(['macbook-pro-16', 'dell-xps-16']),
+    },
+    {
+      id: 'action-compare-wearables',
+      type: 'action',
+      title: 'Compare Apple Watch Ultra 2 vs Galaxy Watch Ultra',
+      subtitle: 'Titanium extreme adventure smartwatch matrix',
+      icon: GitCompare,
+      run: () => onCompareProducts(['apple-watch-ultra-2', 'galaxy-watch-ultra']),
+    },
+    {
       id: 'action-audio-toggle',
       type: 'action',
       title: isMuted ? 'Unmute Synthetic Haptic Audio' : 'Mute Synthetic Haptic Audio',
@@ -301,3 +317,4 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
     </dialog>
   );
 };
+

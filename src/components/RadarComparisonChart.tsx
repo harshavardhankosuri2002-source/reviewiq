@@ -25,29 +25,68 @@ export const RadarComparisonChart: React.FC<RadarComparisonChartProps> = ({
 
   // 5 Strategic Axes
   const axes: AxisDef[] = [
-    { key: 'battery', label: 'Battery', angle: -Math.PI / 2 }, // Top
-    { key: 'camera', label: 'Camera', angle: -Math.PI / 2 + (2 * Math.PI / 5) },
-    { key: 'performance', label: 'Performance', angle: -Math.PI / 2 + (4 * Math.PI / 5) },
+    { key: 'battery', label: 'Endurance', angle: -Math.PI / 2 }, // Top
+    { key: 'camera', label: 'Optics / Audio', angle: -Math.PI / 2 + (2 * Math.PI / 5) },
+    { key: 'performance', label: 'Speed', angle: -Math.PI / 2 + (4 * Math.PI / 5) },
     { key: 'value', label: 'Value', angle: -Math.PI / 2 + (6 * Math.PI / 5) },
-    { key: 'display', label: 'Display', angle: -Math.PI / 2 + (8 * Math.PI / 5) },
+    { key: 'display', label: 'Display / Build', angle: -Math.PI / 2 + (8 * Math.PI / 5) },
   ];
 
   // Derive scores from product specifications & ratings (0 - 100)
   const getProductScores = (p: Product) => {
-    const batteryNum = parseInt(p.specsSummary.battery.replace(/[^0-9]/g, ''), 10) || 4000;
-    const batteryScore = Math.min(Math.max(Math.round(((batteryNum - 3000) / 2500) * 40 + 60), 55), 98);
+    // Battery / Endurance
+    let batteryScore = 80;
+    const bStr = p.specsSummary.battery.toLowerCase();
+    if (bStr.includes('day')) {
+      batteryScore = 98; // e.g. Garmin 29 days
+    } else if (bStr.includes('22 hrs') || bStr.includes('20 hrs') || bStr.includes('30 hrs')) {
+      batteryScore = 94; // MacBook Pro / headphones
+    } else if (bStr.includes('11,200') || bStr.includes('5,400') || bStr.includes('5,500')) {
+      batteryScore = 92;
+    } else if (bStr.includes('36 hours') || bStr.includes('60 hours')) {
+      batteryScore = 88; // Apple Watch Ultra / Galaxy Watch Ultra
+    } else {
+      const batteryNum = parseInt(p.specsSummary.battery.replace(/[^0-9]/g, ''), 10) || 4500;
+      batteryScore = Math.min(Math.max(Math.round(((batteryNum - 3000) / 2500) * 40 + 60), 65), 95);
+    }
 
-    const priceNum = parseInt(p.priceMSRP.replace(/[^0-9]/g, ''), 10) || 70000;
-    // Lower price = higher value for money
-    const valueScore = Math.min(Math.max(Math.round(100 - (priceNum / 160000) * 55), 45), 96);
+    // Value for money
+    const priceNum = parseInt(p.priceMSRP.replace(/[^0-9]/g, ''), 10) || 75000;
+    const valueScore = Math.min(Math.max(Math.round(100 - (priceNum / 250000) * 45), 55), 96);
 
-    const ratingScore = Math.round(p.sampleRating * 20); // 4.5 * 20 = 90
-    const perfScore = p.specsSummary.chipset?.includes('Pro') || p.specsSummary.chipset?.includes('Gen 3') ? 95 : 85;
-    const cameraScore = p.specsSummary.camera?.includes('1-inch') || p.specsSummary.camera?.includes('Periscope') || p.specsSummary.camera?.includes('Leica') ? 96 : 88;
+    // Performance / Speed
+    let perfScore = 85;
+    const chipStr = (p.specsSummary.chipset || '').toLowerCase();
+    const gpuStr = (p.specsSummary.gpu || '').toLowerCase();
+    if (chipStr.includes('m3 max') || chipStr.includes('m4') || gpuStr.includes('rtx 4070') || chipStr.includes('a18 pro')) {
+      perfScore = 98;
+    } else if (chipStr.includes('ultra 9') || chipStr.includes('ryzen 9') || chipStr.includes('gen 3') || chipStr.includes('gen 2')) {
+      perfScore = 94;
+    } else if (chipStr.includes('s9') || chipStr.includes('w1000') || chipStr.includes('tensor g4')) {
+      perfScore = 90;
+    }
+
+    // Optics / Audio / Sensing
+    let mediaScore = 85;
+    const camStr = (p.specsSummary.camera || '').toLowerCase();
+    const ancStr = (p.specsSummary.anc || '').toLowerCase();
+    const sensStr = (p.specsSummary.sensors || p.specsSummary.diveRating || '').toLowerCase();
+    if (p.category === 'Headphones') {
+      mediaScore = ancStr.includes('computational') || ancStr.includes('bose') ? 97 : 92;
+    } else if (p.category === 'Wearables') {
+      mediaScore = sensStr.includes('dive') || sensStr.includes('gnss') ? 95 : 88;
+    } else if (camStr.includes('leica') || camStr.includes('periscope') || camStr.includes('1-inch') || camStr.includes('prores')) {
+      mediaScore = 96;
+    } else if (p.category === 'Laptops') {
+      mediaScore = 88; // Studio microphones & webcam
+    }
+
+    // Display & Build Quality
+    const ratingScore = Math.min(Math.max(Math.round(p.sampleRating * 19.5), 75), 98);
 
     return {
       battery: batteryScore,
-      camera: cameraScore,
+      camera: mediaScore,
       performance: perfScore,
       value: valueScore,
       display: ratingScore,
@@ -196,3 +235,4 @@ export const RadarComparisonChart: React.FC<RadarComparisonChartProps> = ({
     </div>
   );
 };
+

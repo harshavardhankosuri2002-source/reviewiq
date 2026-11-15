@@ -57,7 +57,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
 }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [modalSearch, setModalSearch] = useState('');
-  const [modalCategory, setModalCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
+  const [modalCategory, setModalCategory] = useState<'all' | 'Smartphones' | 'Headphones' | 'Laptops' | 'Wearables' | 'Tablets'>('all');
   const [highlightDifferences, setHighlightDifferences] = useState(true);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
   const [productColors, setProductColors] = useState<Record<string, number>>({});
@@ -608,7 +608,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           <div className="p-5 border-b border-white/80 frosted-panel flex items-center justify-between">
             <div>
               <h3 className="text-lg font-black text-slate-900 tracking-tight">Add Device to Compare</h3>
-              <p className="text-xs text-slate-500 font-medium">Choose from all 25 verified smartphones and ANC headphones</p>
+              <p className="text-xs text-slate-500 font-medium">Choose from all {products.length} verified flagships across smartphones, laptops, wearables, tablets, and headphones</p>
             </div>
             <button
               onClick={() => {
@@ -623,13 +623,13 @@ export const ComparePage: React.FC<ComparePageProps> = ({
 
           {/* Category Filter Tabs & Search Input */}
           <div className="p-4 border-b border-white/80 frosted-panel space-y-3">
-            <div className="flex gap-2">
+            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-1">
               <button
                 onClick={() => {
                   haptics.play('pop');
                   setModalCategory('all');
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   modalCategory === 'all'
                     ? 'bg-slate-900 text-white shadow-xs'
                     : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
@@ -642,26 +642,65 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                   haptics.play('pop');
                   setModalCategory('Smartphones');
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   modalCategory === 'Smartphones'
                     ? 'bg-slate-900 text-white shadow-xs'
                     : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
                 }`}
               >
-                📱 Smartphones (22)
+                📱 Smartphones ({products.filter(p => p.category === 'Smartphones').length})
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  setModalCategory('Laptops');
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  modalCategory === 'Laptops'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
+              >
+                💻 Laptops ({products.filter(p => p.category === 'Laptops').length})
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  setModalCategory('Wearables');
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  modalCategory === 'Wearables'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
+              >
+                ⌚ Wearables ({products.filter(p => p.category === 'Wearables').length})
+              </button>
+              <button
+                onClick={() => {
+                  haptics.play('pop');
+                  setModalCategory('Tablets');
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  modalCategory === 'Tablets'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
+                }`}
+              >
+                📟 Tablets ({products.filter(p => p.category === 'Tablets').length})
               </button>
               <button
                 onClick={() => {
                   haptics.play('pop');
                   setModalCategory('Headphones');
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   modalCategory === 'Headphones'
                     ? 'bg-slate-900 text-white shadow-xs'
                     : 'frosted-pill text-slate-700 hover:text-slate-900 hover:bg-white/80 border border-white/80'
                 }`}
               >
-                🎧 Headphones (3)
+                🎧 Headphones ({products.filter(p => p.category === 'Headphones').length})
               </button>
             </div>
 

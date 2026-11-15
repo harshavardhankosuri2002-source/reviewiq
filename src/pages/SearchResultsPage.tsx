@@ -14,7 +14,7 @@ interface SearchResultsPageProps {
   onBackToDiscover: () => void;
 }
 
-const BRANDS = ['all', 'Apple', 'Samsung', 'Sony', 'Bose', 'Google', 'OnePlus', 'Xiaomi', 'Nothing', 'Motorola', 'Realme'];
+const BRANDS = ['all', 'Apple', 'Samsung', 'Google', 'Dell', 'Lenovo', 'ASUS', 'Garmin', 'Sony', 'Bose', 'OnePlus', 'Xiaomi', 'Nothing', 'Motorola', 'Realme'];
 
 export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   products,
@@ -26,10 +26,10 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   onBackToDiscover,
 }) => {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'Smartphones' | 'Headphones'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'Smartphones' | 'Headphones' | 'Laptops' | 'Wearables' | 'Tablets'>('all');
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [minRating, setMinRating] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(150000);
+  const [maxPrice, setMaxPrice] = useState<number>(360000);
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'price-asc' | 'price-desc'>('rating');
 
   const filteredProducts = useMemo(() => {
@@ -143,9 +143,12 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
             <label className="text-xs font-bold text-[#182C45] block">Category</label>
             <div className="space-y-1">
               {[
-                { label: 'All Categories', value: 'all' },
-                { label: 'Smartphones (20)', value: 'Smartphones' },
-                { label: 'ANC Headphones (3)', value: 'Headphones' },
+                { label: `All Categories (${products.length})`, value: 'all' },
+                { label: `📱 Smartphones (${products.filter(p => p.category === 'Smartphones').length})`, value: 'Smartphones' },
+                { label: `💻 Laptops (${products.filter(p => p.category === 'Laptops').length})`, value: 'Laptops' },
+                { label: `⌚ Wearables (${products.filter(p => p.category === 'Wearables').length})`, value: 'Wearables' },
+                { label: `📟 Tablets (${products.filter(p => p.category === 'Tablets').length})`, value: 'Tablets' },
+                { label: `🎧 Headphones (${products.filter(p => p.category === 'Headphones').length})`, value: 'Headphones' },
               ].map(cat => (
                 <button
                   key={cat.value}
@@ -210,8 +213,8 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
             <input
               type="range"
               min="20000"
-              max="150000"
-              step="5000"
+              max="360000"
+              step="10000"
               value={maxPrice}
               onChange={e => setMaxPrice(parseInt(e.target.value, 10))}
               className="w-full accent-[#0284C7] cursor-pointer"

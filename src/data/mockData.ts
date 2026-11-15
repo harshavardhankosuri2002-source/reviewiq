@@ -1862,7 +1862,666 @@ export const SAMPLE_PRODUCTS: Product[] = [
       recencyConfidence: 'High',
       recencyNote: 'Extensive tracking following the USB-C fall release.'
     }
-  }
+  },
+  // ==========================================
+  // LAPTOPS (4 Premium Flagships)
+  // ==========================================
+  {
+    id: 'macbook-pro-16',
+    name: 'Apple MacBook Pro 16 (M3 Max)',
+    brand: 'Apple',
+    releaseYear: 2024,
+    variants: ['36GB RAM - 1TB SSD - Space Black', '48GB RAM - 1TB SSD - Space Black', '64GB RAM - 2TB SSD - Silver', '128GB RAM - 4TB SSD - Space Black'],
+    defaultVariant: '48GB RAM - 1TB SSD - Space Black',
+    priceMSRP: '₹3,49,900',
+    imageUrl: '/images/products/macbook-pro-16.png',
+    imageVerified: true,
+    colorVariant: 'Space Black',
+    officialUrl: 'https://www.apple.com/in/macbook-pro-16/',
+    retailerName: 'Apple Authorized Premium Stores',
+    category: 'Laptops',
+    specsSummary: {
+      display: '16.2" Liquid Retina XDR (3456x2234), 120Hz ProMotion, 1,600 nits peak HDR',
+      chipset: 'Apple M3 Max (16-core CPU, 40-core GPU, 16-core Neural Engine)',
+      battery: '22 hrs video playback (100Wh lithium-polymer with 140W USB-C GaN fast charge)',
+      weight: '2.16 kg (4.8 lbs) anodized aluminum unibody',
+      ports: '3x Thunderbolt 4 (USB-C), HDMI 2.1, SDXC card slot, MagSafe 3, 3.5mm headphone',
+    },
+    sampleRating: 4.8,
+    sampleReviewCount: 14,
+    dateRange: {
+      start: '2024-01-10',
+      end: '2025-01-20',
+    },
+    quickVerdict: 'The apex mobile workstation: staggering M3 Max sustained CPU/GPU compute that matches desktop rigs on battery power alone, paired with a reference Mini-LED display and peerless battery endurance.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Industry-Dominating Workstation Strengths',
+        points: [
+          'Unthrottled sustained compute: Compiles multi-million line codebases and exports 8K ProRes footage with virtually zero fan noise.',
+          'Legendary battery endurance: Consistently yields 14 to 18 hours of intensive coding, Docker containers, and creative multitasking off the wall plug.',
+          'Reference Liquid Retina XDR display: 1,600 nits peak HDR brightness with 1,000,000:1 contrast and true 120Hz ProMotion smoothness.'
+        ],
+        supportingReviewIds: ['rev-mbp16-01', 'rev-mbp16-03']
+      },
+      commonComplaints: {
+        title: 'Observed Ergonomic & Portability Trade-offs',
+        points: [
+          'Substantial carrying heft: At 2.16 kg plus the 140W power brick, daily briefcase commute requires genuine commitment.',
+          'Premium pricing tier: Configured with 48GB+ unified memory, it represents a substantial enterprise investment.'
+        ],
+        supportingReviewIds: ['rev-mbp16-02']
+      },
+      mixedOpinions: {
+        title: 'Contested Finish & Port Quirks',
+        points: [
+          'Space Black anodization significantly resists fingerprints compared to Midnight, though faint palm oils remain noticeable under direct downlighting.'
+        ],
+        supportingReviewIds: ['rev-mbp16-04']
+      },
+      importantCaveats: {
+        title: 'Hardware Upgradeability Constraints',
+        points: [
+          'Memory and SSD are soldered onto Apple Silicon substrate; RAM and storage must be accurately projected at initial purchase.'
+        ],
+        supportingReviewIds: ['rev-mbp16-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 94,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consensus verified across professional audio engineers, iOS developers, and VFX studios.',
+      variantCompletenessScore: 96,
+      variantNote: 'All RAM and M3 Max core configurations (36GB through 128GB) clearly differentiated.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensive tracking across macOS Sonoma and Sequoia workstation releases.'
+    }
+  },
+
+  {
+    id: 'dell-xps-16',
+    name: 'Dell XPS 16 (9640)',
+    brand: 'Dell',
+    releaseYear: 2024,
+    variants: ['Core Ultra 7 - 16GB - 512GB - RTX 4050', 'Core Ultra 7 - 32GB - 1TB - RTX 4060', 'Core Ultra 9 - 32GB - 1TB - RTX 4070 - OLED'],
+    defaultVariant: 'Core Ultra 9 - 32GB - 1TB - RTX 4070 - OLED',
+    priceMSRP: '₹2,69,990',
+    imageUrl: '/images/products/dell-xps-16.png',
+    imageVerified: true,
+    colorVariant: 'Platinum Silver',
+    officialUrl: 'https://www.dell.com/en-in/shop/dell-laptops/xps-16-laptop/spd/xps-16-9640-laptop',
+    retailerName: 'Dell Exclusive Outlets & Enterprise Direct',
+    category: 'Laptops',
+    specsSummary: {
+      display: '16.3" 4K+ (3840x2400) InfinityEdge OLED Touch, 100% DCI-P3, 400 nits, Gorilla Glass 3',
+      chipset: 'Intel Core Ultra 9 185H (16 cores, 22 threads, up to 5.1GHz with Intel AI Boost NPU)',
+      battery: '99.5Wh battery with 130W USB-C Type-C ExpressCharge (8-10 hrs productivity)',
+      weight: '2.13 kg (4.7 lbs) CNC machined aluminum and glass',
+      gpu: 'NVIDIA GeForce RTX 4070 Laptop GPU (8GB GDDR6, 60W TGP)',
+    },
+    sampleRating: 4.3,
+    sampleReviewCount: 10,
+    dateRange: {
+      start: '2024-03-15',
+      end: '2025-01-18',
+    },
+    quickVerdict: 'A futuristic design masterpiece with edge-to-edge glass palm rest, seamless capacitive touch function row, and drop-dead gorgeous 4K OLED display, offset by polarising zero-lattice key travel and high power draw.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Futuristic Industrial Engineering',
+        points: [
+          'Sensational 4K+ OLED InfinityEdge touch panel delivering infinite black levels and vibrant creative color accuracy.',
+          'Seamless haptic glass trackpad built directly into the continuous glass palm rest with no visible seams.',
+          'Robust RTX 4070 graphic rendering capability in a remarkably slim unibody chassis.'
+        ],
+        supportingReviewIds: ['rev-xps16-01', 'rev-xps16-03']
+      },
+      commonComplaints: {
+        title: 'Ergonomic Learning Curve & Ports',
+        points: [
+          'Capacitive touch function/escape keys lack tactile mechanical rebound, triggering occasional accidental presses.',
+          'Elimination of USB-A and full-size HDMI forces constant reliance on the included dongles.'
+        ],
+        supportingReviewIds: ['rev-xps16-02']
+      },
+      mixedOpinions: {
+        title: 'Keyboard Zero-Lattice Typing Experience',
+        points: [
+          'Flat keycaps with minimal spacing divide opinion: ultra-fast for light typists, but prone to mistypes during blind speed transcription.'
+        ],
+        supportingReviewIds: ['rev-xps16-01', 'rev-xps16-02']
+      },
+      importantCaveats: {
+        title: 'Thermal Throttling on Heavy Loads',
+        points: [
+          'Under simultaneous 100% CPU+GPU loads, fan profiles run audibly high and keyboard deck warms up around center.'
+        ],
+        supportingReviewIds: ['rev-xps16-03']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 88,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Verified across corporate IT deployments and creative workstation benchmarks.',
+      variantCompletenessScore: 92,
+      variantNote: 'Reviewers distinguish between FHD+ IPS base models and 4K+ OLED premium trims.',
+      recencyConfidence: 'High',
+      recencyNote: 'Continuous BIOS update and driver stability tracking throughout 2024-2025.'
+    }
+  },
+
+  {
+    id: 'rog-zephyrus-g14',
+    name: 'ASUS ROG Zephyrus G14 (2024)',
+    brand: 'ASUS',
+    releaseYear: 2024,
+    variants: ['Ryzen 9 8945HS - 16GB - 1TB - RTX 4060', 'Ryzen 9 8945HS - 32GB - 1TB - RTX 4070 - Platinum White', 'Ryzen 9 8945HS - 32GB - 1TB - RTX 4070 - Eclipse Gray'],
+    defaultVariant: 'Ryzen 9 8945HS - 32GB - 1TB - RTX 4070 - Eclipse Gray',
+    priceMSRP: '₹1,74,990',
+    imageUrl: '/images/products/rog-zephyrus-g14.png',
+    imageVerified: true,
+    colorVariant: 'Eclipse Gray',
+    officialUrl: 'https://rog.asus.com/in/laptops/rog-zephyrus/rog-zephyrus-g14-2024/',
+    retailerName: 'ASUS ROG Stores & Major Online Platforms',
+    category: 'Laptops',
+    specsSummary: {
+      display: '14.0" 3K (2880x1800) 120Hz 0.2ms ROG Nebula OLED, 100% DCI-P3, G-SYNC, VESA DisplayHDR True Black 500',
+      chipset: 'AMD Ryzen 9 8945HS (8 cores/16 threads, up to 5.2GHz, Ryzen AI NPU)',
+      battery: '73Wh battery (up to 8-9 hrs light productivity, 100W USB-C PD / 180W slim adapter)',
+      weight: '1.50 kg (3.31 lbs) CNC aluminum unibody',
+      gpu: 'NVIDIA GeForce RTX 4070 Laptop GPU (8GB GDDR6, 90W TGP with ROG Boost)',
+    },
+    sampleRating: 4.6,
+    sampleReviewCount: 12,
+    dateRange: {
+      start: '2024-02-20',
+      end: '2025-01-15',
+    },
+    quickVerdict: 'The reigning benchmark for compact 14-inch creative and gaming ultrabooks: breathtaking 3K 120Hz OLED screen, precision CNC unibody, and whisper-quiet daily battery life in a featherlight 1.5kg package.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Class-Leading Compact Versatility',
+        points: [
+          'Spectacular 3K 120Hz OLED with 0.2ms response time and G-SYNC delivers zero-ghosting gaming and studio color accuracy.',
+          'Featherlight 1.5kg chassis with Slash Lighting LED slash bar on lid offers clean, non-gamery executive aesthetics.',
+          'Outstanding 6-speaker acoustic system with force-cancelling woofers rivals MacBook Pro 14 audio quality.'
+        ],
+        supportingReviewIds: ['rev-g14-01', 'rev-g14-03']
+      },
+      commonComplaints: {
+        title: 'Memory Upgradeability Limitation',
+        points: [
+          'LPDDR5X RAM is completely soldered to board; users must purchase the 32GB model upfront for futureproofing.',
+          'Under full 90W GPU gaming load, the aluminum deck above the keyboard becomes hot to the touch.'
+        ],
+        supportingReviewIds: ['rev-g14-02']
+      },
+      mixedOpinions: {
+        title: '90W TGP Ceiling vs Bulkier Rigs',
+        points: [
+          'Power-capped at 90W TGP to preserve the 1.59cm thickness, yielding 8-12% lower raw FPS than thick 140W gaming tanks.'
+        ],
+        supportingReviewIds: ['rev-g14-01']
+      },
+      importantCaveats: {
+        title: 'OLED Care in Extended Desktop Use',
+        points: [
+          'OLED panel requires enabling ASUS OLED Care (pixel shift and hide taskbar) to eliminate static UI image burn-in risk.'
+        ],
+        supportingReviewIds: ['rev-g14-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 92,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Independent validation from hardware reviewers and traveling creative professionals.',
+      variantCompletenessScore: 90,
+      variantNote: 'Reviewers clearly separate the RTX 4060 16GB tier from the RTX 4070 32GB tier.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensive post-launch BIOS and AMD AGESA firmware stability verified.'
+    }
+  },
+
+  {
+    id: 'thinkpad-x1-carbon',
+    name: 'Lenovo ThinkPad X1 Carbon Gen 12',
+    brand: 'Lenovo',
+    releaseYear: 2024,
+    variants: ['Core Ultra 5 125U - 16GB - 512GB', 'Core Ultra 7 155H - 32GB - 1TB SSD - IPS', 'Core Ultra 7 155H - 32GB - 1TB SSD - 2.8K OLED 120Hz'],
+    defaultVariant: 'Core Ultra 7 155H - 32GB - 1TB SSD - 2.8K OLED 120Hz',
+    priceMSRP: '₹1,98,900',
+    imageUrl: '/images/products/thinkpad-x1-carbon.png',
+    imageVerified: true,
+    colorVariant: 'Deep Black',
+    officialUrl: 'https://www.lenovo.com/in/en/p/laptops/thinkpad/thinkpadx1/thinkpad-x1-carbon-gen-12-(14-inch-intel)/len101t0083',
+    retailerName: 'Lenovo Commercial & Enterprise Channels',
+    category: 'Laptops',
+    specsSummary: {
+      display: '14.0" 2.8K (2880x1800) OLED 120Hz, 400 nits, 100% DCI-P3, DisplayHDR True Black 500',
+      chipset: 'Intel Core Ultra 7 155H (16 cores, 22 threads, up to 4.8GHz, Intel AI Boost)',
+      battery: '57Wh battery with Rapid Charge (80% in 60 mins), up to 11 hrs productivity',
+      weight: '1.09 kg (2.42 lbs) ultralight carbon fiber + recycled magnesium',
+      ports: '2x Thunderbolt 4, 2x USB-A 3.2 Gen 1, HDMI 2.1, 3.5mm audio jack, Nano-SIM slot',
+    },
+    sampleRating: 4.5,
+    sampleReviewCount: 11,
+    dateRange: {
+      start: '2024-04-10',
+      end: '2025-01-20',
+    },
+    quickVerdict: 'The quintessential enterprise business road-warrior ultralight: featherlight 1.09kg aerospace carbon-fiber body, glorious 2.8K OLED option, legendary typing ergonomics, and MIL-SPEC durability.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Masterclass Business Ergonomics',
+        points: [
+          'Incredible 1.09kg weight allows one-finger lifting while maintaining MIL-STD-810H structural rigidity.',
+          'World-renowned keyboard feel with tactile 1.5mm travel and iconic TrackPoint red navigation nub.',
+          'Full enterprise legacy port selection (Thunderbolt 4, native HDMI, and dual USB-A) without dongles.'
+        ],
+        supportingReviewIds: ['rev-x1c-01', 'rev-x1c-03']
+      },
+      commonComplaints: {
+        title: 'OLED Battery Penalty',
+        points: [
+          'The 2.8K 120Hz OLED screen draws significantly more power than the standard 400-nit low-power IPS panel, reducing battery life by ~2.5 hours.',
+          'Integrated Intel Arc graphics are great for productivity and 4K displays, but unsuitable for heavy AAA 3D gaming.'
+        ],
+        supportingReviewIds: ['rev-x1c-02']
+      },
+      mixedOpinions: {
+        title: 'New Communications Bar Notch',
+        points: [
+          'Raised camera bar lip facilitates one-hand lid opening and houses 8MP webcam, though aesthetic purists prefer flush bezels.'
+        ],
+        supportingReviewIds: ['rev-x1c-01']
+      },
+      importantCaveats: {
+        title: 'Thermal Tuning in Ultralight Chassis',
+        points: [
+          'Performance profiles favor quiet operation; heavy sustain multi-core exports will settle power down to ~28W.'
+        ],
+        supportingReviewIds: ['rev-x1c-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 91,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consistently validated by Fortune 500 IT directors and executive frequent travelers.',
+      variantCompletenessScore: 93,
+      variantNote: 'IPS and OLED display trims are comprehensively documented with real-world battery deltas.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensive tracking through Intel Core Ultra Meteor Lake platform firmware matures.'
+    }
+  },
+
+  // ==========================================
+  // WEARABLES (3 Pro Adventure Smartwatches)
+  // ==========================================
+  {
+    id: 'apple-watch-ultra-2',
+    name: 'Apple Watch Ultra 2',
+    brand: 'Apple',
+    releaseYear: 2024,
+    variants: ['49mm Natural Titanium - Ocean Band', '49mm Natural Titanium - Trail Loop', '49mm Black Titanium - Alpine Loop'],
+    defaultVariant: '49mm Black Titanium - Alpine Loop',
+    priceMSRP: '₹89,900',
+    imageUrl: '/images/products/apple-watch-ultra-2.png',
+    imageVerified: true,
+    colorVariant: 'Black Titanium',
+    officialUrl: 'https://www.apple.com/in/apple-watch-ultra-2/',
+    retailerName: 'Apple Store & Premium Resellers',
+    category: 'Wearables',
+    specsSummary: {
+      display: '49mm Always-On Retina LTPO OLED, 3,000 nits peak, Sapphire crystal front, Flat glass',
+      chipset: 'Apple S9 SiP with 64-bit dual-core processor, 4-core Neural Engine, Precision Finding UWB',
+      battery: 'Up to 36 hours standard use / 72 hours in Low Power Mode (fast magnetic charging)',
+      weight: '61.4g (case only in Aerospace Grade 5 Titanium)',
+      waterResistance: '100m water resistant, 40m recreational dive computer EN13319 certified with Oceanic+',
+    },
+    sampleRating: 4.7,
+    sampleReviewCount: 16,
+    dateRange: {
+      start: '2024-09-20',
+      end: '2025-01-20',
+    },
+    quickVerdict: 'The ultimate smartwatch for iPhone owners: indestructible 49mm titanium enclosure, blinding 3,000-nit flat display, multi-day battery endurance, and seamless on-device Siri & Double Tap gesture control.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Extreme Durability & Outdoor Readability',
+        points: [
+          'Blinding 3,000 nits peak brightness remains flawlessly legible under direct blazing high-noon sunlight.',
+          'Solid 2 to 3 days real-world battery life without battery anxiety, extending to 72 hours with low-power workouts.',
+          'Convenient on-device Siri processing and intuitive Double Tap one-handed finger pinch gesture.'
+        ],
+        supportingReviewIds: ['rev-awu2-01', 'rev-awu2-03']
+      },
+      commonComplaints: {
+        title: 'Substantial 49mm Wrist Footprint',
+        points: [
+          '49mm case width and 14.4mm thickness can feel oversized and catch on dress shirt cuffs on slender wrists (<165mm).',
+          'Sleep tracking comfort requires swapping heavy silicone dive bands for the lightweight Trail Loop fabric band.'
+        ],
+        supportingReviewIds: ['rev-awu2-02']
+      },
+      mixedOpinions: {
+        title: 'Action Button Customization Scope',
+        points: [
+          'Orange Action button is beloved for instant workout/stopwatch start, though deep third-party app shortcut menus remain somewhat rigid.'
+        ],
+        supportingReviewIds: ['rev-awu2-04']
+      },
+      importantCaveats: {
+        title: 'Platform Exclusivity',
+        points: [
+          'Strictly non-functional with Android smartphones; requires an iPhone XS or later running modern iOS.'
+        ],
+        supportingReviewIds: ['rev-awu2-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 95,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consensus verified by ultra-marathon runners, scuba divers, and daily tech enthusiasts.',
+      variantCompletenessScore: 97,
+      variantNote: 'Reviewers differentiate between the 2024 Black Titanium finish and original Natural Titanium.',
+      recencyConfidence: 'High',
+      recencyNote: 'Continuous tracking across watchOS 11 fitness features.'
+    }
+  },
+
+  {
+    id: 'galaxy-watch-ultra',
+    name: 'Samsung Galaxy Watch Ultra',
+    brand: 'Samsung',
+    releaseYear: 2024,
+    variants: ['47mm LTE - Titanium Gray', '47mm LTE - Titanium Silver', '47mm LTE - Titanium White'],
+    defaultVariant: '47mm LTE - Titanium Gray',
+    priceMSRP: '₹59,999',
+    imageUrl: '/images/products/galaxy-watch-ultra.png',
+    imageVerified: true,
+    colorVariant: 'Titanium Gray',
+    officialUrl: 'https://www.samsung.com/in/watches/galaxy-watch-ultra/',
+    retailerName: 'Samsung Official Online & Flagship Experience Stores',
+    category: 'Wearables',
+    specsSummary: {
+      display: '1.5" Super AMOLED (480x480), 3,000 nits peak, Sapphire Crystal glass, Cushion Case',
+      chipset: 'Exynos W1000 (3nm Penta-core processor, Mali-G68 GPU, 2GB RAM + 32GB Storage)',
+      battery: '590 mAh (up to 60 hours standard / up to 100 hours power-saving mode)',
+      weight: '60.5g (Grade 4 titanium cushion frame)',
+      waterResistance: '10ATM + IP68, MIL-STD-810H extreme temperature operating (-20°C to 55°C)',
+    },
+    sampleRating: 4.4,
+    sampleReviewCount: 13,
+    dateRange: {
+      start: '2024-07-25',
+      end: '2025-01-18',
+    },
+    quickVerdict: 'The rugged champion for Android power users: striking cushion-shaped Grade 4 titanium design, vibrant 3,000-nit screen, dual-frequency GPS, and cutting-edge Galaxy AI fitness coaching metrics.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Rugged Construction & Galaxy AI Health',
+        points: [
+          'High-contrast 3,000 nits Super AMOLED display with dedicated night-mode red watch faces for night trail visibility.',
+          'Snappy 3nm Exynos W1000 chipset renders Wear OS 5 with zero UI stutter or app launch latency.',
+          'Advanced health metrics including FDA-authorized sleep apnea detection and personalized Energy Score.'
+        ],
+        supportingReviewIds: ['rev-gwu-01', 'rev-gwu-03']
+      },
+      commonComplaints: {
+        title: 'Proprietary Lug Band Mechanism',
+        points: [
+          'Samsung switched to a proprietary dynamic lug system, rendering standard 20mm/22mm watch straps unusable without adapters.',
+          'Proprietary sensor hump shape prevents reverse wireless charging from the back of Galaxy smartphones.'
+        ],
+        supportingReviewIds: ['rev-gwu-02']
+      },
+      mixedOpinions: {
+        title: 'Squircle Cushion Aesthetic',
+        points: [
+          'The square-outer cushion housing a round display drew debate: bold and distinctive for some, polarizing for traditional round watch purists.'
+        ],
+        supportingReviewIds: ['rev-gwu-01']
+      },
+      importantCaveats: {
+        title: 'Feature Availability on Non-Samsung Phones',
+        points: [
+          'ECG, Blood Pressure monitoring, and Sleep Apnea detection strictly require a Samsung Galaxy smartphone with Samsung Health Monitor app.'
+        ],
+        supportingReviewIds: ['rev-gwu-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 89,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Confirmed across Android fitness testers and triathletes.',
+      variantCompletenessScore: 92,
+      variantNote: 'Reviewers clearly distinguish between the 47mm LTE Titanium trims and Galaxy Watch 7 standard.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensively tracked across One UI 6 Watch software updates.'
+    }
+  },
+
+  {
+    id: 'garmin-fenix-8',
+    name: 'Garmin Fenix 8 AMOLED (51mm)',
+    brand: 'Garmin',
+    releaseYear: 2024,
+    variants: ['47mm AMOLED Titanium', '51mm AMOLED Sapphire Titanium - Slate Gray', '51mm Solar Sapphire Titanium'],
+    defaultVariant: '51mm AMOLED Sapphire Titanium - Slate Gray',
+    priceMSRP: '₹1,09,990',
+    imageUrl: '/images/products/garmin-fenix-8.png',
+    imageVerified: true,
+    colorVariant: 'Slate Gray',
+    officialUrl: 'https://www.garmin.co.in/products/wearables/fenix-8-51-amoled-slate-gray/',
+    retailerName: 'Garmin Brand Stores & Specialized Running Outlets',
+    category: 'Wearables',
+    specsSummary: {
+      display: '1.4" AMOLED touchscreen (454x454) with Sapphire crystal lens & Titanium bezel',
+      battery: 'Up to 29 days in smartwatch mode / 84 hours continuous GPS tracking with SatIQ',
+      sensors: 'Multi-band GNSS with SatIQ, Elevate Gen 5 Optical HR, ECG, Pulse Ox, Barometric Altimeter',
+      diveRating: '40m scuba dive rating with leakproof inductive buttons, mic and speaker for voice commands',
+      flashlight: 'Built-in multi-LED flashlight with variable intensities, red night light, and SOS strobe',
+      weight: '95g (with silicone band) / 64g (case only in Grade 5 Titanium)',
+    },
+    sampleRating: 4.9,
+    sampleReviewCount: 9,
+    dateRange: {
+      start: '2024-09-01',
+      end: '2025-01-20',
+    },
+    quickVerdict: 'The unchallenged king of endurance adventure tools: stunning AMOLED display combined with an astonishing 29-day battery life, 40m scuba diving certification, and unrivaled offline topographic cartography.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Unmatched Expedition Battery & Navigation',
+        points: [
+          'Mind-boggling 29-day battery life on a vibrant AMOLED display frees you entirely from carrying charging cables on month-long expeditions.',
+          'Built-in ultra-bright LED flashlight is a daily game-changer for midnight tent navigation, early morning runs, and emergencies.',
+          'Full onboard offline TopoActive maps with dynamic round-trip routing that automatically recalculates if you deviate from trails.'
+        ],
+        supportingReviewIds: ['rev-fenix8-01', 'rev-fenix8-03']
+      },
+      commonComplaints: {
+        title: 'High Financial Entry & Casual Usability',
+        points: [
+          'Substantial premium price tag exceeding ₹1,00,000 places it strictly in the serious enthusiast or professional athlete tier.',
+          'Lacks smart assistant conversational fluency and deep third-party watch app store compared to Apple Watch or Wear OS.'
+        ],
+        supportingReviewIds: ['rev-fenix8-02']
+      },
+      mixedOpinions: {
+        title: 'Inductive Button Feel',
+        points: [
+          'Leakproof inductive sealed buttons provide unmatched waterproofing down to 40m, though tactile click feedback is slightly subtler than mechanical springs.'
+        ],
+        supportingReviewIds: ['rev-fenix8-01']
+      },
+      importantCaveats: {
+        title: 'Size and Wrist Mass',
+        points: [
+          '51mm titanium chassis weighs 95g with silicone strap; athletes with wrists under 165mm circumference should opt for the 47mm edition.'
+        ],
+        supportingReviewIds: ['rev-fenix8-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 96,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consensus verified by mountaineers, Ironman competitors, and expedition guides.',
+      variantCompletenessScore: 95,
+      variantNote: 'Distinction between Solar MIP and vibrant AMOLED displays meticulously tracked.',
+      recencyConfidence: 'High',
+      recencyNote: 'Firmware 11.xx tracking confirms dive sensor reliability.'
+    }
+  },
+
+  // ==========================================
+  // TABLETS (2 Flagship Powerhouses)
+  // ==========================================
+  {
+    id: 'ipad-pro-13-m4',
+    name: 'Apple iPad Pro 13" (M4)',
+    brand: 'Apple',
+    releaseYear: 2024,
+    variants: ['256GB - Wi-Fi - Space Black', '512GB - Wi-Fi - Space Black', '1TB - Wi-Fi + 5G - Nano-texture Glass - Silver', '2TB - Wi-Fi + 5G - Space Black'],
+    defaultVariant: '512GB - Wi-Fi - Space Black',
+    priceMSRP: '₹1,49,900',
+    imageUrl: '/images/products/ipad-pro-13-m4.png',
+    imageVerified: true,
+    colorVariant: 'Space Black',
+    officialUrl: 'https://www.apple.com/in/ipad-pro/',
+    retailerName: 'Apple Store & Authorised Resellers',
+    category: 'Tablets',
+    specsSummary: {
+      display: '13.0" Ultra Retina XDR Tandem OLED (2752x2064), 1,000 nits full screen, 1,600 nits peak HDR, 120Hz ProMotion',
+      chipset: 'Apple M4 chip (up to 10-core CPU, 10-core GPU with hardware ray tracing, 16-core Neural Engine)',
+      battery: '38.99Wh battery (up to 10 hours continuous web browsing or video streaming)',
+      weight: '579g (Wi-Fi) / 582g (Cellular), ultra-thin 5.1mm chassis',
+      accessories: 'Apple Pencil Pro support with haptic feedback, squeeze & barrel roll; redesigned aluminum Magic Keyboard',
+    },
+    sampleRating: 4.8,
+    sampleReviewCount: 15,
+    dateRange: {
+      start: '2024-05-15',
+      end: '2025-01-20',
+    },
+    quickVerdict: 'An unbelievable engineering marvel: an impossibly thin 5.1mm slate packing groundbreaking Tandem OLED display technology and devastating M4 silicon power, constrained only by iPadOS software workflows.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Breathtaking Display & Impossibly Thin Chassis',
+        points: [
+          'Tandem OLED panel is the best mobile screen in existence: 1,000 nits full-screen brightness, true zero blooming on subtitles, and infinite contrast.',
+          'At 5.1mm thin and 579g, it is noticeably lighter and vastly more comfortable to hold for hours than previous 12.9-inch Mini-LED models.',
+          'M4 chip delivers insane performance for 4K multicam video editing in Final Cut Pro and complex 3D sculpting in Nomad Sculpt.'
+        ],
+        supportingReviewIds: ['rev-ipad13-01', 'rev-ipad13-03']
+      },
+      commonComplaints: {
+        title: 'iPadOS Multitasking Bottlenecks',
+        points: [
+          'iPadOS window management and file handling remain overly restrictive compared to macOS, preventing it from fully replacing a MacBook Pro for software developers.',
+          'Accessories are expensive: Apple Pencil Pro and Magic Keyboard add ₹45,000+ to the purchase price.'
+        ],
+        supportingReviewIds: ['rev-ipad13-02']
+      },
+      mixedOpinions: {
+        title: 'Nano-Texture Matte Finish Option',
+        points: [
+          'Nano-texture glass effectively annihilates reflections under studio lights, but reduces deep perceived contrast and is restricted only to costly 1TB/2TB models.'
+        ],
+        supportingReviewIds: ['rev-ipad13-04']
+      },
+      importantCaveats: {
+        title: 'Pencil Compatibility Shift',
+        points: [
+          'Due to relocated landscape magnets and wireless charging coil, the older Apple Pencil 2 is incompatible; requires Apple Pencil Pro or USB-C Pencil.'
+        ],
+        supportingReviewIds: ['rev-ipad13-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 94,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Consensus verified by professional digital illustrators, video editors, and mobile executives.',
+      variantCompletenessScore: 95,
+      variantNote: 'Reviewers distinguish 256GB/512GB models (9-core CPU / 8GB RAM) from 1TB/2TB models (10-core CPU / 16GB RAM).',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensively tracked across iPadOS 18 update cycle.'
+    }
+  },
+
+  {
+    id: 'galaxy-tab-s9-ultra',
+    name: 'Samsung Galaxy Tab S9 Ultra',
+    brand: 'Samsung',
+    releaseYear: 2024,
+    variants: ['256GB - 12GB RAM - Wi-Fi - Graphite', '512GB - 12GB RAM - 5G - Graphite', '1TB - 16GB RAM - 5G - Graphite'],
+    defaultVariant: '512GB - 12GB RAM - 5G - Graphite',
+    priceMSRP: '₹1,22,999',
+    imageUrl: '/images/products/galaxy-tab-s9-ultra.png',
+    imageVerified: true,
+    colorVariant: 'Graphite',
+    officialUrl: 'https://www.samsung.com/in/tablets/galaxy-tab-s9-ultra/',
+    retailerName: 'Samsung Online & Multi-brand Electronics Stores',
+    category: 'Tablets',
+    specsSummary: {
+      display: '14.6" Dynamic AMOLED 2X (2960x1848), 120Hz, HDR10+, Vision Booster, 16:10 cinematic aspect ratio',
+      chipset: 'Snapdragon 8 Gen 2 for Galaxy (4nm Octa-core, Adreno 740)',
+      battery: '11,200 mAh with 45W fast wired charging (approx 12-14 hours productivity)',
+      weight: '732g (Armor Aluminum casing, 5.5mm thin)',
+      pen: 'Bundled IP68-rated S-Pen stylus with ultra-low 2.8ms latency included inside the box',
+      waterResistance: 'IP68 water and dust resistance (first water-resistant flagship tablet)',
+    },
+    sampleRating: 4.6,
+    sampleReviewCount: 12,
+    dateRange: {
+      start: '2024-02-15',
+      end: '2025-01-18',
+    },
+    quickVerdict: 'The reigning Android productivity titan: cavernous 14.6-inch Dynamic AMOLED 2X display, Samsung DeX desktop mode, IP68 water resistance, and an included S-Pen stylus in the retail box.',
+    aiSummary: {
+      appreciatedFeatures: {
+        title: 'Desktop-Class Canvas & Value Additions',
+        points: [
+          'Massive 14.6-inch 120Hz AMOLED canvas provides unmatched side-by-side three-window multitasking and portable second-screen utility for laptops.',
+          'Bundled S-Pen stylus inside the retail box saves ₹12,000+ compared to competitors who sell styluses separately.',
+          'Samsung DeX environment transforms the tablet into a legitimate windowed desktop workstation with mouse and external monitor support.'
+        ],
+        supportingReviewIds: ['rev-tabs9u-01', 'rev-tabs9u-03']
+      },
+      commonComplaints: {
+        title: 'Cumbersome Handheld Ergonomics',
+        points: [
+          'At 14.6 inches and 732g, using it handheld without resting on a desk or lap causes wrist fatigue after 15 minutes.',
+          'Camera notch slightly encroaches into 16:10 video content when viewing letterboxed full-bleed media.'
+        ],
+        supportingReviewIds: ['rev-tabs9u-02']
+      },
+      mixedOpinions: {
+        title: 'Android Tablet App Ecosystem',
+        points: [
+          'DeX mode brilliantly offsets Android tablet app limitations, though certain niche pro creative tools remain exclusive to iPadOS/macOS.'
+        ],
+        supportingReviewIds: ['rev-tabs9u-01']
+      },
+      importantCaveats: {
+        title: 'No Charger in Box',
+        points: [
+          'Despite the 11,200 mAh battery capacity, Samsung omits the 45W charger from the box; must be purchased separately.'
+        ],
+        supportingReviewIds: ['rev-tabs9u-02']
+      }
+    },
+    trustIndicators: {
+      sourceCoverageScore: 91,
+      duplicatePatternFlag: false,
+      duplicatePatternNote: 'Verified across digital illustrators, architectural estimators, and executive power users.',
+      variantCompletenessScore: 94,
+      variantNote: 'Reviewers clearly distinguish 5G connectivity models and RAM variants.',
+      recencyConfidence: 'High',
+      recencyNote: 'Extensively tracked across One UI 6.1 Galaxy AI tablet features.'
+    }
+  },
+
 ];
 
 export const SAMPLE_REVIEWS: Review[] = [
@@ -2706,7 +3365,505 @@ export const SAMPLE_REVIEWS: Review[] = [
     helpfulCount: 51,
     verifiedPurchase: true,
     highlightedPhrase: 'pristine build quality make it a keeper for the next 5+ years'
-  }
+  },
+  // --- MacBook Pro 16 ---
+  {
+    id: 'rev-mbp16-01',
+    productId: 'macbook-pro-16',
+    productVariant: '48GB RAM - 1TB SSD - Space Black',
+    author: 'DevLead_Marcus',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-03-12',
+    sentiment: 'positive',
+    attributes: ['performance', 'battery', 'reliability'],
+    title: 'Compiles massive Rust and Kubernetes trees without breaking a sweat',
+    originalText: 'The M3 Max is astonishing. I can build entire distributed services locally in Docker while running multiple VMs, and the cooling fans barely spin up. What blows my mind is getting 14+ hours of full dev work on battery power alone without any performance throttling.',
+    helpfulCount: 52,
+    verifiedPurchase: true,
+    highlightedPhrase: 'getting 14+ hours of full dev work on battery power alone'
+  },
+  {
+    id: 'rev-mbp16-02',
+    productId: 'macbook-pro-16',
+    productVariant: '48GB RAM - 1TB SSD - Space Black',
+    author: 'TravelTech_Elena',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-04-05',
+    sentiment: 'mixed',
+    attributes: ['reliability', 'value'],
+    title: 'World class machine but very heavy in a backpack',
+    originalText: 'Build quality is unassailable and the Liquid Retina XDR screen is the best I have ever seen. However, at 2.16 kg, you really feel this laptop on cross-country flights. Make sure you also buy whatever unified RAM you need because soldered memory means zero upgrades later.',
+    helpfulCount: 38,
+    verifiedPurchase: true,
+    highlightedPhrase: 'at 2.16 kg, you really feel this laptop on cross-country flights'
+  },
+  {
+    id: 'rev-mbp16-03',
+    productId: 'macbook-pro-16',
+    productVariant: '64GB RAM - 2TB SSD - Silver',
+    author: 'StudioColorist_Neil',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-06-18',
+    sentiment: 'positive',
+    attributes: ['performance', 'software'],
+    title: 'Reference Mini-LED display replaces my external monitor',
+    originalText: 'Grading 4K HDR footage directly on this 1600-nit panel is miraculous. Color fidelity matches our Flanders reference monitors. MagSafe, 3 Thunderbolt ports, and the full-sized SD card slot make shooting in the field effortless.',
+    helpfulCount: 44,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Grading 4K HDR footage directly on this 1600-nit panel is miraculous'
+  },
+  {
+    id: 'rev-mbp16-04',
+    productId: 'macbook-pro-16',
+    productVariant: '48GB RAM - 1TB SSD - Space Black',
+    author: 'Karan_Design',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-08-22',
+    sentiment: 'positive',
+    attributes: ['performance', 'reliability'],
+    title: 'Space Black anodization looks incredible',
+    originalText: 'Space Black is the stealth finish we have wanted for a decade. It holds up against fingerprints much better than the old Midnight Air, and the six-speaker soundstage with spatial audio fills my hotel room with rich bass.',
+    helpfulCount: 29,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Space Black is the stealth finish we have wanted'
+  },
+
+  // --- Dell XPS 16 ---
+  {
+    id: 'rev-xps16-01',
+    productId: 'dell-xps-16',
+    productVariant: 'Core Ultra 9 - 32GB - 1TB - RTX 4070 - OLED',
+    author: 'ArchViz_Gaurav',
+    source: 'Consumer community',
+    rating: 4,
+    date: '2024-05-10',
+    sentiment: 'positive',
+    attributes: ['performance', 'reliability'],
+    title: 'Stunning 4K OLED and futuristic design, but key travel is an adjustment',
+    originalText: 'Visually, this is the most futuristic laptop on the market. The 4K OLED display is razor sharp with infinite contrast. The invisible haptic glass trackpad works flawlessly once you get used to its boundaries. Keycaps are completely flat so touch typing takes a few days to master.',
+    helpfulCount: 31,
+    verifiedPurchase: true,
+    highlightedPhrase: '4K OLED display is razor sharp with infinite contrast'
+  },
+  {
+    id: 'rev-xps16-02',
+    productId: 'dell-xps-16',
+    productVariant: 'Core Ultra 7 - 32GB - 1TB - RTX 4060',
+    author: 'Siddharth_B',
+    source: 'Retailer website',
+    rating: 3,
+    date: '2024-07-02',
+    sentiment: 'mixed',
+    attributes: ['value', 'reliability'],
+    title: 'Capacitive touch bar can be frustrating during fast workflows',
+    originalText: 'The zero-lattice keyboard looks clean but I miss having tactile ESC and function keys. I frequently brush against the capacitive mute or delete button by mistake. Also, carry your dongles because Dell eliminated USB-A and HDMI entirely.',
+    helpfulCount: 42,
+    verifiedPurchase: true,
+    highlightedPhrase: 'frequently brush against the capacitive mute or delete button'
+  },
+  {
+    id: 'rev-xps16-03',
+    productId: 'dell-xps-16',
+    productVariant: 'Core Ultra 9 - 32GB - 1TB - RTX 4070 - OLED',
+    author: 'TechConsultant_R',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-09-14',
+    sentiment: 'positive',
+    attributes: ['performance', 'software'],
+    title: 'Serious RTX 4070 GPU grunt in an executive package',
+    originalText: 'Running Blender cycles renders and Unreal Engine previews on client sites is seamless with the RTX 4070. Battery lasts about 8-9 hours on office tasks. Dell PremierColor calibrated OLED panel is an absolute joy.',
+    helpfulCount: 27,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Running Blender cycles renders and Unreal Engine previews is seamless'
+  },
+
+  // --- ASUS ROG Zephyrus G14 ---
+  {
+    id: 'rev-g14-01',
+    productId: 'rog-zephyrus-g14',
+    productVariant: 'Ryzen 9 8945HS - 32GB - 1TB - RTX 4070 - Eclipse Gray',
+    author: 'CyberSamurai_99',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-04-12',
+    sentiment: 'positive',
+    attributes: ['performance', 'value', 'reliability'],
+    title: 'The holy grail of 14-inch gaming and creative ultrabooks',
+    originalText: 'ASUS knocked it out of the park. The CNC aluminum build feels identical to a MacBook. The 3K 120Hz OLED with G-SYNC has virtually zero input lag and colors pop intensely. The fact that it weighs just 1.5kg and plays Cyberpunk 2077 at 75 FPS with DLSS 3 is unbelievable.',
+    helpfulCount: 61,
+    verifiedPurchase: true,
+    highlightedPhrase: 'weighs just 1.5kg and plays Cyberpunk 2077 at 75 FPS'
+  },
+  {
+    id: 'rev-g14-02',
+    productId: 'rog-zephyrus-g14',
+    productVariant: 'Ryzen 9 8945HS - 16GB - 1TB - RTX 4060',
+    author: 'CodeAndGame_Vikram',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-06-25',
+    sentiment: 'mixed',
+    attributes: ['performance', 'value'],
+    title: 'Buy the 32GB model upfront! Soldered RAM is the only blemish',
+    originalText: 'My only regret was buying the 16GB version because RAM is now fully soldered to the motherboard. Other than that, battery life on light productivity is a solid 8.5 hours thanks to the efficient AMD Ryzen 9 8945HS chip.',
+    helpfulCount: 49,
+    verifiedPurchase: true,
+    highlightedPhrase: 'battery life on light productivity is a solid 8.5 hours'
+  },
+  {
+    id: 'rev-g14-03',
+    productId: 'rog-zephyrus-g14',
+    productVariant: 'Ryzen 9 8945HS - 32GB - 1TB - RTX 4070 - Eclipse Gray',
+    author: 'AudioCreator_T',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-10-04',
+    sentiment: 'positive',
+    attributes: ['reliability', 'performance'],
+    title: 'Speakers and keyboard punch way above their weight',
+    originalText: 'The 6-speaker acoustic setup has actual sub-bass resonance. The keyboard has deep 1.7mm key travel and feels much better than Dell XPS or Razer Blade. Slash LED on the back adds tasteful customization without screaming gamer.',
+    helpfulCount: 35,
+    verifiedPurchase: true,
+    highlightedPhrase: '6-speaker acoustic setup has actual sub-bass resonance'
+  },
+
+  // --- Lenovo ThinkPad X1 Carbon Gen 12 ---
+  {
+    id: 'rev-x1c-01',
+    productId: 'thinkpad-x1-carbon',
+    productVariant: 'Core Ultra 7 155H - 32GB - 1TB SSD - 2.8K OLED 120Hz',
+    author: 'EnterpriseExec_Raj',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-05-18',
+    sentiment: 'positive',
+    attributes: ['reliability', 'performance', 'battery'],
+    title: '1.09 kg featherweight durability with the gold-standard keyboard',
+    originalText: 'I have carried ThinkPads for 15 years and Gen 12 is their finest yet. At barely over 1 kg, you can carry it around airport terminals all day. The 2.8K OLED screen makes spreadsheets and documents crisp as printed paper, and the typing feel remains the absolute best in the industry.',
+    helpfulCount: 46,
+    verifiedPurchase: true,
+    highlightedPhrase: 'typing feel remains the absolute best in the industry'
+  },
+  {
+    id: 'rev-x1c-02',
+    productId: 'thinkpad-x1-carbon',
+    productVariant: 'Core Ultra 7 155H - 32GB - 1TB SSD - 2.8K OLED 120Hz',
+    author: 'FinancialAnalyst_P',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-07-29',
+    sentiment: 'mixed',
+    attributes: ['battery', 'value'],
+    title: 'OLED screen looks gorgeous but IPS model lasts longer',
+    originalText: 'The OLED panel is stunning but expect around 7 to 8 hours of battery life under heavy multitasking. Colleague with the standard 400-nit IPS screen gets 10+ hours. That said, having dual Thunderbolt 4 and full-sized USB-A ports saves me from carrying adapters.',
+    helpfulCount: 33,
+    verifiedPurchase: true,
+    highlightedPhrase: 'full-sized USB-A ports saves me from carrying adapters'
+  },
+  {
+    id: 'rev-x1c-03',
+    productId: 'thinkpad-x1-carbon',
+    productVariant: 'Core Ultra 7 155H - 32GB - 1TB SSD - IPS',
+    author: 'LinuxSysadmin_Jay',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-11-08',
+    sentiment: 'positive',
+    attributes: ['reliability', 'software'],
+    title: 'Flawless Linux compatibility and rock solid build',
+    originalText: 'Installed Fedora Linux on day one and every component worked out of the box—Wi-Fi 7, TrackPoint, webcam, and fingerprint reader. Magnesium and carbon fiber chassis has zero creaks or flex.',
+    helpfulCount: 28,
+    verifiedPurchase: true,
+    highlightedPhrase: 'chassis has zero creaks or flex'
+  },
+
+  // --- Apple Watch Ultra 2 ---
+  {
+    id: 'rev-awu2-01',
+    productId: 'apple-watch-ultra-2',
+    productVariant: '49mm Black Titanium - Alpine Loop',
+    author: 'UltraRunner_Anand',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-10-02',
+    sentiment: 'positive',
+    attributes: ['battery', 'reliability', 'performance'],
+    title: 'Black Titanium is gorgeous and 3,000 nits display cut through glare',
+    originalText: 'Upgraded for the new Black Titanium finish which has zero scratches after two 50k trail races. The 3,000 nits screen is readable in the brightest midday desert sunlight. Dual frequency GPS tracked through dense mountain pine canopy with zero drift.',
+    helpfulCount: 57,
+    verifiedPurchase: true,
+    highlightedPhrase: '3,000 nits screen is readable in the brightest midday desert sunlight'
+  },
+  {
+    id: 'rev-awu2-02',
+    productId: 'apple-watch-ultra-2',
+    productVariant: '49mm Natural Titanium - Ocean Band',
+    author: 'Priya_M',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-11-12',
+    sentiment: 'mixed',
+    attributes: ['reliability', 'value'],
+    title: 'Outstanding battery life but quite bulky for small wrists',
+    originalText: 'Going from daily charging on the Series 8 to charging every 3 days is liberating. However, on my 155mm wrist, the 49mm case looks like a hockey puck and takes getting used to for sleep tracking. Switch to the Trail Loop band for sleep comfort.',
+    helpfulCount: 41,
+    verifiedPurchase: true,
+    highlightedPhrase: 'charging every 3 days is liberating'
+  },
+  {
+    id: 'rev-awu2-03',
+    productId: 'apple-watch-ultra-2',
+    productVariant: '49mm Natural Titanium - Trail Loop',
+    author: 'DiverDan_Goa',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-12-05',
+    sentiment: 'positive',
+    attributes: ['reliability', 'software'],
+    title: 'Legitimate dive computer for recreational reef dives',
+    originalText: 'Used the Oceanic+ app for 18-meter reef dives in the Andaman Islands. The water temp sensor and auto-depth gauge activated instantly as I submerged. On-device Siri with offline processing allows quick timer settings even with wet fingers.',
+    helpfulCount: 36,
+    verifiedPurchase: true,
+    highlightedPhrase: 'auto-depth gauge activated instantly as I submerged'
+  },
+  {
+    id: 'rev-awu2-04',
+    productId: 'apple-watch-ultra-2',
+    productVariant: '49mm Black Titanium - Alpine Loop',
+    author: 'Rohan_K',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2025-01-08',
+    sentiment: 'positive',
+    attributes: ['performance', 'battery'],
+    title: 'Double Tap gesture makes winter running effortless',
+    originalText: 'Being able to tap index and thumb together to stop alarms or reply to voice notes while wearing running gloves is game-changing. Battery consistently lasts 60+ hours with daily 1-hour GPS workouts.',
+    helpfulCount: 29,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Battery consistently lasts 60+ hours with daily workouts'
+  },
+
+  // --- Samsung Galaxy Watch Ultra ---
+  {
+    id: 'rev-gwu-01',
+    productId: 'galaxy-watch-ultra',
+    productVariant: '47mm LTE - Titanium Gray',
+    author: 'AndroidTrailGuy_Sameer',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-08-16',
+    sentiment: 'positive',
+    attributes: ['performance', 'battery', 'reliability'],
+    title: 'The heavy-duty endurance watch Android power users needed',
+    originalText: 'The 3nm Exynos W1000 makes Wear OS 5 fly. Zero lag between watch tiles. Battery easily lasts 2.5 to 3 days on standard mode and up to 4 days with battery saver. Night mode automatically turns watch face elements dark red in darkness to preserve night vision.',
+    helpfulCount: 48,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Battery easily lasts 2.5 to 3 days on standard mode'
+  },
+  {
+    id: 'rev-gwu-02',
+    productId: 'galaxy-watch-ultra',
+    productVariant: '47mm LTE - Titanium Silver',
+    author: 'Deepak_Tech',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-09-21',
+    sentiment: 'mixed',
+    attributes: ['value', 'reliability'],
+    title: 'Great hardware, but why change the band connector?',
+    originalText: 'The cushion titanium frame feels indestructible. However, Samsung switched to a proprietary dynamic lug system, so none of my classic 20mm straps fit. Also note that ECG and Sleep Apnea features require a Samsung phone to activate.',
+    helpfulCount: 39,
+    verifiedPurchase: true,
+    highlightedPhrase: 'cushion titanium frame feels indestructible'
+  },
+  {
+    id: 'rev-gwu-03',
+    productId: 'galaxy-watch-ultra',
+    productVariant: '47mm LTE - Titanium White',
+    author: 'FitnessCoach_Neha',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-11-04',
+    sentiment: 'positive',
+    attributes: ['reliability', 'software'],
+    title: 'Dual frequency GPS and multisport transition tracking are spot on',
+    originalText: 'Triathlon and duathlon workout tracking smoothly switches between open water swimming, cycling, and running with a press of the orange Quick button. Siren alert is surprisingly loud at 86dB if you ever need emergency assistance.',
+    helpfulCount: 31,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Siren alert is surprisingly loud at 86dB'
+  },
+
+  // --- Garmin Fenix 8 AMOLED ---
+  {
+    id: 'rev-fenix8-01',
+    productId: 'garmin-fenix-8',
+    productVariant: '51mm AMOLED Sapphire Titanium - Slate Gray',
+    author: 'Alpinist_Karthik',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-09-28',
+    sentiment: 'positive',
+    attributes: ['battery', 'reliability', 'performance'],
+    title: '28 days battery life on an AMOLED screen is sheer wizardry',
+    originalText: 'I took the Fenix 8 on a 3-week expedition in Ladakh without a charger. It returned with 22% battery left. The AMOLED display is vivid, the topographic maps reroute on the fly, and the inductive buttons feel completely sealed against freezing glacial mud.',
+    helpfulCount: 65,
+    verifiedPurchase: true,
+    highlightedPhrase: 'took the Fenix 8 on a 3-week expedition without a charger'
+  },
+  {
+    id: 'rev-fenix8-02',
+    productId: 'garmin-fenix-8',
+    productVariant: '51mm AMOLED Sapphire Titanium - Slate Gray',
+    author: 'Triathlete_Dev',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-10-30',
+    sentiment: 'mixed',
+    attributes: ['value', 'reliability'],
+    title: 'Costly powerhouse, built strictly for serious endurance',
+    originalText: 'At over ₹1 Lakh, this is an expensive tool. But for 80+ hours of continuous GPS tracking, diving down to 40 meters, and comprehensive training readiness algorithms, nothing else in the market touches it. The built-in LED flashlight gets used every single night.',
+    helpfulCount: 42,
+    verifiedPurchase: true,
+    highlightedPhrase: 'built-in LED flashlight gets used every single night'
+  },
+  {
+    id: 'rev-fenix8-03',
+    productId: 'garmin-fenix-8',
+    productVariant: '47mm AMOLED Titanium',
+    author: 'TrailMarathoner_S',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-12-14',
+    sentiment: 'positive',
+    attributes: ['reliability', 'software'],
+    title: 'Elevate Gen 5 heart rate sensor matches medical chest straps',
+    originalText: 'HR accuracy during high-intensity intervals matches my Polar H10 chest strap within 1 bpm. Voice speaker allows quick voice notes and audio pacing prompts. Best sports watch on the planet bar none.',
+    helpfulCount: 37,
+    verifiedPurchase: true,
+    highlightedPhrase: 'HR accuracy matches my Polar H10 chest strap within 1 bpm'
+  },
+
+  // --- Apple iPad Pro 13 (M4) ---
+  {
+    id: 'rev-ipad13-01',
+    productId: 'ipad-pro-13-m4',
+    productVariant: '512GB - Wi-Fi - Space Black',
+    author: 'ConceptArtist_Arjun',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-06-08',
+    sentiment: 'positive',
+    attributes: ['performance', 'reliability'],
+    title: 'Tandem OLED and Apple Pencil Pro barrel roll are next generation',
+    originalText: 'The Tandem OLED screen is unbelievable: pure ink blacks and zero halo bloom around bright paint strokes in Procreate. The Pencil Pro barrel roll and haptic squeeze shortcuts have doubled my illustration speed. At 5.1mm thin, it feels like holding a futuristic sheet of digital glass.',
+    helpfulCount: 68,
+    verifiedPurchase: true,
+    highlightedPhrase: 'feels like holding a futuristic sheet of digital glass'
+  },
+  {
+    id: 'rev-ipad13-02',
+    productId: 'ipad-pro-13-m4',
+    productVariant: '256GB - Wi-Fi - Space Black',
+    author: 'TechLead_Saurabh',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-07-19',
+    sentiment: 'mixed',
+    attributes: ['software', 'value'],
+    title: 'Hardware from the year 2030, but iPadOS still holds it back',
+    originalText: 'The M4 chip runs circles around desktop processors in benchmarks. However, iPadOS file system and window management still cannot match macOS for software development and terminal workflows. With the Magic Keyboard, total price enters high-end MacBook territory.',
+    helpfulCount: 54,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Hardware from the year 2030, but iPadOS still holds it back'
+  },
+  {
+    id: 'rev-ipad13-03',
+    productId: 'ipad-pro-13-m4',
+    productVariant: '512GB - Wi-Fi - Space Black',
+    author: 'Director_Varun',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-09-25',
+    sentiment: 'positive',
+    attributes: ['performance', 'battery'],
+    title: 'Effortless 4K multicam editing in Final Cut Pro on battery',
+    originalText: 'Renders multiple streams of 4K ProRes without dropping a frame, and battery easily lasts an entire 10-hour flight while reviewing footage. The new aluminum Magic Keyboard feels remarkably premium with the dedicated function row.',
+    helpfulCount: 40,
+    verifiedPurchase: true,
+    highlightedPhrase: 'battery easily lasts an entire 10-hour flight'
+  },
+  {
+    id: 'rev-ipad13-04',
+    productId: 'ipad-pro-13-m4',
+    productVariant: '1TB - Wi-Fi + 5G - Nano-texture Glass - Silver',
+    author: 'CreativePro_Meera',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-11-18',
+    sentiment: 'positive',
+    attributes: ['reliability', 'performance'],
+    title: 'Nano-texture glass kills reflections completely',
+    originalText: 'Working outdoors or under bright photography studio softboxes, the nano-texture glass completely diffuses harsh reflections. The 13-inch display provides enough room for side-by-side reference boards.',
+    helpfulCount: 32,
+    verifiedPurchase: true,
+    highlightedPhrase: 'nano-texture glass completely diffuses harsh reflections'
+  },
+
+  // --- Samsung Galaxy Tab S9 Ultra ---
+  {
+    id: 'rev-tabs9u-01',
+    productId: 'galaxy-tab-s9-ultra',
+    productVariant: '512GB - 12GB RAM - 5G - Graphite',
+    author: 'DeXPowerUser_Kunal',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-04-20',
+    sentiment: 'positive',
+    attributes: ['performance', 'value', 'reliability'],
+    title: 'The 14.6 inch screen and DeX mode replace my laptop for travel',
+    originalText: 'Samsung DeX on a 14.6-inch 120Hz AMOLED canvas is the closest any tablet has come to a legitimate desktop workstation. I run 4 windows simultaneously with zero slowdown. Plus, having the S-Pen included in the box is huge customer value.',
+    helpfulCount: 59,
+    verifiedPurchase: true,
+    highlightedPhrase: 'having the S-Pen included in the box is huge customer value'
+  },
+  {
+    id: 'rev-tabs9u-02',
+    productId: 'galaxy-tab-s9-ultra',
+    productVariant: '256GB - 12GB RAM - Wi-Fi - Graphite',
+    author: 'Ananya_Design',
+    source: 'Retailer website',
+    rating: 4,
+    date: '2024-06-14',
+    sentiment: 'mixed',
+    attributes: ['reliability', 'value'],
+    title: 'Massive device that really needs a desk or stand',
+    originalText: 'The 14.6 inch display is awe-inspiring for movies and art, but do not expect to read in bed with one hand; at 732g it is too heavy without resting on your lap. Quad AKG speakers are thunderously loud with immersive Dolby Atmos surround sound.',
+    helpfulCount: 43,
+    verifiedPurchase: true,
+    highlightedPhrase: 'Quad AKG speakers are thunderously loud'
+  },
+  {
+    id: 'rev-tabs9u-03',
+    productId: 'galaxy-tab-s9-ultra',
+    productVariant: '512GB - 12GB RAM - 5G - Graphite',
+    author: 'SiteArchitect_Tushar',
+    source: 'Consumer community',
+    rating: 5,
+    date: '2024-08-30',
+    sentiment: 'positive',
+    attributes: ['reliability', 'performance'],
+    title: 'IP68 water resistance saved this tablet on a rainy construction site',
+    originalText: 'Having full IP68 water and dust resistance on a tablet of this caliber is revolutionary. Got caught in heavy monsoon rain on a construction inspection site with blueprints open on screen, and both tablet and S-Pen worked flawlessly through wet finger touches.',
+    helpfulCount: 37,
+    verifiedPurchase: true,
+    highlightedPhrase: 'tablet and S-Pen worked flawlessly through wet finger touches'
+  },
+
 ];
 
 export const ATTRIBUTE_CONFIG: { [key in import('../types').AttributeKey]: { label: string; icon: string; description: string } } = {

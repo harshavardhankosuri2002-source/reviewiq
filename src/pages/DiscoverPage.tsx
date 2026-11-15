@@ -267,18 +267,18 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
       <div className="absolute top-40 right-1/4 w-[500px] h-[350px] bg-indigo-200/15 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* ============================================================ */}
-      {/* 1. HERO SECTION: INTENT & PERSONA ARCHETYPES FIRST          */}
+      {/* 1. HERO SECTION: STREAMLINED & HIGH-DENSITY                  */}
       {/* ============================================================ */}
-      <section className="relative pt-10 sm:pt-16 pb-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-6 text-center">
+      <section className="relative pt-4 sm:pt-6 pb-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto space-y-4 text-center">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full frosted-panel shadow-2xs text-xs font-semibold text-slate-700">
             <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
-            <span>VOX • Customer feedback, decoded</span>
+            <span>VOX • 112 Flagship Models • 5 Hardware Verticals • 314 Verified Reviews</span>
           </div>
 
           {/* Master Headline */}
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
             Understand the experience <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-sky-600 via-blue-700 to-indigo-800 bg-clip-text text-transparent">
               behind the rating.
@@ -286,26 +286,114 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
           </h1>
 
           {/* Subheading */}
-          <p className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="text-xs sm:text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
             Synthesizing thousands of verified customer opinions across retail channels and forums into transparent, evidence-backed purchasing intelligence.
           </p>
 
-          {/* ========================================================== */}
-          {/* ELEVATED PERSONA SWITCHER (Sleek Frosted Segmented Control)*/}
-          {/* ========================================================== */}
-          <div className="pt-2 max-w-3xl mx-auto space-y-2.5">
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-              <span>Step 1: Choose Your Buyer Archetype</span>
+          {/* 4-Stat High-Density Proof Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-left">
+            <div className="frosted-panel p-2.5 sm:p-3 rounded-xl border border-white/80 shadow-2xs">
+              <div className="flex items-center gap-2 text-sky-700 text-xs font-bold mb-0.5">
+                <Layers className="w-3.5 h-3.5" />
+                <span>112 Devices</span>
+              </div>
+              <p className="text-[11px] text-slate-500 line-clamp-1">Phones, Laptops, Wearables & Audio</p>
             </div>
 
-            <div className="p-1.5 frosted-panel rounded-xl shadow-xs flex flex-wrap sm:flex-nowrap items-center justify-center gap-1">
-              {/* Default All */}
+            <div className="frosted-panel p-2.5 sm:p-3 rounded-xl border border-white/80 shadow-2xs">
+              <div className="flex items-center gap-2 text-indigo-700 text-xs font-bold mb-0.5">
+                <Database className="w-3.5 h-3.5" />
+                <span>314 Reviews</span>
+              </div>
+              <p className="text-[11px] text-slate-500 line-clamp-1">Cross-channel verified buyer consensus</p>
+            </div>
+
+            <div className="frosted-panel p-2.5 sm:p-3 rounded-xl border border-white/80 shadow-2xs">
+              <div className="flex items-center gap-2 text-purple-700 text-xs font-bold mb-0.5">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>4-Quadrant AI</span>
+              </div>
+              <p className="text-[11px] text-slate-500 line-clamp-1">Strengths, Drawbacks, Variations & Caveats</p>
+            </div>
+
+            <div className="frosted-panel p-2.5 sm:p-3 rounded-xl border border-white/80 shadow-2xs">
+              <div className="flex items-center gap-2 text-emerald-700 text-xs font-bold mb-0.5">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Anti-Gaming</span>
+              </div>
+              <p className="text-[11px] text-slate-500 line-clamp-1">Astroturfing & burst velocity screening</p>
+            </div>
+          </div>
+
+          {/* Single Live Omni-Search Bar */}
+          <div className="max-w-2xl mx-auto space-y-2 pt-1">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (catalogueSearch.trim()) {
+                  onSearchSubmit(catalogueSearch.trim());
+                }
+              }}
+              className="relative flex items-center shadow-sm"
+            >
+              <input
+                type="text"
+                value={catalogueSearch}
+                onChange={e => {
+                  setCatalogueSearch(e.target.value);
+                  setHeroSearch(e.target.value);
+                }}
+                placeholder={`Search 112 flagships (e.g. iPhone 16 Pro, M3 Max, Sony XM5, Galaxy S24 Ultra)...`}
+                className="w-full frosted-panel bg-white/90 text-slate-900 placeholder-slate-400 text-xs sm:text-sm pl-10 pr-24 py-3 rounded-2xl border border-slate-200/90 shadow-md focus:outline-none focus:border-slate-900 focus:bg-white transition-all"
+              />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5" />
+              {catalogueSearch && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCatalogueSearch('');
+                    setHeroSearch('');
+                  }}
+                  className="absolute right-16 p-1 text-slate-400 hover:text-slate-600 text-xs"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+              <button
+                type="submit"
+                className="btn-interactive-primary absolute right-1.5 py-1.5 px-3 text-xs cursor-pointer font-bold"
+              >
+                <span>Filter</span>
+              </button>
+            </form>
+
+            {/* Trending tags inline */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 text-xs text-slate-400">
+              <span className="font-semibold text-slate-500 text-[11px]">Trending:</span>
+              {POPULAR_SEARCHES.map(tag => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => {
+                    setCatalogueSearch(tag);
+                    setHeroSearch(tag);
+                  }}
+                  className="px-2 py-0.5 rounded-md hover:bg-white text-slate-600 hover:text-slate-900 transition-colors font-medium text-[11px] cursor-pointer"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Compact Shopper Archetype Strip */}
+          <div className="max-w-3xl mx-auto pt-1">
+            <div className="p-1 frosted-panel rounded-xl shadow-xs flex flex-wrap sm:flex-nowrap items-center justify-center gap-1">
               <button
                 onClick={() => handleSelectPersona(null)}
-                className={`flex-1 min-w-[120px] px-3.5 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                className={`flex-1 min-w-[100px] px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                   activePersona === null
-                    ? 'bg-slate-900 text-white shadow-sm scale-[1.01]'
+                    ? 'bg-slate-900 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
                 }`}
               >
@@ -319,9 +407,9 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                   <button
                     key={p.id}
                     onClick={() => handleSelectPersona(p)}
-                    className={`flex-1 min-w-[120px] px-3.5 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                    className={`flex-1 min-w-[100px] px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       isSelected
-                        ? 'bg-slate-900 text-white shadow-sm scale-[1.01]'
+                        ? 'bg-slate-900 text-white shadow-xs'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
                     }`}
                   >
@@ -332,9 +420,9 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
               })}
             </div>
 
-            {/* Active Persona Helper String */}
+            {/* Active Persona Helper */}
             {activePersona && (
-              <div className="text-xs text-slate-500 font-medium flex items-center justify-center gap-2 animate-fadeIn">
+              <div className="text-xs text-slate-500 font-medium flex items-center justify-center gap-2 pt-1 animate-fadeIn">
                 <span className="text-sky-700 font-semibold">{activePersona.tagline}:</span>
                 <span>Prioritizing {activePersona.priorities.map(k => ATTRIBUTE_CONFIG[k]?.label || k).join(', ')}</span>
                 <button
@@ -346,67 +434,26 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
               </div>
             )}
           </div>
-
-          {/* ========================================================== */}
-          {/* OMNI-SEARCH BAR (Clean Frosted Search)                     */}
-          {/* ========================================================== */}
-          <div className="pt-2 max-w-xl mx-auto space-y-3">
-            <form onSubmit={handleHeroSearchSubmit} className="relative flex items-center">
-              <input
-                type="text"
-                value={heroSearch}
-                onChange={e => setHeroSearch(e.target.value)}
-                placeholder={`Search ${products.length} products (e.g. iPhone 16 Pro, MacBook M3, Sony XM5)...`}
-                className="w-full frosted-panel bg-white/80 text-slate-900 placeholder-slate-400 text-sm pl-11 pr-28 py-3.5 rounded-xl border border-slate-200/80 shadow-md focus:outline-none focus:border-slate-900 focus:bg-white transition-all"
-              />
-              <Search className="w-4 h-4 text-slate-400 absolute left-4" />
-              <button
-                type="submit"
-                className="btn-interactive-primary absolute right-1.5 py-2 px-3.5 text-xs cursor-pointer"
-              >
-                <span>Search</span>
-                <span className="text-slate-400 font-mono text-[10px] hidden sm:inline">[Enter]</span>
-              </button>
-            </form>
-
-            {/* Trending Links */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 text-xs text-slate-400">
-              <span className="font-semibold text-slate-500">Trending:</span>
-              {POPULAR_SEARCHES.map(tag => (
-                <button
-                  key={tag}
-                  onClick={() => onSearchSubmit(tag)}
-                  className="px-2 py-0.5 rounded-md hover:bg-slate-200/50 text-slate-600 hover:text-slate-900 transition-colors font-medium text-[11px] cursor-pointer"
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/* 2. ORDER OF OPERATIONS: THE VERIFIED PRODUCT CATALOGUE       */}
+      {/* 2. VERIFIED PRODUCT CATALOGUE                                */}
       {/* ============================================================ */}
-      <section ref={catalogueRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section ref={catalogueRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
         {/* Header & Filter Controls Bar */}
-        <div className="space-y-4">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
+        <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-3">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-sky-600">
-                Primary Step 2: Catalog Exploration
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
-                Explore Decoded Reviews ({products.length} Products)
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                Verified Product Intelligence Matrix
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Click any device to pop up the interactive mobile stage and progressively inspect customer consensus.
+              <p className="text-xs text-slate-500 mt-0.5">
+                Explore 4-quadrant verified customer consensus, trade-off radar charts, and specifications.
               </p>
             </div>
 
-            {/* Simulated Refresh & Counter */}
-            <div className="flex items-center gap-2 self-start lg:self-auto">
+            <div className="flex items-center gap-2 self-start sm:self-auto">
               <button
                 onClick={triggerSimulatedRefresh}
                 className="btn-interactive-secondary text-xs py-1.5 cursor-pointer"

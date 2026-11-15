@@ -220,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="text"
                 value={navSearch}
                 onChange={e => setNavSearch(e.target.value)}
-                placeholder="Search 23 products..."
+                placeholder="Search 100+ verified flagships..."
                 className="w-full bg-white text-xs pl-8 pr-4 py-2 rounded-lg border border-slate-200"
               />
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />

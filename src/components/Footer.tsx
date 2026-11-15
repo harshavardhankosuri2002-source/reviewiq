@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCommercializat
                 <span>Simulated Research Dataset</span>
               </div>
               <p className="text-[11px] leading-relaxed text-[#64748B]">
-                All customer reviews, ratings, sources, and AI summaries across all 23 products are simulated for demonstration purposes. Customer review sentiment adheres strictly to positive + mixed + negative = 100%.
+                All customer reviews, ratings, sources, and AI summaries across all 110+ products are simulated for demonstration purposes. Customer review sentiment adheres strictly to positive + mixed + negative = 100%.
               </p>
             </div>
           </div>

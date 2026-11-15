@@ -19,6 +19,18 @@ export const PRODUCT_COLOR_MAP: Record<string, ProductColorOption[]> = {
     { name: 'Pink', hex: '#F8A5C2', bgClass: 'bg-[#F8A5C2]', filterStyle: 'hue-rotate(60deg) saturate(1.2)' },
     { name: 'Black', hex: '#2C3A47', bgClass: 'bg-[#2C3A47]', filterStyle: 'brightness(0.5) saturate(0.1)' },
   ],
+  'iphone-15-pro': [
+    { name: 'Natural Titanium', hex: '#9E9B97', bgClass: 'bg-[#9E9B97]', filterStyle: 'none' },
+    { name: 'Blue Titanium', hex: '#2F3C48', bgClass: 'bg-[#2F3C48]', filterStyle: 'hue-rotate(200deg) brightness(0.9)' },
+    { name: 'White Titanium', hex: '#EAE6E1', bgClass: 'bg-[#EAE6E1]', filterStyle: 'brightness(1.25) saturate(0.2)' },
+    { name: 'Black Titanium', hex: '#222325', bgClass: 'bg-[#222325]', filterStyle: 'brightness(0.65) saturate(0.2)' },
+  ],
+  'galaxy-s23-ultra': [
+    { name: 'Phantom Black', hex: '#222222', bgClass: 'bg-[#222222]', filterStyle: 'none' },
+    { name: 'Green', hex: '#3B4D3C', bgClass: 'bg-[#3B4D3C]', filterStyle: 'hue-rotate(100deg)' },
+    { name: 'Cream', hex: '#ECE8DF', bgClass: 'bg-[#ECE8DF]', filterStyle: 'brightness(1.2) saturate(0.2)' },
+    { name: 'Lavender', hex: '#C3B8D4', bgClass: 'bg-[#C3B8D4]', filterStyle: 'hue-rotate(270deg) saturate(1.1)' },
+  ],
   'galaxy-s24-ultra': [
     { name: 'Titanium Gray', hex: '#7E7C79', bgClass: 'bg-[#7E7C79]', filterStyle: 'none' },
     { name: 'Titanium Black', hex: '#262626', bgClass: 'bg-[#222222]', filterStyle: 'brightness(0.7) contrast(1.1) saturate(0.2)' },

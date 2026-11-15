@@ -356,7 +356,7 @@ export const DiscoverPage: React.FC<DiscoverPageProps> = ({
                 type="text"
                 value={heroSearch}
                 onChange={e => setHeroSearch(e.target.value)}
-                placeholder="Search 23 products (e.g. iPhone 16 Pro, Sony XM5, Bose Ultra)..."
+                placeholder={`Search ${products.length} products (e.g. iPhone 16 Pro, MacBook M3, Sony XM5)...`}
                 className="w-full frosted-panel bg-white/80 text-slate-900 placeholder-slate-400 text-sm pl-11 pr-28 py-3.5 rounded-xl border border-slate-200/80 shadow-md focus:outline-none focus:border-slate-900 focus:bg-white transition-all"
               />
               <Search className="w-4 h-4 text-slate-400 absolute left-4" />

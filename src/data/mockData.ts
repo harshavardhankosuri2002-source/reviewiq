@@ -1,6 +1,7 @@
 import { Product, Review, QAItem } from '../types';
+import { EXTENDED_PRODUCTS, EXTENDED_REVIEWS } from './extendedProducts';
 
-export const SAMPLE_PRODUCTS: Product[] = [
+const CORE_PRODUCTS: Product[] = [
   // 1. Apple iPhone 16 Pro Max
   {
     id: 'iphone-16-pro-max',
@@ -2524,7 +2525,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
 
 ];
 
-export const SAMPLE_REVIEWS: Review[] = [
+const CORE_REVIEWS: Review[] = [
   // --- iPhone 16 Pro Max ---
   {
     id: 'rev-ip16pm-01',
@@ -3865,6 +3866,9 @@ export const SAMPLE_REVIEWS: Review[] = [
   },
 
 ];
+
+export const SAMPLE_PRODUCTS: Product[] = [...CORE_PRODUCTS, ...EXTENDED_PRODUCTS];
+export const SAMPLE_REVIEWS: Review[] = [...CORE_REVIEWS, ...EXTENDED_REVIEWS];
 
 export const ATTRIBUTE_CONFIG: { [key in import('../types').AttributeKey]: { label: string; icon: string; description: string } } = {
   battery: {

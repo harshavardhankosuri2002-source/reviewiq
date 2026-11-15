@@ -99,7 +99,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   // Dynamic AI Comparison Summary Synthesis
   const renderComparisonSummary = () => {
     if (activeProducts.length < 2) {
-      return 'Select at least two smartphones or headphones from the 25-model verified catalogue below to generate an automated comparative consensus synthesis.';
+      return `Select at least two devices from the ${products.length}-model verified catalogue below to generate an automated comparative consensus synthesis.`;
     }
 
     const names = activeProducts.map(p => p.name).join(', ');
@@ -265,7 +265,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
           <h3 className="text-lg font-black text-slate-900">No products selected for comparison</h3>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Select smartphones or headphones from the 25-model verified catalogue to view side-by-side specs, trade-offs, and decoded customer consensus.
+            Select products from the {products.length}-model verified catalogue across all categories to view side-by-side specs, trade-offs, and decoded customer consensus.
           </p>
           <button
             onClick={() => {
@@ -274,7 +274,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
             }}
             className="btn-interactive-primary px-6 py-2.5 text-xs font-bold cursor-pointer"
           >
-            Browse 25 Models
+            Browse {products.length} Models
           </button>
         </div>
       ) : (
